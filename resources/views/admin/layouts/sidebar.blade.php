@@ -53,6 +53,21 @@
                 </a>
             </li>
             <li class="nav-item">
+              <a class="nav-link text-dark {{ request()->is('admin/colors*') ? 'active' : '' }}" href="{{ url('/admin/colors') }}">
+                  <i class="fas fa-palette me-2"></i> Màu
+              </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark {{ request()->is('admin/rams*') ? 'active' : '' }}" href="{{ url('/admin/rams') }}">
+                    <i class="fas fa-memory me-2"></i> RAM
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark {{ request()->is('admin/storages*') ? 'active' : '' }}" href="{{ url('/admin/storages') }}">
+                    <i class="fas fa-hdd me-2"></i> Dung lượng
+                </a>
+            </li>            
+            <li class="nav-item">
                 <a class="nav-link text-dark {{ request()->is('admin/orders*') ? 'active' : '' }}" href="{{ url('/admin/orders') }}">
                     <i class="fas fa-shopping-cart me-2"></i> Đơn hàng
                 </a>
