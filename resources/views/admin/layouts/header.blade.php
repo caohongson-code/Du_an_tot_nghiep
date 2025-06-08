@@ -36,8 +36,6 @@
             </li>
         </ul>
     </div>
-<<<<<<< HEAD
+
 </header>
-=======
-</header>
->>>>>>> origin/kiet
+

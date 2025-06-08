@@ -43,13 +43,10 @@
                 </a>
             </li>
             <li class="nav-item">
-<<<<<<< HEAD
-                <a class="nav-link text-dark {{ request()->is('admin/products*') ? 'active' : '' }}" href="{{ url('/admin/products') }}">
-                    <i class="fas fa-box me-2"></i> Sản phẩm
-=======
+
                 <a class="nav-link text-dark {{ request()->is('admin/products*') ? 'active' : '' }}" href="{{ route('products.index') }}">
                    <i class="fas fa-box me-2"></i> Sản phẩm
->>>>>>> origin/kiet
+
                 </a>
             </li>
             <li class="nav-item">
@@ -58,8 +55,7 @@
                 </a>
             </li>
             <li class="nav-item">
-<<<<<<< HEAD
-=======
+
               <a class="nav-link text-dark {{ request()->is('admin/colors*') ? 'active' : '' }}" href="{{ url('/admin/colors') }}">
                   <i class="fas fa-palette me-2"></i> Màu
               </a>
@@ -75,7 +71,7 @@
                 </a>
             </li>            
             <li class="nav-item">
->>>>>>> origin/kiet
+
                 <a class="nav-link text-dark {{ request()->is('admin/orders*') ? 'active' : '' }}" href="{{ url('/admin/orders') }}">
                     <i class="fas fa-shopping-cart me-2"></i> Đơn hàng
                 </a>
@@ -107,8 +103,7 @@
             </li>
         </ul>
     </div>
-<<<<<<< HEAD
 </nav>
-=======
+
 </nav>
->>>>>>> origin/kiet
+
