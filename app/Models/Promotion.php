@@ -11,17 +11,17 @@ class Promotion extends Model
 
     protected $table = 'promotions';
 
-   protected $fillable = [
-    'code',
-    'description',
-    'discount_type',
-    'discount_value',
-    'start_date',
-    'end_date',
-    'usage_limit',
-    'used_count',
-    'is_active',
-];
+    protected $fillable = [
+        'code',
+        'description',
+        'discount_type',
+        'discount_value',
+        'start_date',
+        'end_date',
+        'usage_limit',
+        'used_count',
+        'is_active',
+    ];
 
 
     protected $casts = [
@@ -29,4 +29,12 @@ class Promotion extends Model
         'end_date' => 'datetime',
         'is_active' => 'boolean',
     ];
+    public function products()
+    {
+        return $this->belongsToMany(Product::class);
+    }
+    public function categories()
+{
+    return $this->belongsToMany(Category::class, 'category_promotion');
+}
 }

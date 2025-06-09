@@ -40,7 +40,7 @@
         <td>{{ $variant->color->value ?? '---' }}</td>
         <td>
             @if($variant->image)
-                <img src="{{ asset('storage/' . $variant->image) }}" width="100px" alt="Ảnh biến thể" />
+                <img src="{{ asset('storage/' . $variant->image) }}" width="70px" height="70px" alt="Ảnh biến thể" />
             @else
                 <span class="text-muted">Chưa có ảnh</span>
             @endif

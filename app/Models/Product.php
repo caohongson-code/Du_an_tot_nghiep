@@ -21,7 +21,11 @@ class Product extends Model
         'status',
     ];
     public function category()
-{
-    return $this->belongsTo(Category::class);
-}
+    {
+        return $this->belongsTo(Category::class);
+    }
+    public function promotions()
+    {
+        return $this->belongsToMany(Promotion::class);
+    }
 }
