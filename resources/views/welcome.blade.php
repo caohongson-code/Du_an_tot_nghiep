@@ -274,4 +274,8 @@
             <div class="h-14.5 hidden lg:block"></div>
         @endif
     </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> origin/kiet

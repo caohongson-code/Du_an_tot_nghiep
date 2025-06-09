@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductVariantController;
+
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\RamController;
 use App\Http\Controllers\StorageController;
@@ -14,6 +15,16 @@ Route::get('/', function () {
 });
 
 Route::prefix('admin')->group(function () {
+
     Route::resource('promotions', PromotionController::class);
+
+
+    Route::resource('products', ProductController::class);
+    Route::resource('categories', CategoryController::class);
+    Route::resource('variants', ProductVariantController::class);
+
+    Route::resource('rams', RamController::class);
+    Route::resource('storages', StorageController::class);
+    Route::resource('colors', ColorController::class);
 
 });
