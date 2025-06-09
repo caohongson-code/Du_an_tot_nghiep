@@ -45,9 +45,9 @@
         </div>
 
         <div class="mb-3">
-            <label for="storage_id" class="form-label">Storage</label>
+            <label for="storage_id" class="form-label">Dung lượng</label>
             <select name="storage_id" id="storage_id" class="form-select" required>
-                <option value="">-- Chọn Storage --</option>
+                <option value="">-- Chọn Dung lượng --</option>
                 @foreach($storages as $storage)
                     <option value="{{ $storage->id }}" {{ old('storage_id') == $storage->id ? 'selected' : '' }}>
                         {{ $storage->value }}
