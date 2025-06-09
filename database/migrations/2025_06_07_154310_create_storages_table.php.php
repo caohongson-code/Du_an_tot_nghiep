@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-Schema::create('storages', function (Blueprint $table) {
+    Schema::create('storages', function (Blueprint $table) {
     $table->id();
     $table->string('value');
     $table->timestamps();
-});
+    });
 
     }
 
