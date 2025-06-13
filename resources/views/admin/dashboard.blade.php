@@ -21,4 +21,6 @@
     </div>
 </div> {{-- Chỉ cần một lần đóng .content-area --}}
 
+
 @endsection
+

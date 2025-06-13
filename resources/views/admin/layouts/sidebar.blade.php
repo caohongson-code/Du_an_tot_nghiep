@@ -51,11 +51,11 @@
             <!-- Sản phẩm với menu con -->
             <li class="nav-item">
                 <a class="nav-link text-dark d-flex justify-content-between align-items-center"
-                        data-bs-toggle="collapse" href="#productSubMenu" role="button"
-                        aria-expanded="{{ request()->is('admin/products*') || request()->is('admin/variants*') || request()->is('admin/colors*') || request()->is('admin/rams*') || request()->is('admin/storages*') ? 'true' : 'false' }}"
-                        aria-controls="productSubMenu">
-                     <span><i class="fas fa-box me-2"></i> Sản phẩm</span>
-                           <i class="fas fa-chevron-down small"></i>
+                   data-bs-toggle="collapse" href="#productSubMenu" role="button"
+                   aria-expanded="{{ request()->is('admin/products*') || request()->is('admin/variants*') || request()->is('admin/colors*') || request()->is('admin/rams*') || request()->is('admin/storages*') ? 'true' : 'false' }}"
+                   aria-controls="productSubMenu">
+                    <span><i class="fas fa-box me-2"></i> Sản phẩm</span>
+                    <i class="fas fa-chevron-down small"></i>
                 </a>
 
                 <div class="collapse {{ request()->is('admin/products*') || request()->is('admin/variants*') || request()->is('admin/colors*') || request()->is('admin/rams*') || request()->is('admin/storages*') ? 'show' : '' }}" id="productSubMenu">
@@ -84,7 +84,7 @@
                     <i class="fas fa-shopping-cart me-2"></i> Đơn hàng
                 </a>
             </li>
-             <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link text-dark {{ request()->is('admin/accounts*') ? 'active' : '' }}" href="{{ url('/admin/accounts') }}">
                     <i class="fas fa-users me-2"></i> Người dùng
                 </a>
@@ -107,11 +107,6 @@
             <li class="nav-item">
                 <a class="nav-link text-dark {{ request()->is('admin/interface*') ? 'active' : '' }}" href="{{ url('/admin/interface') }}">
                     <i class="fas fa-image me-2"></i> Giao diện
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-dark {{ request()->is('admin/categories*') ? 'active' : '' }}" href="{{ url('/admin/categories') }}">
-                    <i class="fas fa-list-alt me-2"></i> Danh mục
                 </a>
             </li>
         </ul>
