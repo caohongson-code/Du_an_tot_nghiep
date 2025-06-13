@@ -3,13 +3,20 @@
 @section('title', 'Danh sách danh mục')
 
 @section('content')
-
 <div class="container py-4">
     <h2 class="mb-4">Danh sách danh mục</h2>
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
+
+    <!-- Form tìm kiếm -->
+    <div class="mb-3">
+        <form action="{{ route('categories.index') }}" method="GET" class="d-flex">
+            <input type="text" name="search" class="form-control me-2" placeholder="Tìm kiếm danh mục..." value="{{ request('search') }}">
+            <button type="submit" class="btn btn-primary">Tìm</button>
+        </form>
+    </div>
 
     <a href="{{ route('categories.create') }}" class="btn btn-success mb-3">
         <i class="fas fa-plus me-2"></i> Thêm danh mục mới
@@ -21,7 +28,6 @@
                 <th>ID</th>
                 <th>Tên danh mục</th>
                 <th>Mô tả</th>
-             
                 <th>Ngày tạo</th>
                 <th>Hành động</th>
             </tr>
@@ -57,5 +63,4 @@
         </tbody>
     </table>
 </div>
-
 @endsection
