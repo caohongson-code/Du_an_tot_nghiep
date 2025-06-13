@@ -16,9 +16,22 @@ use Illuminate\Support\Facades\Storage as StorageFacade;
 class ProductController extends Controller
 {
     // Hiển thị danh sách sản phẩm
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all();
+       $query = Product::with('category');
+
+        // Xử lý tìm kiếm
+        if ($request->has('search') && !empty($request->search)) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('product_name', 'like', "%{$search}%")
+                  ->orWhereHas('category', function ($q) use ($search) {
+                      $q->where('category_name', 'like', "%{$search}%");
+                  });
+            });
+        }
+
+        $products = $query->get();
         return view('admin.products.index', compact('products'));
     }
 

@@ -3,13 +3,20 @@
 @section('title', 'Danh sách sản phẩm')
 
 @section('content')
-
 <div class="container py-4">
     <h2 class="mb-4">Danh sách sản phẩm</h2>
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
+
+    <!-- Form tìm kiếm -->
+    <div class="mb-3">
+        <form action="{{ route('products.index') }}" method="GET" class="d-flex">
+            <input type="text" name="search" class="form-control me-2" placeholder="Tìm kiếm sản phẩm..." value="{{ request('search') }}">
+            <button type="submit" class="btn btn-primary">Tìm</button>
+        </form>
+    </div>
 
     <a href="{{ route('products.create') }}" class="btn btn-success mb-3">
         <i class="fas fa-plus me-2"></i> Thêm sản phẩm mới
@@ -38,8 +45,7 @@
                     <td>{{ $product->category->category_name ?? 'Không có' }}</td>
                     <td>
                         @if($product->image)
-                           <img src="{{ asset('storage/' . $product->image) }}" width="100px" alt="..." />
-
+                            <img src="{{ asset('storage/' . $product->image) }}" width="100px" alt="..." />
                         @else
                             <span class="text-muted">Chưa có ảnh</span>
                         @endif
@@ -87,5 +93,4 @@
         </tbody>
     </table>
 </div>
-
 @endsection
