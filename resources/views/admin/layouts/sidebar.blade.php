@@ -84,9 +84,14 @@
                     <i class="fas fa-shopping-cart me-2"></i> Đơn hàng
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link text-dark {{ request()->is('admin/users*') ? 'active' : '' }}" href="{{ url('/admin/users') }}">
+             <li class="nav-item">
+                <a class="nav-link text-dark {{ request()->is('admin/accounts*') ? 'active' : '' }}" href="{{ url('/admin/accounts') }}">
                     <i class="fas fa-users me-2"></i> Người dùng
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark {{ request()->is('admin/roles*') ? 'active' : '' }}" href="{{ url('/admin/roles') }}">
+                    <i class="fas fa-user-shield me-2"></i> Chức vụ 
                 </a>
             </li>
             <li class="nav-item">
