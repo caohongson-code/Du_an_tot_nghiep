@@ -33,9 +33,11 @@
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">Danh sách</h4>
+                        @if (session('admin_id') == 2)
                         <a href="{{route('accounts.create')}}" class="btn btn-success">
                             Add Account
                         </a>
+                        @endif
                     </div>
                     <form action="{{route('accounts.index')}}" method="GET" class="d-flex mb-4">
                         <input type="text" name="keyword" class="form-control me-2" placeholder="Nhập mã hoặc tên " value="{{ request('keyword') }}">
@@ -64,7 +66,7 @@
                                                 <td>{{ $account->email }}</td>
                                                 <td>{{ $account->role->role_name }}</td>
                                                 <td>
-                                                    {{-- @if($account->role->role_name  === 'Admin') --}}
+                                                    @if (session('admin_id') == 2)
                                                     <a href="{{ route('accounts.edit', $account->id) }}" class="btn btn-warning btn-sm">Edit</a>
                                                     <form action="{{ route('accounts.destroy', $account->id) }}" method="POST" style="display:inline">
                                                         @csrf
@@ -74,7 +76,7 @@
                                                     </form>
                                                     {{-- @else --}}
                                           {{-- <span class="text-muted">No permission</span> --}}
-                                        {{-- @endif --}}
+                                        @endif
                                                 </td>
                                             </tr>
                                         @endforeach

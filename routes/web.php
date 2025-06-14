@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-     return view('admin.dashboard');
+     return view('admin.auth.login');
 });
 
 Route::prefix('admin')->group(function () {
@@ -35,6 +35,9 @@ Route::prefix('admin')->group(function () {
 
     Route::resource('accounts', AccountController::class);
     Route::resource('roles', RoleController::class);
-
+    Route::get('showLoginForm', [AccountController::class, 'showLoginForm'])->name('taikhoan.showLoginForm');
+    Route::post('login', [AccountController::class, 'login'])->name('taikhoan.login');
+    Route::post('logout', [AccountController::class, 'logout'])->name('taikhoan.logout');
+    Route::resource('danhmuc',            adminCatCategoriesController::class);
 });
-Route::resource('danhmuc',            adminCatCategoriesController::class);
+

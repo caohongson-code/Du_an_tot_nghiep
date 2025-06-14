@@ -24,14 +24,27 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle text-dark" href="#" id="adminDropdown" role="button"
                    data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="https://i.pravatar.cc/30" class="rounded-circle me-1" width="30" height="30" alt="Avatar">
-                    Admin
+                   <img src="{{ asset('storage/' . $admin->avatar) }}"
+                   class="rounded-circle me-1 object-cover"
+                   width="30" height="30"
+                   style="object-fit: cover;"
+                   alt="Avatar">
+
+                   {{$admin->full_name}}
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminDropdown">
                     <li><a class="dropdown-item" href="#">Hồ sơ</a></li>
                     <li><a class="dropdown-item" href="#">Cài đặt</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item text-danger" href="#">Đăng xuất</a></li>
+                    <li> <a class="dropdown-item text-danger" href="#"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                         Đăng xuất
+                     </a>
+                 </li>
+
+                 <form id="logout-form" action="{{ route('taikhoan.logout') }}" method="POST" style="display: none;">
+                     @csrf
+                 </form>
                 </ul>
             </li>
         </ul>

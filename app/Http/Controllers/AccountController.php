@@ -8,6 +8,8 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+
 class AccountController extends Controller
 {
     /**
@@ -164,4 +166,35 @@ class AccountController extends Controller
                 return redirect()->route('accounts.index')->with('error',' Có lỗi xin vui lòng thu lại  !');
 
     }
+    public function showLoginForm()
+    {
+        return view('admin.auth.login');
+    }
+    public function login(Request $request)
+{
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ], [
+            'password.required'     => 'Vui lòng nhập password.',
+            'email.required'     => 'Vui lòng nhập email.',
+            'email.email'        => 'Email không đúng định dạng.',
+        ]);
+        $admin =Account::where('email', $request->email)->first();
+        if($admin && Hash::check($request->password,$admin->password)){
+
+        if (in_array($admin->role_id, [1, 2])) {
+            session(['admin_id' => $admin->id]);
+            return redirect()->route('accounts.index')->with('success', 'Đăng nhập thành công!');
+        } else {
+
+            return redirect()->route('taikhoan.showLoginForm')->with('success', 'Đăng nhập người dùng thành công!');
+        }
+        }
+        return redirect()->back()->with('error', 'Email hoặc mật khẩu không đúng');}
+        public function logout(Request $request)
+        {
+            $request->session()->forget('admin_id');
+            return redirect()->route('taikhoan.showLoginForm')->with('success', 'Đăng xuất thành công!');
+        }
 }
