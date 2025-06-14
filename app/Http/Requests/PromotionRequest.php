@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class PromotionRequest extends FormRequest
 {
@@ -14,7 +15,11 @@ class PromotionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => 'required|string|unique:promotions,code,' . $this->id,
+            'code' => [
+                'required',
+                'string',
+                Rule::unique('promotions', 'code')->ignore($this->promotion),
+            ],
             'description' => 'nullable|string',
             'discount_type' => 'required|in:percentage,fixed',
             'discount_value' => 'required|numeric|min:0',
