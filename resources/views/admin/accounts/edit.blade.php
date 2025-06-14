@@ -3,13 +3,13 @@
 @section('content')
 <h1>Edit Account</h1>
 
-<form action="{{ route('accounts.update', $account->id) }}" method="POST">
+<form action="{{ route('accounts.update', $account->id) }}" method="POST"enctype="multipart/form-data">
     @csrf
     @method('PUT')
 
     <div class="mb-3">
         <label for="role_id" class="form-label">Role</label>
-        <select name="role_id" class="form-control" required>
+        <select name="role_id" class="form-control" >
             @foreach($roles as $role)
                 <option value="{{ $role->id }}" {{ $account->role_id == $role->id ? 'selected' : '' }}>
                     {{ $role->role_name }}
@@ -20,12 +20,17 @@
 
     <div class="mb-3">
         <label for="full_name" class="form-label">Full Name</label>
-        <input type="text" name="full_name" value="{{ $account->full_name }}" class="form-control" required>
+        <input type="text" name="full_name" value="{{ $account->full_name }}" class="form-control"
     </div>
 
     <div class="mb-3">
         <label for="avatar" class="form-label">Avatar (URL)</label>
-        <input type="file" name="avatar" value="{{ $account->avatar }}" class="form-control">
+        <input type="file" name="avatar" class="form-control">
+        @if($account->avatar)
+        <img src="{{ asset('storage/' . $account->avatar) }}" alt="Ảnh " width="100px">
+    @else
+        <img src="{{ asset('storage/uploads/quantri/default.jpg') }}" alt="Ảnh mặc định" width="100px">
+    @endif
     </div>
 
     <div class="mb-3">
@@ -56,10 +61,6 @@
         <textarea name="address" class="form-control">{{ $account->address }}</textarea>
     </div>
 
-    <div class="mb-3">
-        <label for="password" class="form-label">New Password (leave blank if not changing)</label>
-        <input type="password" name="password" class="form-control">
-    </div>
 
     <button type="submit" class="btn btn-success">Update</button>
 </form>
