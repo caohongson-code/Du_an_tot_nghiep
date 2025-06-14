@@ -1,15 +1,17 @@
 <?php
 
+
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ProductController;
-
 use App\Http\Controllers\ProductVariantController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\RamController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StorageController;
+use App\Http\Controllers\adminCatCategoriesController;
+
 use Illuminate\Support\Facades\Route;
 
 
@@ -35,3 +37,4 @@ Route::prefix('admin')->group(function () {
     Route::resource('roles', RoleController::class);
 
 });
+Route::resource('danhmuc',            adminCatCategoriesController::class);
