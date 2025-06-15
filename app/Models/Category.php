@@ -16,8 +16,10 @@ class Category extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+    // Quan hệ: nhiều category có thể thuộc nhiều promotion (nhiều-nhiều)
     public function promotions()
-{
-    return $this->belongsToMany(Promotion::class, 'category_promotion');
-}
+    {
+        return $this->belongsToMany(Promotion::class, 'category_promotion');
+    }
 }

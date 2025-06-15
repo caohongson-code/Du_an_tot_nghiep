@@ -6,7 +6,11 @@
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
+<<<<<<< HEAD
     <a href="{{ route('storages.create') }}" class="btn btn-success mb-3">Thêm ram</a>
+=======
+    <a href="{{ route('storages.create') }}" class="btn btn-success mb-3">Thêm dung lượng</a>
+>>>>>>> be89ce2cbccc5cd0cc791b738965a2f68a61ae19
     <table class="table table-bordered">
         <thead class="table-dark">
             <tr>

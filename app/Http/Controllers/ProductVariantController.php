@@ -12,19 +12,49 @@ use Illuminate\Support\Facades\Storage as StorageFacade; // Alias Facade Storage
 
 class ProductVariantController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // Cố định orderBy rõ ràng
-        $variants = ProductVariant::with(['product', 'ram', 'storage', 'color'])
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $query = Product::with(['variants.ram', 'variants.storage', 'variants.color'])
+            ->orderBy('created_at', 'desc');
 
-        return view('admin.variants.index', compact('variants'));
+        // Lọc theo các trường
+        $colorId = $request->input('color_id');
+        $ramId = $request->input('ram_id');
+        $storageId = $request->input('storage_id');
+        $search = $request->input('search');
+
+        if ($colorId) {
+            $query->whereHas('variants', function ($q) use ($colorId) {
+                $q->where('color_id', $colorId);
+            });
+        }
+
+        if ($ramId) {
+            $query->whereHas('variants', function ($q) use ($ramId) {
+                $q->where('ram_id', $ramId);
+            });
+        }
+
+        if ($storageId) {
+            $query->whereHas('variants', function ($q) use ($storageId) {
+                $q->where('storage_id', $storageId);
+            });
+        }
+
+        if ($search) {
+            $query->where('product_name', 'like', '%' . $search . '%');
+        }
+
+        $products = $query->get();
+        $colors = Color::all();
+        $rams = Ram::all();
+        $storages = Storage::all();
+
+        return view('admin.variants.index', compact('products', 'colors', 'rams', 'storages', 'request'));
     }
 
     public function create()
     {
-        // Nếu bảng lớn, nên paginate hoặc cache
         $products = Product::all();
         $rams = Ram::all();
         $storages = Storage::all();
@@ -62,7 +92,6 @@ class ProductVariantController extends Controller
         return redirect()->route('variants.index')->with('success', 'Thêm biến thể thành công.');
     }
 
-    // Dùng Route Model Binding gọn code
     public function edit(ProductVariant $variant)
     {
         $products = Product::all();
@@ -85,6 +114,18 @@ class ProductVariantController extends Controller
             'quantity' => 'required|integer|min:0',
             'image' => 'nullable|image|max:2048',
         ]);
+
+        // Kiểm tra trùng tổ hợp (trừ chính nó)
+        $exists = ProductVariant::where('product_id', $request->product_id)
+            ->where('ram_id', $request->ram_id)
+            ->where('storage_id', $request->storage_id)
+            ->where('color_id', $request->color_id)
+            ->where('id', '!=', $variant->id)
+            ->exists();
+
+        if ($exists) {
+            return back()->withErrors('Tổ hợp này đã tồn tại!')->withInput();
+        }
 
         $data = $request->only(['product_id', 'ram_id', 'storage_id', 'color_id', 'price', 'discount_price', 'quantity']);
 

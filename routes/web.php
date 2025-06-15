@@ -1,14 +1,19 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ProductController;
+
 use App\Http\Controllers\ProductVariantController;
 
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\RamController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StorageController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Client\ProductClientController;
+
 
 use App\Http\Controllers\Client\ProductController as ClientProductController;
 use App\Http\Controllers\Client\ProductVariantController as ClientProductVariantController;
@@ -16,16 +21,11 @@ use App\Http\Controllers\Client\ProductVariantController as ClientProductVariant
 Route::get('/', function () {
      return view('admin.dashboard');
 });
-Route::get('/products', [ClientProductController::class, 'index'])
-    ->name('client.products.index');
 
-// Trang chi tiết sản phẩm theo slug
-Route::get('/products/{slug}', [ClientProductController::class, 'show'])
-    ->name('client.products.show');
 
-// API lấy thông tin biến thể sản phẩm theo lựa chọn (AJAX)
-Route::get('/variant', [ClientProductVariantController::class, 'getVariant'])
-    ->name('client.variant.get');
+
+Route::get('/', [ProductClientController::class, 'index'])->name('home');
+Route::get('/product/{id}', [ProductClientController::class, 'show'])->name('product.show');
 
 //admin 
 Route::prefix('admin')->group(function () {
@@ -40,5 +40,10 @@ Route::prefix('admin')->group(function () {
     Route::resource('rams', RamController::class);
     Route::resource('storages', StorageController::class);
     Route::resource('colors', ColorController::class);
+
+
+    Route::resource('accounts', AccountController::class);
+    Route::resource('roles', RoleController::class);
+
 
 });

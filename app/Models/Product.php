@@ -20,17 +20,22 @@ class Product extends Model
         'description',
         'status',
     ];
+
+    // Quan hệ 1 sản phẩm thuộc 1 danh mục
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
+
+    // Quan hệ nhiều-nhiều: sản phẩm có thể có nhiều khuyến mãi
     public function promotions()
     {
         return $this->belongsToMany(Promotion::class);
     }
-    public function variants()
-{
-    return $this->hasMany(ProductVariant::class);
-}
 
+    // Quan hệ 1-nhiều: 1 sản phẩm có nhiều biến thể
+    public function variants()
+    {
+        return $this->hasMany(ProductVariant::class);
+    }
 }
