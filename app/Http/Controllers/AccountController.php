@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Account;
 use App\Models\Role;
 use Exception;
+use GuzzleHttp\Psr7\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+
+use function Laravel\Prompts\password;
 
 class AccountController extends Controller
 {
@@ -196,5 +199,36 @@ class AccountController extends Controller
         {
             $request->session()->forget('admin_id');
             return redirect()->route('taikhoan.showLoginForm')->with('success', 'Đăng xuất thành công!');
+        }
+
+        public function register(Request $request){
+            $message = [
+            'password_confirmation.required' => 'Vui lòng nhập lại mật khẩu.',
+            'password.confirmed' => 'Mật khẩu nhập lại không khớp.',
+            'full_name.required' => 'Vui lòng nhập họ tên.',
+            'email.required'     => 'Vui lòng nhập email.',
+            'email.email'        => 'Email không đúng định dạng.',
+            'email.unique'       => 'Email đã tồn tại.',
+            'password.min'       => 'Mật khẩu ít nhất 6 kí tự.',
+            'password.required'       => 'Vui lòng nhập mật khẩu. ',
+            ];
+            $data = $request->validate([
+                'full_name' =>'required|string|max:255',
+                'email'     =>'required|email|unique:accounts,email',
+                'password'  =>'required|string|min:6|confirmed',
+                'password_confirmation' =>'required|string|min:6',
+            ],$message);
+            try{
+                DB::beginTransaction();
+                $data['password'] = bcrypt($data['password']);
+                $data['role_id'] = 3;
+                unset($data['password_confirmation']);
+                Account::insert($data);
+                DB::commit();
+                return redirect()->route('taikhoan.showLoginForm')->with('success', 'Customer created successfully');
+            }catch(Exception $e){
+                DB::rollback();
+                return redirect()->route('taikhoan.showLoginForm')->withInput()->with('error', 'Có lỗi xảy ra khi thêm : ' . $e->getMessage());
+            }
         }
 }

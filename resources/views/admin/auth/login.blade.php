@@ -1,83 +1,150 @@
-@extends('admin.layouts.auth')
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POW POW - Đăng nhập / Đăng ký</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.materialdesignicons.com/7.2.96/css/materialdesignicons.min.css" rel="stylesheet">
+</head>
+<body class="bg-white text-gray-800">
+    <!-- Header -->
+    <header class="text-center py-6 text-3xl font-bold tracking-wider border-b">POW POW</header>
 
+    <!-- Navigation -->
+    <nav class="flex justify-center space-x-8 py-3 border-b font-medium text-sm">
+        <a href="#" class="hover:underline">TRANG CHỦ</a>
+        <a href="#" class="hover:underline">SẢN PHẨM </a>
+        <a href="#" class="hover:underline">GIỚI THIỆU</a>
+        <a href="#" class="hover:underline">PHỤ KIỆN</a>
+        <a href="#" class="hover:underline">LIÊN HỆ</a>
+        <a href="#" class="hover:underline">CUSTOMER</a>
+    </nav>
 
-
-@section('content')
-<div class="w-full min-h-screen flex items-center justify-center px-4">
-    <div class="w-full max-w-md bg-white rounded-2xl shadow-2xl p-8 login-form transition-all duration-300">
-        <h2 class="login-title text-3xl font-bold text-center text-orange-500 mb-6">Đăng nhập Admin</h2>
-
-        {{-- Thông báo lỗi --}}
-        @if(session('error'))
-            <div class="bg-red-100 border border-red-300 text-red-700 p-3 rounded mb-4">
-                {{ session('error') }}
+    <!-- Đây là tabs  Login/Register -->
+    <div class="flex justify-center mt-8">
+        <div class="w-full max-w-md border rounded px-6 py-8">
+            <div class="flex justify-center space-x-8 text-sm font-semibold mb-6">
+                <button id="tab-login" class="pb-1">ĐĂNG NHẬP</button>
+                <button id="tab-register" class="text-gray-400 hover:text-black">ĐĂNG KÝ</button>
             </div>
-        @endif
 
-        {{-- Thông báo thành công --}}
-        @if(session('success'))
-            <div class="bg-green-100 border border-green-300 text-green-700 p-3 rounded mb-4">
+
+            <!-- Form Login -->
+            <form id="form-login" action="{{ route('taikhoan.login') }}" method="POST">
+                @csrf
+                @if (session('success'))
+            <div class="mb-4 text-green-600 text-sm font-medium">
                 {{ session('success') }}
             </div>
         @endif
 
-        <form method="POST" action="{{ route('taikhoan.login') }}">
-            @csrf
-
-            {{-- Email --}}
-            <div class="mb-4">
-                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                <div class="relative">
-                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-blue-400">
-                        <i class="mdi mdi-email-outline text-lg"></i>
-                    </span>
-                    <input type="email" name="email" id="email" value="{{ old('email') }}"
-                           class="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
-                       >
-                </div>
-                @error('email')
-                    <p class="text-sm text-red-500 mt-1 error-message">{{ $message }}</p>
-                @enderror
+        @if (session('error'))
+            <div class="mb-4 text-red-600 text-sm font-medium">
+                {{ session('error') }}
             </div>
-
-            {{-- Mật khẩu --}}
-            <div class="mb-6">
-                <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Mật khẩu</label>
-                <div class="relative">
-                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-blue-400">
-                        <i class="mdi mdi-lock-outline text-lg"></i>
-                    </span>
-                    <input type="password" name="password" id="password"
-                           class="pl-10 pr-10 py-2 w-full border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-400 focus:outline-none transition"
-                          >
-                    <span class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer text-gray-400 hover:text-gray-600 transition"
-                          onclick="togglePassword()">
-                        <i id="eye-icon" class="mdi mdi-eye-off-outline text-lg"></i>
-                    </span>
+        @endif
+                <div class="mb-4">
+                    <input type="text" name="email" placeholder="Nhập email hoặc Tên đăng nhập" class="w-full border px-4 py-2 rounded text-sm focus:ring-2 focus:ring-black">
+                    @error('email')<p class="text-sm text-red-500 mt-1">{{ $message }}</p>@enderror
                 </div>
-                @error('password')
-                    <p class="text-sm text-red-500 mt-1 error-message">{{ $message }}</p>
-                @enderror
-            </div>
+                <div class="mb-4">
+                    <input type="password" name="password" placeholder="Mật khẩu" class="w-full border px-4 py-2 rounded text-sm focus:ring-2 focus:ring-black">
+                    @error('password')<p class="text-sm text-red-500 mt-1">{{ $message }}</p>@enderror
+                </div>
+                <button type="submit" class="w-full bg-black text-white py-2 rounded text-sm font-semibold hover:bg-gray-800">
+                    ĐĂNG NHẬP
+                </button>
+                <div class="text-right mt-2">
+                    <a href="#" class="text-sm text-blue-500 hover:underline">Quên mật khẩu?</a>
+                </div>
+                <div class="text-center text-gray-400 text-sm my-4">Hoặc đăng nhập với</div>
+                <div class="flex gap-2">
+                    <a href="#" class="flex-1 bg-blue-700 text-white py-2 rounded flex items-center justify-center text-sm">
+                        <i class="mdi mdi-facebook text-lg mr-2"></i> Facebook
+                    </a>
+                    <a href="#" class="flex-1 bg-black text-white py-2 rounded flex items-center justify-center text-sm">
+                        <i class="mdi mdi-google text-lg mr-2"></i> Google
+                    </a>
+                </div>
+            </form>
 
-            <button type="submit"
-                    class="w-full bg-orange-500 text-white font-semibold py-2 rounded-xl hover:bg-orange-600 transition duration-200">
-                Đăng nhập
-            </button>
-        </form>
+            <!-- Form Register -->
+            <form id="form-register" action="{{route('taikhoan.register')}}" method="POST">
+                @csrf
+                <input type="hidden" name="_tab" value="register">
+                <div class="mb-4">
+                    <input type="text" name="full_name" placeholder="Họ và tên" class="w-full border px-4 py-2 rounded text-sm focus:ring-2 focus:ring-black">
+                    @error('full_name')<p class="text-sm text-red-500 mt-1">{{ $message }}</p>@enderror
+                </div>
+                <div class="mb-4">
+                    <input type="email" name="email" placeholder="Email" class="w-full border px-4 py-2 rounded text-sm focus:ring-2 focus:ring-black">
+                    @error('email')<p class="text-sm text-red-500 mt-1">{{ $message }}</p>@enderror
+                </div>
+                <div class="mb-4">
+                    <input type="password" name="password" placeholder="Mật khẩu" class="w-full border px-4 py-2 rounded text-sm focus:ring-2 focus:ring-black">
+                    @error('password')<p class="text-sm text-red-500 mt-1">{{ $message }}</p>@enderror
+                </div>
+                <div class="mb-4">
+                    <input type="password" name="password_confirmation" placeholder="Nhập lại mật khẩu" class="w-full border px-4 py-2 rounded text-sm focus:ring-2 focus:ring-black">
+                    @error('password_confirmation')<p class="text-sm text-red-500 mt-1">{{ $message }}</p>@enderror
+                </div>
+                <button type="submit" class="w-full bg-black text-white py-2 rounded text-sm font-semibold hover:bg-gray-800">
+                    ĐĂNG KÝ
+                </button>
+            </form>
+        </div>
     </div>
-</div>
 
-{{-- Script ẩn/hiện mật khẩu --}}
-<script>
-    function togglePassword() {
-        const passwordInput = document.getElementById("password");
-        const eyeIcon = document.getElementById("eye-icon");
-        const isHidden = passwordInput.type === "password";
+    <!-- Footer -->
+    <footer class="mt-16 px-8 py-12 bg-gray-100 text-sm">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div><h3 class="font-semibold mb-2">HỖ TRỢ KHÁCH HÀNG</h3><ul class="space-y-1"><li>Hướng dẫn chọn size</li><li>Chính sách thành viên</li><li>Chính sách đổi/Trả</li><li>Chính sách giao nhận</li><li>FAQ</li></ul></div>
+            <div><h3 class="font-semibold mb-2">VỀ CHÚNG TÔI</h3><ul class="space-y-1"><li>Giới thiệu</li><li>Liên hệ</li><li>Tìm đại lý</li></ul></div>
+            <div><h3 class="font-semibold mb-2">HỆ THỐNG CỬA HÀNG</h3><ul class="space-y-1"><li>Facebook</li><li>Pinterest</li><li>Instagram</li><li>Spotify</li></ul></div>
+            <div><h3 class="font-semibold mb-2">THEO DÕI CHÚNG TÔI</h3><div class="flex items-center space-x-3"><i class="mdi mdi-facebook text-lg"></i><i class="mdi mdi-instagram text-lg"></i></div></div>
+        </div>
+        <div class="text-center text-xs text-gray-500 mt-10">Thiết kế website bởi Nhanh.vn</div>
+    </footer>
 
-        passwordInput.type = isHidden ? "text" : "password";
-        eyeIcon.classList.toggle("mdi-eye-outline", isHidden);
-        eyeIcon.classList.toggle("mdi-eye-off-outline", !isHidden);
-    }
-</script>
-@endsection
+    <!-- Toggle Script -->
+    <script>
+        const loginBtn = document.getElementById('tab-login');
+        const registerBtn = document.getElementById('tab-register');
+        const formLogin = document.getElementById('form-login');
+        const formRegister = document.getElementById('form-register');
+
+        const oldTab = '{{ old('_tab') }}';
+
+        function showTab(tab) {
+            if (tab === 'register') {
+                registerBtn.classList.add('border-b-2', 'border-gray-900');
+                loginBtn.classList.remove('border-b-2', 'border-gray-900');
+                loginBtn.classList.add('text-gray-400');
+
+                formRegister.classList.remove('hidden');
+                formLogin.classList.add('hidden');
+            } else {
+                loginBtn.classList.add('border-b-2', 'border-gray-900');
+                registerBtn.classList.remove('border-b-2', 'border-gray-900');
+                registerBtn.classList.add('text-gray-400');
+
+                formLogin.classList.remove('hidden');
+                formRegister.classList.add('hidden');
+            }
+        }
+
+        loginBtn.addEventListener('click', () => showTab('login'));
+        registerBtn.addEventListener('click', () => showTab('register'));
+
+        // Hiển thị đúng tab nếu có lỗi
+        document.addEventListener('DOMContentLoaded', function () {
+            if (oldTab === 'register') {
+                showTab('register');
+            } else {
+                showTab('login');
+            }
+        });
+    </script>
+</body>
+</html>

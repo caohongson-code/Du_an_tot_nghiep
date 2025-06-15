@@ -16,7 +16,7 @@
 <form action="{{ route('customers.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
 
-    {{-- Role --}}
+    {{-- Role
     <div class="mb-3">
         <label for="role_id" class="form-label">Role</label>
         <select name="role_id" class="form-control" >
@@ -30,7 +30,7 @@
         @error('role_id')
             <p class="text-danger">{{ $message }}</p>
         @enderror
-    </div>
+    </div> --}}
 
     {{-- Full Name --}}
     <div class="mb-3">
@@ -107,7 +107,14 @@
             <p class="text-danger">{{ $message }}</p>
         @enderror</p>
     </div>
-
+     {{-- Confirm Password --}}
+     <div class="mb-3">
+        <label for="password_confirmation" class="form-label">Nhập lại mật khẩu</label>
+        <input type="password" name="password_confirmation" class="form-control">
+        @error('password_confirmation')
+            <p class="text-danger">{{ $message }}</p>
+        @enderror
+    </div>
     <button type="submit" class="btn btn-primary">Create</button>
 </form>
 @endsection

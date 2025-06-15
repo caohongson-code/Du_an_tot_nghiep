@@ -37,6 +37,7 @@ Route::prefix('admin')->group(function () {
     Route::resource('roles', RoleController::class);
     Route::get('showLoginForm', [AccountController::class, 'showLoginForm'])->name('taikhoan.showLoginForm');
     Route::post('login', [AccountController::class, 'login'])->name('taikhoan.login');
+    Route::post('register', [AccountController::class, 'register'])->name('taikhoan.register');
     Route::post('logout', [AccountController::class, 'logout'])->name('taikhoan.logout');
     Route::resource('danhmuc',            adminCatCategoriesController::class);
 });
