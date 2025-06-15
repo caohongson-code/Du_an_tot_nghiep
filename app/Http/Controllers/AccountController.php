@@ -155,10 +155,10 @@ class AccountController extends Controller
         if(!$account){
             return redirect('accounts.index')->with('error' , 'khach hàng ko tồn tại');
         }
-        $filePath = $account->anh;
+        $filePath = $account->avatar;
         $account->delete();
         if($account){
-            if($account && isset($filePath) && Storage::disk('public')->exists($account->anh)){
+            if($account && isset($filePath) && Storage::disk('public')->exists($account->avatar)){
                 Storage::disk('public')->delete($filePath);
             }
             return redirect()->route('accounts.index')->with('success',' Xoá thành công !');

@@ -11,7 +11,7 @@ use App\Http\Controllers\RamController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StorageController;
 use App\Http\Controllers\adminCatCategoriesController;
-
+use App\Http\Controllers\CustomersControllerr;
 use Illuminate\Support\Facades\Route;
 
 
@@ -32,7 +32,7 @@ Route::prefix('admin')->group(function () {
     Route::resource('rams', RamController::class);
     Route::resource('storages', StorageController::class);
     Route::resource('colors', ColorController::class);
-
+    Route::resource('customers', CustomersControllerr::class);
     Route::resource('accounts', AccountController::class);
     Route::resource('roles', RoleController::class);
     Route::get('showLoginForm', [AccountController::class, 'showLoginForm'])->name('taikhoan.showLoginForm');
