@@ -28,4 +28,9 @@ class Product extends Model
     {
         return $this->belongsToMany(Promotion::class);
     }
+    public function variants()
+{
+    return $this->hasMany(ProductVariant::class);
+}
+
 }
