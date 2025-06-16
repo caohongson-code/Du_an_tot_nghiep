@@ -86,12 +86,17 @@
             </li>
              <li class="nav-item">
                 <a class="nav-link text-dark {{ request()->is('admin/accounts*') ? 'active' : '' }}" href="{{ url('/admin/accounts') }}">
+                    <i class="fas fa-users me-2"></i> Quản trị
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark {{ request()->is('admin/customers*') ? 'active' : '' }}" href="{{ url('/admin/customers') }}">
                     <i class="fas fa-users me-2"></i> Người dùng
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-dark {{ request()->is('admin/roles*') ? 'active' : '' }}" href="{{ url('/admin/roles') }}">
-                    <i class="fas fa-user-shield me-2"></i> Chức vụ 
+                    <i class="fas fa-user-shield me-2"></i> Chức vụ
                 </a>
             </li>
             <li class="nav-item">
@@ -110,7 +115,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark {{ request()->is('admin/categories*') ? 'active' : '' }}" href="{{ url('/admin/categories') }}">
+                <a class="nav-link text-dark {{ request()->is('admin/categories*') ? 'active' : '' }}" href="{{ route('categories.index') }}">
                     <i class="fas fa-list-alt me-2"></i> Danh mục
                 </a>
             </li>

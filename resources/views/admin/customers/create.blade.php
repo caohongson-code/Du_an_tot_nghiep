@@ -13,10 +13,10 @@
     </div>
 @endif
 
-<form action="{{ route('accounts.store') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('customers.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
 
-    {{-- Role --}}
+    {{-- Role
     <div class="mb-3">
         <label for="role_id" class="form-label">Role</label>
         <select name="role_id" class="form-control" >
@@ -30,7 +30,7 @@
         @error('role_id')
             <p class="text-danger">{{ $message }}</p>
         @enderror
-    </div>
+    </div> --}}
 
     {{-- Full Name --}}
     <div class="mb-3">
@@ -80,12 +80,10 @@
     {{-- Gender --}}
     <div class="mb-3">
         <label for="gender" class="form-label">Gender</label>
-
         <select name="gender" class="form-control" >
             <option value="">-- Select Gender --</option>
             <option value="1" {{ old('gender') == '1' ? 'selected' : '' }}>Nam</option>
             <option value="0" {{ old('gender') == '0' ? 'selected' : '' }}>Nữ</option>
-
         </select>
         @error('gender')
             <p class="text-danger">{{ $message }}</p>
@@ -101,11 +99,22 @@
         @enderror
     </div>
 
-    {{-- Ghi chú mật khẩu mặc định --}}
+    {{-- mật khẩu  --}}
     <div class="mb-3">
-        <p class="text-muted fst-italic">(*) Mật khẩu mặc định sẽ là: <strong>1234</strong></p>
+        <label for="password" class="form-label" >Mật khẩu</label>
+        <input type="password" name="password" class="form-control" value="{{old('password')}}" >
+        @error('password')
+            <p class="text-danger">{{ $message }}</p>
+        @enderror</p>
     </div>
-
+     {{-- Confirm Password --}}
+     <div class="mb-3">
+        <label for="password_confirmation" class="form-label">Nhập lại mật khẩu</label>
+        <input type="password" name="password_confirmation" class="form-control">
+        @error('password_confirmation')
+            <p class="text-danger">{{ $message }}</p>
+        @enderror
+    </div>
     <button type="submit" class="btn btn-primary">Create</button>
 </form>
 @endsection

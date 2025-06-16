@@ -33,11 +33,11 @@
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">Danh sách</h4>
-                        @if (session('admin_id') == 2)
-                        <a href="{{route('accounts.create')}}" class="btn btn-success">
+
+                        <a href="{{route('customers.create')}}" class="btn btn-success">
                             Add Account
                         </a>
-                        @endif
+
                     </div>
                     <form action="{{route('accounts.index')}}" method="GET" class="d-flex mb-4">
                         <input type="text" name="keyword" class="form-control me-2" placeholder="Nhập mã hoặc tên " value="{{ request('keyword') }}">
@@ -58,32 +58,32 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($listQT as $account)
+                                        @foreach($listKH as $customer)
                                             <tr>
-                                                <td>{{ $account->id }}</td>
-                                                <td><img src="{{ asset('storage/' . $account->avatar)  }}"class="img-thumbnail" alt="hinh anh" width="100px" height= "auto"></td>
-                                                <td>{{ $account->full_name }}</td>
-                                                <td>{{ $account->email }}</td>
-                                                <td>{{ $account->role->role_name }}</td>
+                                                <td>{{ $customer->id }}</td>
+                                                <td><img src="{{ asset('storage/' . $customer->avatar)  }}"class="img-thumbnail" alt="hinh anh" width="100px" height= "auto"></td>
+                                                <td>{{ $customer->full_name }}</td>
+                                                <td>{{ $customer->email }}</td>
+                                                <td>{{ $customer->role->role_name }}</td>
                                                 <td>
-                                                    @if (session('admin_id') == 2)
-                                                    <a href="{{ route('accounts.edit', $account->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                                    <form action="{{ route('accounts.destroy', $account->id) }}" method="POST" style="display:inline">
+
+                                                    <a href="{{ route('customers.edit', $customer->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                                    <form action="{{ route('customers.destroy', $customer->id) }}" method="POST" style="display:inline">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button class="btn btn-danger btn-sm"
-                                                                onclick="return confirm('Delete this account?')">Delete</button>
+                                                                onclick="return confirm('Delete this customer?')">Delete</button>
                                                     </form>
                                                     {{-- @else --}}
                                           {{-- <span class="text-muted">No permission</span> --}}
-                                        @endif
+
                                                 </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
                                 <div class="mt-3">
-                                    {{$listQT->links("pagination::bootstrap-5")}}
+                                    {{$listKH->links("pagination::bootstrap-5")}}
                                 </div>
 
                             </div>
