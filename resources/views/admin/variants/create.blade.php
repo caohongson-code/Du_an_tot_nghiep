@@ -3,6 +3,7 @@
 @section('title', 'Thêm biến thể sản phẩm')
 
 @section('content')
+
 <div class="container py-4">
     <h2 class="mb-4">Thêm biến thể sản phẩm</h2>
 
@@ -25,9 +26,27 @@
                 <option value="">-- Chọn sản phẩm --</option>
                 @foreach($products as $product)
                     <option value="{{ $product->id }}">{{ $product->product_name }}</option>
+
+        <div class="mb-3">
+            <label for="product_id" class="form-label">Sản phẩm</label>
+            <select name="product_id" id="product_id" class="form-select" required>
+                <option value="">-- Chọn sản phẩm --</option>
+                @foreach($products as $product)
+                    <option value="{{ $product->id }}" {{ old('product_id') == $product->id ? 'selected' : '' }}>
+                        {{ $product->product_name }}
+                    </option>
+
+        <div class="mb-4">
+            <label class="form-label fw-bold">Sản phẩm</label>
+            <select name="product_id" class="form-select" required>
+                <option value="">-- Chọn sản phẩm --</option>
+                @foreach($products as $product)
+                    <option value="{{ $product->id }}">{{ $product->product_name }}</option>
+
                 @endforeach
             </select>
         </div>
+
 
         {{-- Chọn thuộc tính --}}
         <div class="row g-4">
@@ -64,6 +83,18 @@
                     @endforeach
                 </div>
             </div>
+
+        <div class="mb-3">
+            <label for="ram_id" class="form-label">RAM</label>
+            <select name="ram_id" id="ram_id" class="form-select" required>
+                <option value="">-- Chọn RAM --</option>
+                @foreach($rams as $ram)
+                    <option value="{{ $ram->id }}" {{ old('ram_id') == $ram->id ? 'selected' : '' }}>
+                        {{ $ram->value }}
+                    </option>
+                @endforeach
+            </select>
+
         </div>
 
         {{-- Bảng biến thể --}}
@@ -192,4 +223,5 @@
         }
     }
 </script>
+
 @endsection

@@ -1,10 +1,10 @@
 <?php
 
-
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ProductController;
+
 use App\Http\Controllers\ProductVariantController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\RamController;
@@ -13,6 +13,11 @@ use App\Http\Controllers\StorageController;
 use App\Http\Controllers\adminCatCategoriesController;
 use App\Http\Controllers\CustomersControllerr;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Client\ProductClientController;
+
+
+use App\Http\Controllers\Client\ProductController as ClientProductController;
+use App\Http\Controllers\Client\ProductVariantController as ClientProductVariantController;
 
 
 
@@ -20,6 +25,12 @@ Route::get('/', function () {
      return view('admin.auth.login');
 });
 
+
+
+Route::get('/', [ProductClientController::class, 'index'])->name('home');
+Route::get('/product/{id}', [ProductClientController::class, 'show'])->name('product.show');
+
+//admin 
 Route::prefix('admin')->group(function () {
 
     Route::resource('promotions', PromotionController::class);

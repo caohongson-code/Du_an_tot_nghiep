@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
+use App\Models\Product;
 use App\Models\Role;
 use Exception;
+use function Laravel\Prompts\password;
 use GuzzleHttp\Psr7\Message;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
-use function Laravel\Prompts\password;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class AccountController extends Controller
 {
@@ -38,7 +39,6 @@ class AccountController extends Controller
      */
     public function create()
     {
-
         $roles = Role::all();
         return view('admin.accounts.create', compact('roles'));
     }
@@ -191,7 +191,8 @@ class AccountController extends Controller
             return redirect()->route('accounts.index')->with('success', 'Đăng nhập thành công!');
         } else {
 
-            return redirect()->route('taikhoan.showLoginForm')->with('success', 'Đăng nhập người dùng thành công!');
+            $products = Product::paginate(10);
+            return view('client.home', compact('products'))->with('success', 'Đăng nhập người dùng thành công!');
         }
         }
         return redirect()->back()->with('error', 'Email hoặc mật khẩu không đúng');}

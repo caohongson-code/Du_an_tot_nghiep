@@ -20,7 +20,10 @@ class Product extends Model
         'description',
         'status',
     ];
+
+    // Quan hệ 1 sản phẩm thuộc 1 danh mục
     public function category()
+
 {
     return $this->belongsTo(Category::class);
 }

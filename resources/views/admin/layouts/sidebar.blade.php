@@ -48,14 +48,20 @@
                 </a>
             </li>
 
+
             <!-- Sản phẩm với menu con -->
+
             <li class="nav-item">
+                <a class="nav-link text-dark {{ request()->is('admin/variants*') ? 'active' : '' }}" href="{{ url('/admin/variants') }}">
+                    <i class="fas fa-th me-2"></i> Biến thể sản phẩm
+
                 <a class="nav-link text-dark d-flex justify-content-between align-items-center"
                         data-bs-toggle="collapse" href="#productSubMenu" role="button"
                         aria-expanded="{{ request()->is('admin/products*') || request()->is('admin/variants*') || request()->is('admin/colors*') || request()->is('admin/rams*') || request()->is('admin/storages*') ? 'true' : 'false' }}"
                         aria-controls="productSubMenu">
                      <span><i class="fas fa-box me-2"></i> Sản phẩm</span>
                            <i class="fas fa-chevron-down small"></i>
+
                 </a>
 
                 <div class="collapse {{ request()->is('admin/products*') || request()->is('admin/variants*') || request()->is('admin/colors*') || request()->is('admin/rams*') || request()->is('admin/storages*') ? 'show' : '' }}" id="productSubMenu">
@@ -80,30 +86,64 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link text-dark {{ request()->is('admin/orders*') ? 'active' : '' }}" href="{{ url('/admin/orders') }}">
-                    <i class="fas fa-shopping-cart me-2"></i> Đơn hàng
-                </a>
-            </li>
-             <li class="nav-item">
-                <a class="nav-link text-dark {{ request()->is('admin/accounts*') ? 'active' : '' }}" href="{{ url('/admin/accounts') }}">
-                    <i class="fas fa-users me-2"></i> Quản trị
+                <a class="nav-link text-dark {{ request()->is('admin/categories*') ? 'active' : '' }}" href="{{ url('/admin/categories') }}">
+                    <i class="fas fa-list-alt me-2"></i> Danh mục
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark {{ request()->is('admin/customers*') ? 'active' : '' }}" href="{{ url('/admin/customers') }}">
-                    <i class="fas fa-users me-2"></i> Người dùng
+
+
+            <li class="nav-item">
+
+
+                <a class="nav-link text-dark {{ request()->is('admin/rams*') ? 'active' : '' }}" href="{{ url('/admin/rams') }}">
+                    <i class="fas fa-memory me-2"></i> RAM
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark {{ request()->is('admin/roles*') ? 'active' : '' }}" href="{{ url('/admin/roles') }}">
-                    <i class="fas fa-user-shield me-2"></i> Chức vụ
+                <a class="nav-link text-dark {{ request()->is('admin/storages*') ? 'active' : '' }}" href="{{ url('/admin/storages') }}">
+                    <i class="fas fa-hdd me-2"></i> Dung lượng
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-dark {{ request()->is('admin/promotions*') ? 'active' : '' }}" href="{{ url('/admin/promotions') }}">
                     <i class="fas fa-tags me-2"></i> Khuyến mãi
                 </a>
+            </li>            
+            <li class="nav-item">
+
+                <a class="nav-link text-dark {{ request()->is('admin/orders*') ? 'active' : '' }}" href="{{ url('/admin/orders') }}">
+                    <i class="fas fa-shopping-cart me-2"></i> Đơn hàng
+                </a>
             </li>
+             <li class="nav-item">
+                <a class="nav-link text-dark {{ request()->is('admin/accounts*') ? 'active' : '' }}" href="{{ url('/admin/accounts') }}">
+
+                    <i class="fas fa-users me-2"></i> Quản trị
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark {{ request()->is('admin/customers*') ? 'active' : '' }}" href="{{ url('/admin/customers') }}">
+
+
+                    <i class="fas fa-users me-2"></i> Người dùng
+                </a>
+            </li>
+
+            
+
+            <li class="nav-item">
+                <a class="nav-link text-dark {{ request()->is('admin/roles*') ? 'active' : '' }}" href="{{ url('/admin/roles') }}">
+                    <i class="fas fa-user-shield me-2"></i> Chức vụ 
+                </a>
+            </li>
+       
+            <li class="nav-item">
+                <a class="nav-link text-dark {{ request()->is('admin/promotions*') ? 'active' : '' }}" href="{{ url('/admin/promotions') }}">
+                    <i class="fas fa-tags me-2"></i> Khuyến mãi
+                </a>
+            </li>
+
             <li class="nav-item">
                 <a class="nav-link text-dark {{ request()->is('admin/comments*') ? 'active' : '' }}" href="{{ url('/admin/comments') }}">
                     <i class="fas fa-comments me-2"></i> Bình luận

@@ -16,6 +16,11 @@
                     <th>Thời gian</th>
                     <th>Giới hạn</th>
                     <th>Trạng thái</th>
+<<<<<<< HEAD
+                    <th>Sản phẩm áp dụng</th>
+                    <th>Danh mục áp dụng</th>
+=======
+>>>>>>> be89ce2cbccc5cd0cc791b738965a2f68a61ae19
                     <th>Hành động</th>
                 </tr>
             </thead>
@@ -39,6 +44,38 @@
                                 {{ $promotion->is_active ? 'Đang áp dụng' : 'Đã tắt' }}
                             </span>
                         </td>
+<<<<<<< HEAD
+
+                        {{-- ✅ Sản phẩm áp dụng: theo ưu tiên --}}
+                        <td>
+                            @if($promotion->products->isNotEmpty())
+                                <div class="d-flex flex-column gap-1">
+                                    @foreach ($promotion->products as $product)
+                                        <span class="badge bg-info text-dark">{{ $product->product_name }}</span>
+                                    @endforeach
+                                </div>
+                            @elseif($promotion->categories->isNotEmpty())
+                                <span class="text-muted fst-italic">Theo danh mục</span>
+                            @else
+                                <span class="text-muted fst-italic">Tất cả sản phẩm</span>
+                            @endif
+                        </td>
+
+                        {{-- ✅ Danh mục áp dụng --}}
+                        <td>
+                            @if($promotion->categories->isEmpty())
+                                <span class="text-muted fst-italic">Không chọn danh mục</span>
+                            @else
+                                <div class="d-flex flex-column gap-1">
+                                    @foreach ($promotion->categories as $category)
+                                        <span class="badge bg-warning text-dark">{{ $category->category_name }}</span>
+                                    @endforeach
+                                </div>
+                            @endif
+                        </td>
+
+=======
+>>>>>>> be89ce2cbccc5cd0cc791b738965a2f68a61ae19
                         <td>
                             <a href="{{ route('promotions.edit', $promotion) }}" class="btn btn-sm btn-primary mb-1">Sửa</a>
                             <form action="{{ route('promotions.destroy', $promotion) }}" method="POST" style="display:inline">
@@ -49,7 +86,11 @@
                     </tr>
                 @empty
                     <tr>
+<<<<<<< HEAD
+                        <td colspan="10">Không có khuyến mãi nào.</td>
+=======
                         <td colspan="9">Không có khuyến mãi nào.</td>
+>>>>>>> be89ce2cbccc5cd0cc791b738965a2f68a61ae19
                     </tr>
                 @endforelse
             </tbody>

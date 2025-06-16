@@ -28,17 +28,17 @@
             <input type="text" class="form-control" id="product_name" name="product_name" value="{{ old('product_name') }}" required>
         </div>
 
-        <div class="mb-3">
-            <label for="category_id" class="form-label">Danh mục</label>
-            <select class="form-select" id="category_id" name="category_id" required>
-                <option value="">-- Chọn danh mục --</option>
-                @foreach ($categories as $category)
-                    <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
-                        {{ $category->category_name }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
+       <div class="mb-3">
+      <label for="category_id" class="form-label">Danh mục</label>
+       <select class="form-select" id="category_id" name="category_id" required>
+         <option value="">-- Chọn danh mục --</option>
+          @foreach ($categories as $category)
+            <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                {{ $category->category_name }}
+               </option>
+           @endforeach
+        </select>
+
 
 
         <div class="mb-3">
@@ -68,6 +68,7 @@
                 <option value="0" {{ old('status') == '0' ? 'selected' : '' }}>Ẩn</option>
             </select>
         </div>
+
 
         <hr>
         <h4>Thêm biến thể</h4>
@@ -117,7 +118,7 @@
         <div id="variantTableContainer"></div>
 
         <button type="submit" class="btn btn-primary mt-3">Thêm sản phẩm và biến thể</button>
-    </form>
+  
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -213,5 +214,6 @@
             generateVariantTable();
         });
     </script>
+
 </div>
 @endsection

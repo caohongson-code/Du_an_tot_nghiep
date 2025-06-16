@@ -6,7 +6,9 @@
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
+
     <a href="{{ route('storages.create') }}" class="btn btn-success mb-3">Thêm dung lượng</a>
+
     <table class="table table-bordered">
         <thead class="table-dark">
             <tr>

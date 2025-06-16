@@ -37,10 +37,10 @@
                     <td>{{ $product->id }}</td>
                     <td>{{ $product->category->category_name ?? 'Không có' }}</td>
                     <td>
-                        @if($product->image)
-                           <img src="{{ asset('storage/' . $product->image) }}" width="100px" alt="..." />
-
+                        @if($product->image && file_exists(public_path('storage/' . $product->image)))
+                            <img src="{{ asset('storage/' . $product->image) }}" width="70px" height="70px" alt="{{ $product->product_name }}">
                         @else
+                            {{-- Nếu muốn ảnh mặc định: thay dòng dưới bằng ảnh như asset('images/default.png') --}}
                             <span class="text-muted">Chưa có ảnh</span>
                         @endif
                     </td>
@@ -81,7 +81,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="10" class="text-center">Chưa có sản phẩm nào.</td>
+                    <td colspan="11" class="text-center">Chưa có sản phẩm nào.</td>
                 </tr>
             @endforelse
         </tbody>
