@@ -44,8 +44,8 @@
     <div class="mb-3">
         <label for="gender" class="form-label">Gender</label>
         <select name="gender" class="form-control" required>
-            <option value="1">Nam</option>
-            <option value="0">Nữ</option>
+            <option value="1">Quản lí</option>
+            <option value="0">Nhân Viên</option>
         </select>
     </div>
 
