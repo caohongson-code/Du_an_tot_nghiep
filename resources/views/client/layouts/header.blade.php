@@ -95,8 +95,8 @@
             <div class="no-padding hidden-xs col-sm-12 col-md-2">
                 <div class="header-mid wrap-flex-align">
                     <div class="wrap-logo">
-                        <a aria-label="logo" href="">
-<img src="{{ asset('client/img/anh1.png') }}" alt="Logo" style="width: 300px; height: auto;" class="logoimg">
+                        <a aria-label="logo" href="{{ route('home') }}">
+                        <img src="{{ asset('client/img/anh1.png') }}" alt="Logo" style="width: 300px; height: auto;" class="logoimg">
                         </a>
                     </div>
                     <div class="header-wrap-icon visible-sm">

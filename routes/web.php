@@ -27,7 +27,7 @@ Route::get('/', function () {
 
 
 
-Route::get('/', [ProductClientController::class, 'index'])->name('home');
+Route::get('/home', [ProductClientController::class, 'index'])->name('home');
 Route::get('/product/{id}', [ProductClientController::class, 'show'])->name('product.show');
 
 //admin 
