@@ -115,7 +115,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark {{ request()->is('admin/categories*') ? 'active' : '' }}" href="{{ route('danhmuc.index') }}">
+                <a class="nav-link text-dark {{ request()->is('admin/categories*') ? 'active' : '' }}" href="{{ route('categories.index') }}">
                     <i class="fas fa-list-alt me-2"></i> Danh mục
                 </a>
             </li>
