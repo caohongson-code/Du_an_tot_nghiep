@@ -78,7 +78,11 @@
                     </ul>
                 </div>
             </li>
-
+           <li class="nav-item">
+                    <a class="nav-link text-dark {{ request()->is('admin/carts*') ? 'active' : '' }}" href="{{ url('/admin/carts') }}">
+                       <i class="fas fa-shopping-basket me-2"></i> Giỏ hàng
+                </a>
+             </li>
             <li class="nav-item">
                 <a class="nav-link text-dark {{ request()->is('admin/orders*') ? 'active' : '' }}" href="{{ url('/admin/orders') }}">
                     <i class="fas fa-shopping-cart me-2"></i> Đơn hàng

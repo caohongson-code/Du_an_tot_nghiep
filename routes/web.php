@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CartDetailController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ProductController;
@@ -33,5 +35,11 @@ Route::prefix('admin')->group(function () {
 
     Route::resource('accounts', AccountController::class);
     Route::resource('roles', RoleController::class);
+
+    Route::resource('carts', CartController::class);
+    Route::resource('cart-details', CartDetailController::class);
+    Route::resource('carts', CartController::class)->only(['index', 'show', 'destroy']);
+    Route::delete('/admin/cart-details/{id}', [CartDetailController::class, 'destroy'])->name('cart-details.destroy');
+
 
 });
