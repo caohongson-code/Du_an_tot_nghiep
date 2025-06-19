@@ -78,6 +78,11 @@
                     </ul>
                 </div>
             </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark {{ request()->is('admin/categories*') ? 'active' : '' }}" href="{{ url('/admin/categories') }}">
+                    <i class="fas fa-list-alt me-2"></i> Danh mục
+                </a>
+            </li>
            <li class="nav-item">
                     <a class="nav-link text-dark {{ request()->is('admin/carts*') ? 'active' : '' }}" href="{{ url('/admin/carts') }}">
                        <i class="fas fa-shopping-basket me-2"></i> Giỏ hàng
