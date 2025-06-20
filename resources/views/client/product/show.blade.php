@@ -20,6 +20,16 @@
         #mainImageWrapper:hover #mainImage {
             transform: scale(1.2);
         }
+
+        .product-title {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .product-price {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
     </style>
 
     <div class="container my-5">
@@ -27,65 +37,54 @@
             <div class="col-md-5">
                 <div id="mainImageWrapper">
                     <img id="mainImage" src="{{ asset('storage/' . $product->image) }}" class="img-fluid"
-                        alt="{{ $product->product_name }}">
+                         alt="{{ $product->product_name }}">
                 </div>
             </div>
 
             <div class="col-md-7">
-                <h2 class="fw-bold">{{ $product->product_name }}</h2>
+                <h2 class="fw-bold product-title">{{ $product->product_name }}</h2>
 
-                {{-- Giá --}}
-                <p>
-                    <strong>Giá: </strong>
-                    <span id="priceBlock">
+                <div class="product-price">
+                    <strong class="d-block text-muted mb-1">Giá:</strong>
+                    <div id="priceBlock" class="d-flex flex-column align-items-start">
                         @if ($product->discount_price)
                             <span class="text-muted"><s>{{ number_format($product->price, 0, ',', '.') }} đ</s></span>
-                            <span
-                                class="text-danger fw-bold ms-2">{{ number_format($product->discount_price, 0, ',', '.') }}
-                                đ</span>
+                            <span class="text-danger fw-bold">{{ number_format($product->discount_price, 0, ',', '.') }} đ</span>
                         @else
                             <span class="text-danger fw-bold">{{ number_format($product->price, 0, ',', '.') }} đ</span>
                         @endif
-                    </span>
-                </p>
+                    </div>
+                </div>
 
-                <p><strong>Số lượng còn:</strong> <span id="stock">{{ $product->quantity }}</span></p>
+                <div class="mb-3">
+                    <strong class="d-block mb-1">Số lượng còn:</strong>
+                    <span id="stock" class="fs-6">{{ $product->quantity }}</span>
+                </div>
 
-                {{-- Thông số kỹ thuật --}}
                 <table class="table table-bordered table-sm w-75">
                     <tbody>
-                        <tr>
-                            <th>RAM</th>
-                            <td id="ram">-</td>
-                        </tr>
-                        <tr>
-                            <th>Lưu trữ</th>
-                            <td id="storage">-</td>
-                        </tr>
-                        <tr>
-                            <th>Màu</th>
-                            <td id="color">-</td>
-                        </tr>
+                        <tr><th>RAM</th><td id="ram">-</td></tr>
+                        <tr><th>Lưu trữ</th><td id="storage">-</td></tr>
+                        <tr><th>Màu</th><td id="color">-</td></tr>
                     </tbody>
                 </table>
 
-                {{-- Chọn biến thể --}}
                 <h5 class="mt-4">Chọn phiên bản:</h5>
                 <div class="d-flex flex-wrap gap-2">
                     @foreach ($product->variants as $variant)
                         <button type="button" class="btn btn-outline-secondary btn-sm variant-option"
                             data-id="{{ $variant->id }}"
                             data-image="{{ asset('storage/' . ($variant->image ?? $product->image)) }}"
-                            data-price="{{ $variant->price }}" data-ram="{{ $variant->ram->value ?? '-' }}"
+                            data-price="{{ $variant->price }}"
+                            data-ram="{{ $variant->ram->value ?? '-' }}"
                             data-storage="{{ $variant->storage->value ?? '-' }}"
-                            data-color="{{ $variant->color->value ?? '-' }}" data-quantity="{{ $variant->quantity }}">
-                            {{ $variant->ram->value ?? '?' }} / {{ $variant->storage->value ?? '?' }} /
-                            {{ $variant->color->value ?? '?' }}
+                            data-color="{{ $variant->color->value ?? '-' }}"
+                            data-quantity="{{ $variant->quantity }}">
+                            {{ $variant->ram->value ?? '?' }} / {{ $variant->storage->value ?? '?' }} / {{ $variant->color->value ?? '?' }}
                         </button>
                     @endforeach
                 </div>
 
-                {{-- Số lượng và hành động --}}
                 <div class="mt-4 d-flex gap-3 align-items-end">
                     <form action="" method="POST">
                         @csrf
@@ -94,12 +93,11 @@
                             <div class="d-flex align-items-center gap-2" style="max-width: 200px;">
                                 <button class="btn btn-outline-secondary" type="button" onclick="changeQty(-1)">-</button>
                                 <input type="number" name="quantity" id="quantityInput" value="1" min="1"
-                                    max="{{ $product->quantity }}" class="form-control text-center px-1"
-                                    style="width: 60px;">
+                                       max="{{ $product->quantity }}" class="form-control text-center px-1"
+                                       style="width: 60px;">
                                 <button class="btn btn-outline-secondary" type="button" onclick="changeQty(1)">+</button>
                             </div>
                         </div>
-
                         <button type="submit" class="btn btn-outline-primary w-100 mt-1">
                             <i class="fa fa-cart-plus"></i> Thêm vào giỏ hàng
                         </button>
@@ -116,7 +114,6 @@
             </div>
         </div>
 
-        {{-- Mô tả sản phẩm --}}
         <hr class="my-5">
         <h4 class="fw-bold mb-3">Mô tả chi tiết</h4>
         <div class="bg-light p-3 rounded">
@@ -127,7 +124,11 @@
         <hr class="my-5">
         <h4 class="fw-bold mb-3">Đánh giá & Bình luận</h4>
 
-        @if (auth()->check())
+        @php
+            $user = auth()->user(); // nếu dùng guard khác: auth('customer')->user();
+        @endphp
+
+        @if ($user)
             <form action="" method="POST">
                 @csrf
                 <div class="mb-2">
@@ -146,23 +147,11 @@
                 <button type="submit" class="btn btn-success">Gửi đánh giá</button>
             </form>
         @else
-            <p>Vui lòng <a href="">đăng nhập</a> để đánh giá và bình luận.</p>
+            <p>Vui lòng <a href="{{ route('taikhoan.login') }}">đăng nhập</a> để đánh giá và bình luận.</p>
         @endif
 
         <div class="mt-4">
-            {{-- @forelse($reviews as $review) --}}
-            {{-- <div class="border-bottom pb-2 mb-2">
-                <strong>{{ $review->user->name }}</strong> –
-                <span class="text-warning">
-                    @for ($i = 1; $i <= $review->rating; $i++) ★ @endfor
-                    @for ($i = $review->rating + 1; $i <= 5; $i++) ☆ @endfor
-                </span>
-                <div>{{ $review->comment }}</div>
-                <small class="text-muted">{{ $review->created_at->diffForHumans() }}</small>
-            </div> --}}
-            {{-- @empty --}}
             <p>Chưa có đánh giá nào.</p>
-            {{-- @endforelse --}}
         </div>
 
         {{-- Sản phẩm liên quan --}}
@@ -175,19 +164,19 @@
                         <div class="card h-100 border-0 shadow-sm">
                             <a href="{{ route('product.show', $item->id) }}">
                                 <img src="{{ asset('storage/' . $item->image) }}" class="card-img-top"
-                                    alt="{{ $item->product_name }}" style="height: 200px; object-fit: cover;">
+                                     alt="{{ $item->product_name }}" style="height: 200px; object-fit: cover;">
                             </a>
                             <div class="card-body p-2">
                                 <h6 class="card-title mb-1">
                                     <a href="{{ route('product.show', $item->id) }}"
-                                        class="text-dark text-decoration-none">{{ $item->product_name }}</a>
+                                       class="text-dark text-decoration-none">{{ $item->product_name }}</a>
                                 </h6>
                                 <p class="mb-0 text-danger fw-semibold">
                                     @if ($item->discount_price)
                                         {{ number_format($item->discount_price, 0, ',', '.') }} đ
-                                        <small
-                                            class="text-muted text-decoration-line-through d-block">{{ number_format($item->price, 0, ',', '.') }}
-                                            đ</small>
+                                        <small class="text-muted text-decoration-line-through d-block">
+                                            {{ number_format($item->price, 0, ',', '.') }} đ
+                                        </small>
                                     @else
                                         {{ number_format($item->price, 0, ',', '.') }} đ
                                     @endif
@@ -217,14 +206,13 @@
             const variantButtons = document.querySelectorAll('.variant-option');
 
             variantButtons.forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function () {
                     const image = this.dataset.image;
                     if (image) {
                         document.getElementById('mainImage').src = image;
                     }
 
-                    const priceValue = parseInt(this.dataset.price || 0).toLocaleString('vi-VN') +
-                        ' đ';
+                    const priceValue = parseInt(this.dataset.price || 0).toLocaleString('vi-VN') + ' đ';
                     document.getElementById('priceBlock').innerHTML =
                         `<span class="text-danger fw-bold">${priceValue}</span>`;
 

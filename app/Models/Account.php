@@ -1,21 +1,20 @@
 <?php
-
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Account extends Model
+class Account extends Authenticatable
 {
-     use HasFactory;
+    use Notifiable;
 
     protected $fillable = [
-        'role_id', 'full_name', 'avatar', 'date_of_birth',
-        'email', 'phone', 'gender', 'address', 'password'
+        'full_name', 'email', 'password', 'role_id',
+        'avatar', 'date_of_birth', 'phone', 'gender', 'address',
     ];
 
-    public function role()
-    {
-        return $this->belongsTo(Role::class);
-    }
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 }
+
