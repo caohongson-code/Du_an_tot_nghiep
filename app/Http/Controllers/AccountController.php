@@ -27,7 +27,9 @@ class AccountController extends Controller
 
         $listQT = $accounts->orderByDesc('id')->paginate(3)->withQueryString();
 
-        return view('admin.accounts.index', compact('listQT'));
+        $admin = Auth::user();
+return view('admin.accounts.index', compact('listQT', 'admin'));
+
     }
 
     public function create()

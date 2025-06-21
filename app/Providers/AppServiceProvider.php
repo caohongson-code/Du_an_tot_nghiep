@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Session;
 use App\Models\Account;
 use Carbon\Laravel\ServiceProvider;
+use Illuminate\Support\Facades\Auth;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,11 +23,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer('*', function ($view) {
-            if (Session::has('admin_id')) {
-                $admin = Account::find(Session::get('admin_id'));
-                $view->with('admin', $admin);
-            }
-        });
+        View::composer('admin.*', function ($view) {
+        if (Auth::check()) {
+            $view->with('admin', Auth::user());
+        }
+    });
 }
 }
