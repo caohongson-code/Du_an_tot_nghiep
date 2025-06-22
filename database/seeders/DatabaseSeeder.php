@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
     $this->call([
         ShippingZonesTableSeeder::class
     ]);
+     $this->call(OrderStatusSeeder::class);
 }
 
 }

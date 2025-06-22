@@ -185,7 +185,6 @@
     @endif
 </div>
 @endsection
-
 @push('scripts')
 <script>
     function changeQty(change) {
@@ -201,6 +200,10 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         const variantButtons = document.querySelectorAll('.variant-option');
+        const selectedVariantInput = document.getElementById('selectedVariantId');
+        const buyNowForm = document.querySelector('form[action="{{ route('cart.buyNow') }}"]');
+        const addToCartForm = document.querySelector('form[action=""]');
+
         variantButtons.forEach(button => {
             button.addEventListener('click', function () {
                 document.getElementById('mainImage').src = this.dataset.image;
@@ -210,10 +213,33 @@
                 document.getElementById('storage').innerText = this.dataset.storage || '-';
                 document.getElementById('color').innerText = this.dataset.color || '-';
                 document.getElementById('stock').innerText = this.dataset.quantity || '-';
-                document.getElementById('selectedVariantId').value = this.dataset.id;
+                selectedVariantInput.value = this.dataset.id;
                 variantButtons.forEach(btn => btn.classList.remove('active', 'btn-primary'));
                 this.classList.add('active', 'btn-primary');
             });
+        });
+
+        buyNowForm.addEventListener('submit', function (e) {
+            if (!selectedVariantInput.value) {
+                e.preventDefault();
+                alert('Vui lòng chọn phiên bản trước khi mua ngay.');
+            }
+        });
+
+        addToCartForm.addEventListener('submit', function (e) {
+            if (!selectedVariantInput.value) {
+                e.preventDefault();
+                alert('Vui lòng chọn phiên bản trước khi thêm vào giỏ hàng.');
+            } else {
+                let hiddenInput = addToCartForm.querySelector('input[name="variant_id"]');
+                if (!hiddenInput) {
+                    hiddenInput = document.createElement('input');
+                    hiddenInput.type = 'hidden';
+                    hiddenInput.name = 'variant_id';
+                    addToCartForm.appendChild(hiddenInput);
+                }
+                hiddenInput.value = selectedVariantInput.value;
+            }
         });
     });
 </script>

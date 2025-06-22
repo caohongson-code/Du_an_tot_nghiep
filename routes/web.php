@@ -15,6 +15,7 @@ use App\Http\Controllers\StorageController;
 use App\Http\Controllers\adminCatCategoriesController;
 use App\Http\Controllers\Client\CartController as ClientCartController;
 use App\Http\Controllers\Client\CheckoutController;
+use App\Http\Controllers\Client\MomoController;
 use App\Http\Controllers\CustomersControllerr;
 
 use App\Http\Controllers\Client\ProductClientController;
@@ -22,6 +23,7 @@ use App\Http\Controllers\Client\ProductController as ClientProductController;
 use App\Http\Controllers\Client\ProductVariantController as ClientProductVariantController;
 use App\Http\Controllers\Client\UserProfileController;
 use App\Http\Controllers\OrderController;
+
 
 // Trang mặc định → login admin
 Route::get('/', function () {
@@ -63,6 +65,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/profile/edit', [UserProfileController::class, 'edit'])->name('user.profile.edit');
     Route::post('/user/profile/update', [UserProfileController::class, 'update'])->name('user.profile.update');
     Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+
+Route::get('/generate-momo-qr', [MomoController::class, 'generateQR'])->name('momo.qr');
 });
 
 // Khu vực quản trị (admin)
