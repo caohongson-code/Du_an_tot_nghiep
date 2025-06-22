@@ -20,26 +20,51 @@ use App\Http\Controllers\CustomersControllerr;
 use App\Http\Controllers\Client\ProductClientController;
 use App\Http\Controllers\Client\ProductController as ClientProductController;
 use App\Http\Controllers\Client\ProductVariantController as ClientProductVariantController;
+use App\Http\Controllers\Client\UserProfileController;
 use App\Http\Controllers\OrderController;
 
 // Trang mặc định → login admin
 Route::get('/', function () {
     return view('admin.auth.login');
-
 });
 
 // Trang người dùng (client)
 Route::get('/home', [ProductClientController::class, 'index'])->name('home');
 Route::get('/product/{id}', [ProductClientController::class, 'show'])->name('product.show');
 
-// Đăng nhập / đăng ký / đăng xuất dùng chung
+// Đăng nhập / đăng ký dùng chung
 Route::get('/login', [AccountController::class, 'showLoginForm'])->name('taikhoan.showLoginForm');
 Route::post('/login', [AccountController::class, 'login'])->name('taikhoan.login');
 Route::post('/register', [AccountController::class, 'register'])->name('taikhoan.register');
-Route::post('/logout', [AccountController::class, 'logout'])->name('taikhoan.logout');
 
-Route::post('/buy-now', [ClientCartController::class, 'buyNow'])->name('cart.buyNow');
-Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+// 🌟 Các chức năng yêu cầu đăng nhập
+Route::middleware('auth')->group(function () {
+    // Đăng xuất
+    Route::post('/logout', [AccountController::class, 'logout'])->name('taikhoan.logout');
+
+    // Mua ngay và thanh toán
+    Route::post('/buy-now', [ClientCartController::class, 'buyNow'])->name('cart.buyNow');
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+
+    // Trang người dùng: dashboard, profile, đơn hàng
+    Route::get('/user/dashboard', function () {
+        return view('client.user.dashboard');
+    })->name('user.dashboard');
+
+    Route::get('/user/profile', function () {
+        return view('client.user.profile');
+    })->name('user.profile');
+
+    Route::get('/user/orders', function () {
+        return view('client.user.orders');
+    })->name('user.orders');
+    //
+    Route::get('/user/profile', [UserProfileController::class, 'show'])->name('user.profile');
+    Route::get('/user/profile/edit', [UserProfileController::class, 'edit'])->name('user.profile.edit');
+    Route::post('/user/profile/update', [UserProfileController::class, 'update'])->name('user.profile.update');
+    Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+});
+
 // Khu vực quản trị (admin)
 Route::prefix('admin')->group(function () {
     Route::resource('products', ProductController::class);

@@ -80,11 +80,10 @@
 
                                 @if ($user)
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                                            aria-expanded="false">
-                                            <span class="iconTop icon-4-top"></span>
-                                            <span class="title-info-top user_tk">Xin chào, {{ $user->name }}</span>
+                                        <a href="{{ route('user.dashboard') }}">
+                                            Xin chào, {{ Auth::user()->name ?? 'Khách' }}
                                         </a>
+
                                         <ul class="dropdown-menu" style="padding: 10px;">
                                             <li>
                                                 <form action="{{ route('taikhoan.logout') }}" method="POST"
