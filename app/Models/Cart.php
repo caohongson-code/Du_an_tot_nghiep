@@ -21,6 +21,10 @@ class Cart extends Model
     {
         return $this->hasMany(CartDetail::class);
     }
+    public function status()
+    {
+        return $this->belongsTo(CartStatus::class, 'cart_status_id');
+    }
 
     public function scopeStatus($query, $status)
     {

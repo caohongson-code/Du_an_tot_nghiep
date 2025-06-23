@@ -18,9 +18,9 @@ class CartDetail extends Model
         return $this->belongsTo(Product::class);
     }
 
-    // ✅ Quan hệ với ProductVariant
-    public function productVariant()
-    {
-        return $this->belongsTo(ProductVariant::class, 'product_variant_id');
-    }
+    public function variant()
+{
+    return $this->belongsTo(ProductVariant::class, 'product_variant_id');
+}
+
 }

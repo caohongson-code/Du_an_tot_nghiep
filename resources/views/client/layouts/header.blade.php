@@ -21,6 +21,61 @@
                 transform: translateY(0);
             }
         }
+
+        body {
+            background: #f5f7fa;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .section-newsHome,
+        .section-collection {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: center;
+            padding: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .product-card h5 {
+            font-size: 1rem;
+            margin: 10px 0;
+        }
+
+        .btn-detail {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 6px 12px;
+            background: #0d6efd;
+            color: #fff;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .btn-detail:hover {
+            background: #0056b3;
+        }
     </style>
 
     <!-- CSS Files -->
@@ -68,12 +123,27 @@
                                         <a href="{{ url('/cart') }}" class="count-holder">
                                             <span class="iconTop icon-5-top"></span>
                                             <span class="title-info-top">
-                                                <span class="gh">Giỏ hàng</span>
-                                                <span>(<span class="count">0</span>)</span>
+                                                <i class="">Giỏ Hàng</i>
+                                                @php
+                                                    $cartCount = 0;
+                                                    if (Auth::check()) {
+                                                        $cart = \App\Models\Cart::with('details')
+                                                            ->where('account_id', Auth::id())
+                                                            ->where('cart_status_id', 1)
+                                                            ->first();
+                                                        if ($cart) {
+                                                            $cartCount = $cart->details->sum('quantity');
+                                                        }
+                                                    }
+                                                @endphp
+
+                                                <span class="count">({{ $cartCount }})</span>
+
                                             </span>
                                         </a>
                                     </span>
                                 </li>
+
                                 @php
                                     $user = auth()->user();
                                 @endphp

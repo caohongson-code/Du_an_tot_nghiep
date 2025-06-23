@@ -2,13 +2,18 @@
 
 @section('content')
 <div class="container py-5">
-    <h3 class="mb-4">🛒 Xác nhận đơn hàng "Mua ngay"</h3>
+    <h3 class="mb-4">🛒 Xác nhận đơn hàng</h3>
 
-    @if (session('buy_now'))
-        <form method="POST" action="{{ route('checkout.store') }}"
-              data-phone="{{ Auth::user()->phone }}"
-              data-address="{{ Auth::user()->address }}">
+    @if (session('buy_now') || (isset($cartItems) && count($cartItems)))
+        <form method="POST" action="{{ route('checkout.store') }}" data-phone="{{ Auth::user()->phone }}" data-address="{{ Auth::user()->address }}">
             @csrf
+
+            {{-- Truyền hidden input danh sách sản phẩm khi mua từ giỏ hàng --}}
+            @if (!$buyNow && isset($cartItems))
+                @foreach ($cartItems as $item)
+                    <input type="hidden" name="selected_items[]" value="{{ $item['cart_detail_id'] }}">
+                @endforeach
+            @endif
 
             <div class="row">
                 {{-- Thông tin người nhận --}}
@@ -30,31 +35,47 @@
                     <div class="card mb-4">
                         <div class="card-header bg-success text-white">📦 Thông tin sản phẩm</div>
                         <div class="card-body">
-                            <p><strong>Tên sản phẩm:</strong> {{ $product->name }}</p>
-                            @if ($variant)
-                                <p><strong>Phiên bản:</strong>
-                                    {{ $variant->ram->value ?? '' }} /
-                                    {{ $variant->storage->value ?? '' }} /
-                                    {{ $variant->color->value ?? '' }}
-                                </p>
-                                @php $price = $variant->price; @endphp
-                            @else
-                                <p><strong>Phiên bản:</strong> Không chọn</p>
-                                @php $price = $product->price; @endphp
-                            @endif
+                            {{-- Mua ngay --}}
+                            @if (session('buy_now') && isset($product))
+                                <p><strong>Tên sản phẩm:</strong> {{ $product->name }}</p>
 
-                            <p><strong>Giá:</strong> {{ number_format($price, 0, ',', '.') }} VND</p>
-                            <p><strong>Số lượng:</strong> {{ $buyNow['quantity'] }}</p>
+                                @if ($variant)
+                                    <p><strong>Phiên bản:</strong>
+                                        {{ $variant->ram->value ?? '' }} /
+                                        {{ $variant->storage->value ?? '' }} /
+                                        {{ $variant->color->value ?? '' }}
+                                    </p>
+                                    @php $price = $variant->price; @endphp
+                                @else
+                                    <p><strong>Phiên bản:</strong> Không chọn</p>
+                                    @php $price = $product->price; @endphp
+                                @endif
+
+                                <p><strong>Giá:</strong> {{ number_format($price, 0, ',', '.') }} VND</p>
+                                <p><strong>Số lượng:</strong> {{ $buyNow['quantity'] }}</p>
+
+                            {{-- Giỏ hàng --}}
+                            @elseif (isset($cartItems) && count($cartItems))
+                                @foreach ($cartItems as $item)
+                                    <hr>
+                                    <p><strong>Tên sản phẩm:</strong> {{ $item['product']->name }}</p>
+                                    @if ($item['variant'])
+                                        <p><strong>Phiên bản:</strong>
+                                            {{ $item['variant']->ram->value ?? '' }} /
+                                            {{ $item['variant']->storage->value ?? '' }} /
+                                            {{ $item['variant']->color->value ?? '' }}
+                                        </p>
+                                    @endif
+                                    <p><strong>Giá:</strong> {{ number_format($item['price'], 0, ',', '.') }} VND</p>
+                                    <p><strong>Số lượng:</strong> {{ $item['quantity'] }}</p>
+                                @endforeach
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
 
-            @php
-                $subtotal = $price * $buyNow['quantity'];
-                $shippingFee = 30000;
-            @endphp
-
+            {{-- Chọn voucher --}}
             <div class="card mb-4">
                 <div class="card-header bg-warning">🎁 Chọn voucher (nếu có)</div>
                 <div class="card-body">
@@ -70,6 +91,7 @@
                 </div>
             </div>
 
+            {{-- Tổng tiền --}}
             <div class="card mb-4">
                 <div class="card-header bg-dark text-white">💰 Tổng tiền</div>
                 <div class="card-body">
@@ -81,6 +103,7 @@
                 </div>
             </div>
 
+            {{-- Phương thức thanh toán --}}
             <div class="card mb-4">
                 <div class="card-header bg-info text-white">💳 Phương thức thanh toán</div>
                 <div class="card-body">
@@ -105,6 +128,7 @@
                 </div>
             </div>
 
+            {{-- Xác nhận thông tin --}}
             <div id="cod-info-confirmation" class="card mb-4" style="display: none;">
                 <div class="card-header bg-secondary text-white">✅ Xác nhận thông tin giao hàng</div>
                 <div class="card-body">
@@ -127,84 +151,84 @@
 
 @section('scripts')
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const voucherSelect = document.getElementById('voucher-select');
-        const momoQRContainer = document.getElementById('momo-qr-container');
-        const momoQR = document.getElementById('momo-qr');
-        const momoAmount = document.getElementById('momo-amount');
-        const paymentRadios = document.querySelectorAll('input[name="payment_method"]');
-        const codInfoBox = document.getElementById('cod-info-confirmation');
-        const form = document.querySelector('form[action="{{ route('checkout.store') }}"]');
+document.addEventListener('DOMContentLoaded', function () {
+    const voucherSelect = document.getElementById('voucher-select');
+    const momoQRContainer = document.getElementById('momo-qr-container');
+    const momoQR = document.getElementById('momo-qr');
+    const momoAmount = document.getElementById('momo-amount');
+    const paymentRadios = document.querySelectorAll('input[name="payment_method"]');
+    const codInfoBox = document.getElementById('cod-info-confirmation');
+    const form = document.querySelector('form[action="{{ route('checkout.store') }}"]');
 
-        const subtotal = {{ $subtotal }};
-        const shipping = {{ $shippingFee }};
-        let currentDiscount = 0;
+    const subtotal = {{ $subtotal }};
+    const shipping = {{ $shippingFee }};
+    let currentDiscount = 0;
 
-        function calculateTotal() {
-            const option = voucherSelect.options[voucherSelect.selectedIndex];
-            const type = option.getAttribute('data-type');
-            const value = parseFloat(option.getAttribute('data-value')) || 0;
+    function calculateTotal() {
+        const option = voucherSelect.options[voucherSelect.selectedIndex];
+        const type = option.getAttribute('data-type');
+        const value = parseFloat(option.getAttribute('data-value')) || 0;
 
-            let discountAmount = 0;
-            let discountText = '0';
+        let discountAmount = 0;
+        let discountText = '0';
 
-            if (type === 'percent') {
-                discountAmount = subtotal * value / 100;
-                discountText = value + '%';
-            } else if (type === 'fixed') {
-                discountAmount = value;
-                discountText = new Intl.NumberFormat('vi-VN').format(value) + ' VND';
-            }
-
-            currentDiscount = discountAmount;
-            const total = subtotal + shipping - discountAmount;
-
-            document.getElementById('discount').innerText = discountText;
-            document.getElementById('total').innerText = new Intl.NumberFormat('vi-VN').format(total) + ' VND';
-
-            return total;
+        if (type === 'percent') {
+            discountAmount = subtotal * value / 100;
+            discountText = value + '%';
+        } else if (type === 'fixed') {
+            discountAmount = value;
+            discountText = new Intl.NumberFormat('vi-VN').format(value) + ' VND';
         }
 
-        voucherSelect.addEventListener('change', calculateTotal);
+        currentDiscount = discountAmount;
+        const total = subtotal + shipping - discountAmount;
 
-        paymentRadios.forEach(radio => {
-            radio.addEventListener('change', function () {
-                const total = calculateTotal();
+        document.getElementById('discount').innerText = discountText;
+        document.getElementById('total').innerText = new Intl.NumberFormat('vi-VN').format(total) + ' VND';
 
-                momoQRContainer.style.display = this.value === 'momo' ? 'block' : 'none';
-                codInfoBox.style.display = this.value === 'cod' ? 'block' : 'none';
+        return total;
+    }
 
-                if (this.value === 'momo') {
-                    momoAmount.innerText = new Intl.NumberFormat('vi-VN').format(total);
-                    momoQR.src = "{{ url('/generate-momo-qr') }}?amount=" + total;
-                }
-            });
-        });
+    voucherSelect.addEventListener('change', calculateTotal);
 
-        calculateTotal();
-        document.querySelector('input[name="payment_method"]:checked')?.dispatchEvent(new Event('change'));
+    paymentRadios.forEach(radio => {
+        radio.addEventListener('change', function () {
+            const total = calculateTotal();
 
-        form.addEventListener('submit', function (e) {
-            const phone = form.dataset.phone;
-            const address = form.dataset.address;
-            const selectedPayment = document.querySelector('input[name="payment_method"]:checked');
+            momoQRContainer.style.display = this.value === 'momo' ? 'block' : 'none';
+            codInfoBox.style.display = this.value === 'cod' ? 'block' : 'none';
 
-            if (!selectedPayment) {
-                e.preventDefault();
-                alert('Vui lòng chọn phương thức thanh toán.');
-                return;
-            }
-
-            if (!phone || !address) {
-                e.preventDefault();
-                alert('Vui lòng cập nhật số điện thoại và địa chỉ trước khi đặt hàng.');
-                return;
-            }
-
-            if (!confirm('Bạn chắc chắn muốn xác nhận đặt hàng?')) {
-                e.preventDefault();
+            if (this.value === 'momo') {
+                momoAmount.innerText = new Intl.NumberFormat('vi-VN').format(total);
+                momoQR.src = "{{ url('/generate-momo-qr') }}?amount=" + total;
             }
         });
     });
+
+    calculateTotal();
+    document.querySelector('input[name="payment_method"]:checked')?.dispatchEvent(new Event('change'));
+
+    form.addEventListener('submit', function (e) {
+        const phone = form.dataset.phone;
+        const address = form.dataset.address;
+        const selectedPayment = document.querySelector('input[name="payment_method"]:checked');
+
+        if (!selectedPayment) {
+            e.preventDefault();
+            alert('Vui lòng chọn phương thức thanh toán.');
+            return;
+        }
+
+        if (!phone || !address) {
+            e.preventDefault();
+            alert('Vui lòng cập nhật số điện thoại và địa chỉ trước khi đặt hàng.');
+            return;
+        }
+
+        if (!confirm('Bạn chắc chắn muốn xác nhận đặt hàng?')) {
+            e.preventDefault();
+        }
+    });
+});
 </script>
 @endsection

@@ -41,22 +41,16 @@ Route::post('/register', [AccountController::class, 'register'])->name('taikhoan
 
 // 🌟 Các chức năng yêu cầu đăng nhập
 Route::middleware('auth')->group(function () {
-    // Đăng xuất
     Route::post('/logout', [AccountController::class, 'logout'])->name('taikhoan.logout');
-
-    // Mua ngay và thanh toán
     Route::post('/buy-now', [ClientCartController::class, 'buyNow'])->name('cart.buyNow');
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
-
     // Trang người dùng: dashboard, profile, đơn hàng
     Route::get('/user/dashboard', function () {
         return view('client.user.dashboard');
     })->name('user.dashboard');
-
     Route::get('/user/profile', function () {
         return view('client.user.profile');
     })->name('user.profile');
-
     Route::get('/user/orders', function () {
         return view('client.user.orders');
     })->name('user.orders');
@@ -65,6 +59,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/profile/edit', [UserProfileController::class, 'edit'])->name('user.profile.edit');
     Route::post('/user/profile/update', [UserProfileController::class, 'update'])->name('user.profile.update');
     Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+    //
+    Route::post('/cart/add', [ClientCartController::class, 'add'])->name('cart.add');
+    Route::get('/cart', [ClientCartController::class, 'show'])->name('cart.show');
 
 Route::get('/generate-momo-qr', [MomoController::class, 'generateQR'])->name('momo.qr');
 });
