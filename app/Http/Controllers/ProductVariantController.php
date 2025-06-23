@@ -56,54 +56,6 @@ public function index(Request $request)
 }
 
 
-    public function edit(ProductVariant $variant)
-    {
-        $products = Product::all();
-        $rams = Ram::all();
-        $storages = Storage::all();
-        $colors = Color::all();
-
-        return view('admin.variants.edit', compact('variant', 'products', 'rams', 'storages', 'colors'));
-    }
-
-    public function update(Request $request, ProductVariant $variant)
-{
-    $request->validate([
-        'product_id' => 'required|exists:products,id',
-        'ram_id' => 'required|exists:rams,id',
-        'storage_id' => 'required|exists:storages,id',
-        'color_id' => 'required|exists:colors,id',
-        'price' => 'required|numeric|min:0',
-        'discount_price' => 'nullable|numeric|min:0|lte:price',
-        'quantity' => 'required|integer|min:0',
-        'image' => 'nullable|image|max:2048',
-    ]);
-
-    // Kiểm tra tổ hợp có tồn tại không (trừ bản thân variant hiện tại)
-    $exists = ProductVariant::where('product_id', $request->product_id)
-        ->where('ram_id', $request->ram_id)
-        ->where('storage_id', $request->storage_id)
-        ->where('color_id', $request->color_id)
-        ->where('id', '!=', $variant->id)
-        ->exists();
-
-    if ($exists) {
-        return back()->withErrors('Tổ hợp này đã tồn tại!')->withInput();
-    }
-
-    $data = $request->only(['product_id', 'ram_id', 'storage_id', 'color_id', 'price', 'discount_price', 'quantity']);
-
-    if ($request->hasFile('image')) {
-        if ($variant->image && StorageFacade::disk('public')->exists($variant->image)) {
-            StorageFacade::disk('public')->delete($variant->image);
-        }
-        $data['image'] = $request->file('image')->store('variants', 'public');
-    }
-
-    $variant->update($data);
-
-    return redirect()->route('variants.index')->with('success', 'Cập nhật biến thể thành công.');
-}
     public function destroy(ProductVariant $variant)
     {
         if ($variant->image && StorageFacade::disk('public')->exists($variant->image)) {
