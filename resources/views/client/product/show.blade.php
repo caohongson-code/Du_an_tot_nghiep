@@ -1,13 +1,14 @@
 @extends('client.layouts.app')
 
 @section('content')
-    <style>
+        <style>
         #mainImageWrapper {
             width: 100%;
             height: 400px;
             overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            background-color: #f8f9fa;
         }
 
         #mainImage {
@@ -18,12 +19,13 @@
         }
 
         #mainImageWrapper:hover #mainImage {
-            transform: scale(1.2);
+            transform: scale(1.1);
         }
 
         .product-title {
             margin-bottom: 20px;
-            font-size: 1.5rem;
+            font-size: 1.75rem;
+            color: #212529;
         }
 
         .product-price {
@@ -32,10 +34,79 @@
         }
 
         .container.my-5 {
-            background: #fff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            background: #ffffff;
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .variant-option {
+            border-radius: 25px !important;
+            padding: 8px 16px;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .variant-option.active {
+            background-color: #0d6efd !important;
+            color: #fff !important;
+            border-color: #0d6efd !important;
+        }
+
+        .table-bordered th,
+        .table-bordered td {
+            vertical-align: middle;
+            font-size: 0.95rem;
+        }
+
+        .table {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            border-radius: 8px;
+        }
+
+        .btn-outline-secondary {
+            border-radius: 8px;
+        }
+
+        .card-title a {
+            font-weight: 600;
+        }
+
+        .bg-light.p-3.rounded {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            background-color: #f1f3f5 !important;
+        }
+
+        hr {
+            border-top: 2px solid #dee2e6;
+        }
+
+        select.form-select {
+            border-radius: 8px;
+        }
+
+        textarea.form-control {
+            border-radius: 8px;
+        }
+
+        .form-label {
+            font-weight: 500;
+        }
+
+        .btn-success {
+            border-radius: 8px;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
         }
     </style>
 
@@ -108,11 +179,19 @@
     <input type="hidden" name="product_id" value="{{ $product->id }}">
     <input type="hidden" name="product_variant_id" id="addToCartVariantId">
     
-    <div class="input-group" style="max-width: 120px;">
-        <button class="btn btn-outline-secondary" type="button" onclick="changeQty(-1)">-</button>
-        <input type="number" name="quantity" id="quantityInput" value="1" min="1" class="form-control text-center">
-        <button class="btn btn-outline-secondary" type="button" onclick="changeQty(1)">+</button>
-    </div>
+  <div class="quantity-wrapper d-flex align-items-center gap-2">
+    <button type="button" class="btn btn-outline-secondary rounded-circle quantity-btn" onclick="changeQty(-1)">
+       -
+    </button>
+
+    <input type="number" name="quantity" id="quantityInput" value="1" min="1"
+           class="form-control text-center quantity-input" style="width: 70px;">
+           
+    <button type="button" class="btn btn-outline-secondary rounded-circle quantity-btn" onclick="changeQty(1)">
+       +
+    </button>
+</div>
+
 
     <button type="submit" class="btn btn-primary mt-2">
         <i class="fa fa-cart-plus"></i> Thêm vào giỏ hàng
