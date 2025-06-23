@@ -117,9 +117,6 @@
                                                 <td>{{ $variant->quantity }}</td>
                                                 <td>{{ $variant->quantity > 0 ? 'Còn hàng' : 'Hết hàng' }}</td>
                                                 <td>
-                                                    <a href="{{ route('variants.edit', $variant->id) }}" class="btn btn-warning btn-sm me-1" title="Chỉnh sửa">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
                                                     <form action="{{ route('variants.destroy', $variant->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Bạn có chắc muốn xóa biến thể này?');">
                                                         @csrf
                                                         @method('DELETE')
