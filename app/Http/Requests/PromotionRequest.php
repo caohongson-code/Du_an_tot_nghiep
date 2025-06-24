@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class PromotionRequest extends FormRequest
 {
@@ -14,7 +15,11 @@ class PromotionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => 'required|string|unique:promotions,code,' . $this->id,
+            'code' => [
+                'required',
+                'string',
+                Rule::unique('promotions', 'code')->ignore($this->promotion),
+            ],
             'description' => 'nullable|string',
             'discount_type' => 'required|in:percentage,fixed',
             'discount_value' => 'required|numeric|min:0',
@@ -22,6 +27,14 @@ class PromotionRequest extends FormRequest
             'end_date' => 'required|date|after_or_equal:start_date',
             'usage_limit' => 'nullable|integer|min:1',
             'is_active' => 'boolean',
+
+            // ✅ Validate sản phẩm
+            'product_ids' => 'nullable|array',
+            'product_ids.*' => 'exists:products,id',
+
+            // ✅ Validate danh mục
+            'category_ids' => 'nullable|array',
+            'category_ids.*' => 'exists:categories,id',
         ];
     }
 
@@ -43,6 +56,14 @@ class PromotionRequest extends FormRequest
             'usage_limit.integer' => 'Giới hạn lượt dùng phải là số nguyên.',
             'usage_limit.min' => 'Giới hạn lượt dùng phải lớn hơn 0.',
             'is_active.boolean' => 'Trạng thái kích hoạt không hợp lệ.',
+
+            // ✅ Sản phẩm
+            'product_ids.array' => 'Danh sách sản phẩm không hợp lệ.',
+            'product_ids.*.exists' => 'Một hoặc nhiều sản phẩm đã chọn không tồn tại.',
+
+            // ✅ Danh mục
+            'category_ids.array' => 'Danh sách danh mục không hợp lệ.',
+            'category_ids.*.exists' => 'Một hoặc nhiều danh mục đã chọn không tồn tại.',
         ];
     }
 }
