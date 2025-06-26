@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
+use App\Models\Product;
 use App\Models\Role;
+
 use Exception;
 use GuzzleHttp\Psr7\Message;
 use Illuminate\Http\Request;
@@ -13,11 +15,14 @@ use Illuminate\Support\Facades\Hash;
 
 use function Laravel\Prompts\password;
 
+
+
 class AccountController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
     public function index(Request $request)
     {
         $accounts = Account::with('role')->whereIn('role_id', [2, 1]);
@@ -31,6 +36,7 @@ class AccountController extends Controller
         return view('admin.accounts.index', compact('listQT'));
 
 }
+
 
 
     /**
@@ -190,8 +196,8 @@ class AccountController extends Controller
             session(['admin_id' => $admin->id]);
             return redirect()->route('accounts.index')->with('success', 'Đăng nhập thành công!');
         } else {
-
-            return redirect()->route('taikhoan.showLoginForm')->with('success', 'Đăng nhập người dùng thành công!');
+            $products = Product::paginate(10);
+            return view('client.home', compact('products'))->with('success', 'Đăng nhập người dùng thành công!');
         }
         }
         return redirect()->back()->with('error', 'Email hoặc mật khẩu không đúng');}

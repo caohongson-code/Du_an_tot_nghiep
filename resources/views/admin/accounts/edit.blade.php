@@ -9,7 +9,11 @@
 
     <div class="mb-3">
         <label for="role_id" class="form-label">Role</label>
+
         <select name="role_id" class="form-control" >
+
+        <select name="role_id" class="form-control" required>
+
             @foreach($roles as $role)
                 <option value="{{ $role->id }}" {{ $account->role_id == $role->id ? 'selected' : '' }}>
                     {{ $role->role_name }}
@@ -20,7 +24,7 @@
 
     <div class="mb-3">
         <label for="full_name" class="form-label">Full Name</label>
-        <input type="text" name="full_name" value="{{ $account->full_name }}" class="form-control"
+        <input type="text" name="full_name" value="{{ $account->full_name }}" class="form-control">
     </div>
 
     <div class="mb-3">
