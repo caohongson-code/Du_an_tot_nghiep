@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{ asset('client/css/Ye5WURwlpsv.css') }}">
     <link rel="stylesheet" href="{{ asset('client/css/zh-SzDq3GxE.css') }}">
 
-<h2 class="lineHeight05"><a href="#" class="tp_title">Tin tức điện thoại</a></h2>
+{{-- <h2 class="lineHeight05"><a href="#" class="tp_title">Tin tức điện thoại</a></h2>
 </div>
 
 <div class="sectionContentTab styleArrowSlick">
@@ -115,7 +115,7 @@
             <div class="owl-dots" style="display: none;"></div>
         </div>
     </div>
-</div>
+</div> --}}
 
 
 <script>

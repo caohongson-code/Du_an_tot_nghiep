@@ -13,9 +13,20 @@ class ProductClientController extends Controller
         return view('client.home', compact('products'));
     }
 
-    public function show($id)
-    {
-        $product = Product::findOrFail($id);
-        return view('client.product.show', compact('product'));
-    }
+public function show($id)
+{
+    $product = Product::with(['variants.ram', 'variants.storage', 'variants.color'])->findOrFail($id);
+
+    // Lấy các sản phẩm liên quan (trừ chính nó)
+    $relatedProducts = Product::where('category_id', $product->category_id)
+                            ->where('id', '!=', $product->id)
+                            ->where('status', 1)
+                            ->latest()
+                            ->take(4)
+                            ->get();
+
+    return view('client.product.show', compact('product', 'relatedProducts'));
+}
+
+
 }

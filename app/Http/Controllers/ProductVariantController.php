@@ -14,92 +14,48 @@ class ProductVariantController extends Controller
 {
 
 public function index(Request $request)
-    {
-        $query = Product::with(['variants.ram', 'variants.storage', 'variants.color'])
-            ->orderBy('created_at', 'desc');
-
-        // Lấy giá trị lọc từ request
-        $colorId = $request->input('color_id');
-        $ramId = $request->input('ram_id');
-        $storageId = $request->input('storage_id');
-        $search = $request->input('search');
-
-        // Áp dụng bộ lọc
-        if ($colorId) {
-            $query->whereHas('variants', function ($q) use ($colorId) {
-                $q->where('color_id', $colorId);
-            });
-        }
-        if ($ramId) {
-            $query->whereHas('variants', function ($q) use ($ramId) {
-                $q->where('ram_id', $ramId);
-            });
-        }
-        if ($storageId) {
-            $query->whereHas('variants', function ($q) use ($storageId) {
-                $q->where('storage_id', $storageId);
-            });
-        }
-        if ($search) {
-            $query->where('product_name', 'like', '%' . $search . '%');
-        }
-
-        $products = $query->get();
-        $colors = Color::all();
-        $rams = Ram::all();
-        $storages = Storage::all();
-
-        return view('admin.variants.index', compact('products', 'colors', 'rams', 'storages', 'request'));
-    }
-
-    public function edit(ProductVariant $variant)
-    {
-        $products = Product::all();
-        $rams = Ram::all();
-        $storages = Storage::all();
-        $colors = Color::all();
-
-        return view('admin.variants.edit', compact('variant', 'products', 'rams', 'storages', 'colors'));
-    }
-
-    public function update(Request $request, ProductVariant $variant)
 {
-    $request->validate([
-        'product_id' => 'required|exists:products,id',
-        'ram_id' => 'required|exists:rams,id',
-        'storage_id' => 'required|exists:storages,id',
-        'color_id' => 'required|exists:colors,id',
-        'price' => 'required|numeric|min:0',
-        'discount_price' => 'nullable|numeric|min:0|lte:price',
-        'quantity' => 'required|integer|min:0',
-        'image' => 'nullable|image|max:2048',
-    ]);
+    $query = Product::with(['variants.ram', 'variants.storage', 'variants.color'])
+        ->orderBy('created_at', 'desc');
 
-    // Kiểm tra tổ hợp có tồn tại không (trừ bản thân variant hiện tại)
-    $exists = ProductVariant::where('product_id', $request->product_id)
-        ->where('ram_id', $request->ram_id)
-        ->where('storage_id', $request->storage_id)
-        ->where('color_id', $request->color_id)
-        ->where('id', '!=', $variant->id)
-        ->exists();
+    // Lọc
+    $colorId = $request->input('color_id');
+    $ramId = $request->input('ram_id');
+    $storageId = $request->input('storage_id');
+    $search = $request->input('search');
 
-    if ($exists) {
-        return back()->withErrors('Tổ hợp này đã tồn tại!')->withInput();
+    if ($colorId) {
+        $query->whereHas('variants', function ($q) use ($colorId) {
+            $q->where('color_id', $colorId);
+        });
+    }
+    if ($ramId) {
+        $query->whereHas('variants', function ($q) use ($ramId) {
+            $q->where('ram_id', $ramId);
+        });
+    }
+    if ($storageId) {
+        $query->whereHas('variants', function ($q) use ($storageId) {
+            $q->where('storage_id', $storageId);
+        });
+    }
+    if ($search) {
+        $query->where('product_name', 'like', '%' . $search . '%');
     }
 
-    $data = $request->only(['product_id', 'ram_id', 'storage_id', 'color_id', 'price', 'discount_price', 'quantity']);
+    $products = $query->get(); // danh sách sản phẩm có biến thể
 
-    if ($request->hasFile('image')) {
-        if ($variant->image && StorageFacade::disk('public')->exists($variant->image)) {
-            StorageFacade::disk('public')->delete($variant->image);
-        }
-        $data['image'] = $request->file('image')->store('variants', 'public');
-    }
+    // ✅ Thêm đoạn này để lấy danh sách biến thể (có quan hệ đầy đủ)
+    $variants = ProductVariant::with(['product', 'ram', 'storage', 'color'])->get();
 
-    $variant->update($data);
+    $colors = Color::all();
+    $rams = Ram::all();
+    $storages = Storage::all();
 
-    return redirect()->route('variants.index')->with('success', 'Cập nhật biến thể thành công.');
+    return view('admin.variants.index', compact('products', 'variants', 'colors', 'rams', 'storages', 'request'));
 }
+
+
     public function destroy(ProductVariant $variant)
     {
         if ($variant->image && StorageFacade::disk('public')->exists($variant->image)) {
