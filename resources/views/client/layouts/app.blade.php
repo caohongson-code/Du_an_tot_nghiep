@@ -8,9 +8,9 @@
     @stack('scripts')
 <body>
     @include('client.layouts.header')
-    <main class="container py-4">
+    {{-- <main class="container py-4">
         @yield('content')
-    </main>
-    @include('client.layouts.footer')
+    </main> --}}
+    {{-- @include('client.layouts.footer') --}}
 </body>
 </html>
