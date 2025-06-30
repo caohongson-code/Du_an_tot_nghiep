@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ThongBaoTaoTaiKhoan;
 use App\Models\Account;
 use App\Models\Product;
 use App\Models\Role;
@@ -10,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class AccountController extends Controller
@@ -71,7 +73,7 @@ class AccountController extends Controller
             }
 
             $data['password'] = bcrypt('1234');
-            Account::create($data);
+             Account::create($data);
 
             DB::commit();
             return redirect()->route('accounts.index')->with('success', 'Tạo tài khoản thành công!');
@@ -161,5 +163,39 @@ class AccountController extends Controller
     {
         $request->session()->forget(['admin_id', 'user_id']);
         return redirect()->route('taikhoan.showLoginForm')->with('success', 'Đăng xuất thành công!');
+    }
+    public function register(Request $request)
+    {
+        $request->validate([
+            'full_name' => 'required|string|max:255',
+            'email' => 'required|email|unique:accounts,email',
+            'password' => 'required|string|min:6|confirmed',
+            'password_confirmation' => 'required|string|min:6',
+        ], [
+            'full_name.required' => 'Vui lòng nhập họ tên.',
+            'email.required' => 'Vui lòng nhập email.',
+            'email.email' => 'Email không đúng định dạng.',
+            'email.unique' => 'Email đã tồn tại.',
+            'password.required' => 'Vui lòng nhập mật khẩu.',
+            'password.min' => 'Mật khẩu phải từ 6 ký tự.',
+            'password.confirmed' => 'Mật khẩu nhập lại không khớp.',
+        ]);
+
+        try {
+            DB::beginTransaction();
+            $plainPassword = $request->password;
+            $data = $request->only(['full_name', 'email', 'password']);
+            $data['password'] = bcrypt($plainPassword);
+            $data['role_id'] = 3; // Người dùng mặc định
+
+            $user = Account::create($data);
+            Mail::to($user->email)->send(new ThongBaoTaoTaiKhoan($user, $plainPassword));
+            DB::commit();
+
+            return redirect()->route('taikhoan.showLoginForm')->with('success', 'Đăng ký thành công!');
+        } catch (Exception $e) {
+            DB::rollback();
+            return back()->withInput()->with('error', 'Lỗi: ' . $e->getMessage());
+        }
     }
 }
