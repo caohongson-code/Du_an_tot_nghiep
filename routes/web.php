@@ -26,6 +26,7 @@ Route::get('/', function () {
      return view('admin.auth.login');
 });
 
+Route::get('/products', [ProductClientController::class, 'index'])->name('product.all');
 
 
 Route::get('/home', [ProductClientController::class, 'index'])->name('home');
