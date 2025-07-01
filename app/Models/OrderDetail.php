@@ -14,13 +14,14 @@ class OrderDetail extends Model
         'quantity',
     ];
 
-    public function order(): BelongsTo
+    public function order()
     {
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(Order::class, 'order_id');
     }
 
-    public function productVariant(): BelongsTo
+    // Quan hệ với bảng product_variants
+    public function productVariant()
     {
-        return $this->belongsTo(ProductVariant::class);
+        return $this->belongsTo(ProductVariant::class, 'product_variant_id');
     }
 }

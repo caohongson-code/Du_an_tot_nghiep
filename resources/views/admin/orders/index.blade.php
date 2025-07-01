@@ -3,6 +3,24 @@
 @section('title', 'Quản lý đơn hàng')
 
 @section('content')
+
+{{-- ✅ CSS pagination nhỏ gọn --}}
+<style>
+    .pagination-custom {
+        font-size: 0.75rem;
+    }
+
+    .pagination-custom .page-link {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+        line-height: 1.2;
+    }
+
+    .pagination-custom .page-item {
+        margin: 0 2px;
+    }
+</style>
+
 <div class="container-fluid px-4">
     <h1 class="mt-4">Quản lý đơn hàng</h1>
     <ol class="breadcrumb mb-4">
@@ -13,8 +31,7 @@
         <div class="row g-2 align-items-end">
             <div class="col-md-4">
                 <label>Tìm kiếm</label>
-                <input type="text" name="search" class="form-control"
-                       placeholder="Tên, email khách hàng..." value="{{ request('search') }}">
+                <input type="text" name="search" class="form-control" placeholder="Tên, email khách hàng..." value="{{ request('search') }}">
             </div>
             <div class="col-md-3">
                 <label>Trạng thái đơn</label>
@@ -43,8 +60,8 @@
         <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
             <span><i class="fas fa-table me-1"></i> Danh sách đơn hàng</span>
             <div>
-                <span class="badge bg-success me-2">Tổng đơn: {{ $orders->count() }}</span>
-                <span class="badge bg-info">Tổng tiền: {{ number_format($orders->sum('total_amount'), 0, ',', '.') }}đ</span>
+                <span class="badge bg-success me-2">Tổng đơn: {{ $orders->total() }}</span>
+                <span class="badge bg-info">Tổng tiền: {{ number_format($totalAmountAll, 0, ',', '.') }}đ</span>
             </div>
         </div>
 
@@ -109,23 +126,28 @@
                             {{ $order->order_date ? $order->order_date->format('d/m/Y H:i') : '---' }}
                         </td>
                         <td class="text-end text-nowrap">
-                             {{ number_format($orders->sum('total_amount'), 0, ',', '.') }}đ
+                            {{ number_format($order->total_amount, 0, ',', '.') }}đ
                         </td>
                         <td class="text-center">
                             <a href="{{ route('admin.orders.show', $order->id) }}"
                                class="btn btn-sm btn-info mb-1">
                                 <i class="fas fa-eye"></i> Xem
                             </a>
-                            @if($order->order_status_id == 1) <!-- Chưa xác nhận -->
+                            @if($order->order_status_id == 1)
                                 <form action="{{ route('admin.orders.update', $order->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('PUT')
-                                    <input type="hidden" name="order_status_id" value="2"> <!-- Đã xác nhận -->
+                                    <input type="hidden" name="order_status_id" value="2">
                                     <button type="submit" class="btn btn-sm btn-success mb-1"
                                             onclick="return confirm('Bạn có chắc chắn xác nhận đơn hàng này?')">
                                         <i class="fas fa-check"></i> Xác nhận
                                     </button>
                                 </form>
+                            @else
+                                <a href="{{ route('admin.orders.edit', $order->id) }}"
+                                   class="btn btn-sm btn-warning mb-1">
+                                    <i class="fas fa-edit"></i> Cập nhật
+                                </a>
                             @endif
                         </td>
                     </tr>
@@ -136,6 +158,13 @@
                     @endforelse
                 </tbody>
             </table>
+
+            {{-- ✅ Phân trang nhỏ gọn, cân đối --}}
+            <div class="d-flex justify-content-center mt-3">
+                <div class="pagination-custom">
+                    {{ $orders->onEachSide(1)->links('pagination::bootstrap-4') }}
+                </div>
+            </div>
         </div>
     </div>
 </div>

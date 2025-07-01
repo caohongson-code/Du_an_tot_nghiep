@@ -72,6 +72,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
     }
 
 
+    public function statusHistories()
+    {
+        return $this->hasMany(OrderStatusHistory::class);
+    }
+
+
 
 
     }
