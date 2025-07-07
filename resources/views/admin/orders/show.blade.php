@@ -117,16 +117,18 @@
                                     </div>
                                 </div>
                             </form>
-                            @if ($order->order_status_id > 1)
-                                <div class="mt-2">
-                                    <small class="text-danger">* Lưu ý: Không thể quay lại trạng thái thấp hơn sau khi đã xác nhận.</small>
-                                </div>
-                            @endif
-                            @if ($order->order_status_id >= 3)
-                                <div class="mt-2">
-                                    <small class="text-danger">* Lưu ý: Đơn hàng đang trong trạng thái "Đang giao" hoặc cao hơn không thể chuyển thành "Đã hủy".</small>
-                                </div>
-                            @endif
+                           @if ($order->order_status_id > 1)
+                    <div class="mt-2">
+                       <small class="text-warning fw-semibold">* Lưu ý: Không thể quay lại trạng thái thấp hơn sau khi đã xác nhận.</small>
+                     </div>
+                    @endif
+
+                    @if ($order->order_status_id >= 3)
+                    <div class="mt-2">
+                    <small class="text-warning fw-semibold">* Lưu ý: Đơn hàng đang trong trạng thái "Đang giao" hoặc cao hơn không thể chuyển thành "Đã hủy".</small>
+                    </div>
+                    @endif
+
                         </div>
                     </div>
                 </div>

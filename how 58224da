@@ -1,0 +1,80 @@
+* [33m58224da[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mkiet[m[33m, [m[1;31morigin/CaoSon[m[33m, [m[1;32mCaoSon[m[33m)[m fix status in order and payment_status
+* [33mde5568a[m code cham tuan 5
+*   [33m957cfe5[m Gop code tuan 3
+[32m|[m[33m\[m  
+[32m|[m * [33m6c8623b[m[33m ([m[1;31morigin/tienph50259[m[33m)[m Thêm chức năng thanh toán online bằng MoMo
+* [33m|[m [33m0433a26[m Merge branch 'tienph50259' of https://github.com/caohongson-code/Du_an_tot_nghiep into CaoSon
+[34m|[m[33m\[m[33m|[m 
+[34m|[m * [33ma72011b[m Thêm chức năng album ảnh sản phẩm và mô tả chi tiết
+* [35m|[m [33meb883b2[m[33m ([m[1;31morigin/tlinh[m[33m)[m sửa lại giao diện của màu sắc
+* [35m|[m [33m0717c07[m tích hợp gmai dang ký tài khoản
+* [35m|[m   [33mbea0888[m[33m ([m[1;32mtlinh[m[33m)[m sua lai  giao dieenj admin
+[36m|[m[1;31m\[m [35m\[m  
+[36m|[m * [35m|[m [33m4fcb211[m[33m ([m[1;31morigin/kiet[m[33m)[m Gộp code tuần 3
+[36m|[m * [35m|[m   [33m8277af0[m Merge branch 'kiet' of https://github.com/caohongson-code/Du_an_tot_nghiep into CaoSon
+[36m|[m [35m|[m[1;33m\[m [35m\[m  
+[36m|[m [35m|[m [1;33m|[m[35m/[m  
+[36m|[m [35m|[m[35m/[m[1;33m|[m   
+[36m|[m * [1;33m|[m [33m8fbb96e[m Hoàn thiện chức năng giỏ hàng và xử lý đặt hàng từ giỏ hàng
+[36m|[m * [1;33m|[m [33m6bc1dbe[m checkout p2
+[36m|[m * [1;33m|[m [33m91d41da[m feat: làm phần checkout và thông tin cá nhân P1
+[36m|[m * [1;33m|[m   [33m769cde4[m mua ngay
+[36m|[m [1;34m|[m[1;35m\[m [1;33m\[m  
+[36m|[m * [1;35m|[m [1;33m|[m [33m0a50fd7[m Cập nhật đăng nhập, header và routes
+[36m|[m * [1;35m|[m [1;33m|[m [33m3f61e7d[m code gôp
+[36m|[m * [1;35m|[m [1;33m|[m   [33mf083cd7[m Gộp code tuần 2
+[36m|[m [1;36m|[m[31m\[m [1;35m\[m [1;33m\[m  
+[36m|[m [1;36m|[m * [1;35m|[m [1;33m|[m [33m3c19946[m Thêm chức năng chọn biến thể, số lượng, sản phẩm liên quan, mô tả, bình luận
+[36m|[m [1;36m|[m * [1;35m|[m [1;33m|[m   [33mc794532[m Cập nhật giao diện chi tiết sản phẩm và thêm sản phẩm liên quan
+[36m|[m [1;36m|[m [32m|[m[33m\[m [1;35m\[m [1;33m\[m  
+[36m|[m [1;36m|[m * [33m|[m [1;35m|[m [1;33m|[m [33m17ecbb7[m cập nhập code
+[36m|[m * [33m|[m [33m|[m [1;35m|[m [1;33m|[m   [33m2a3d4b6[m Cập nhật lại crud tài khoản
+[36m|[m [34m|[m[35m\[m [33m\[m [33m\[m [1;35m\[m [1;33m\[m  
+[36m|[m * [35m|[m [33m|[m [33m|[m [1;35m|[m [1;33m|[m [33m600682d[m WIP: Lưu lại code trước khi merge
+* [35m|[m [35m|[m [33m|[m [33m|[m [1;35m|[m [1;33m|[m   [33m278d0f8[m gop code n
+[36m|[m[33m\[m [35m\[m [35m\[m [33m\[m [33m\[m [1;35m\[m [1;33m\[m  
+[36m|[m [33m|[m [35m|[m[33m_[m[35m|[m[33m_[m[33m|[m[33m/[m [1;35m/[m [1;33m/[m  
+[36m|[m [33m|[m[33m/[m[35m|[m [35m|[m [33m|[m [1;35m|[m [1;33m|[m   
+[36m|[m * [35m|[m [35m|[m [33m|[m [1;35m|[m [1;33m|[m [33mbe89ce2[m css js img giao dien trang chu
+* [1;31m|[m [35m|[m [35m|[m [33m|[m [1;35m|[m [1;33m|[m [33m6a1f97a[m Lưu thay đổi trước khi merge
+[35m|[m [1;31m|[m[35m_[m[35m|[m[35m/[m [33m/[m [1;35m/[m [1;33m/[m  
+[35m|[m[35m/[m[1;31m|[m [35m|[m [33m|[m [1;35m|[m [1;33m|[m   
+* [1;31m|[m [35m|[m [33m|[m [1;35m|[m [1;33m|[m [33mc6894f7[m Cập nhật giao diện, sửa controller ngườ dùng v đăng í đăn nhập  và xóa auth layout
+* [1;31m|[m [35m|[m [33m|[m [1;35m|[m [1;33m|[m [33meeffe81[m phan them xoa index cau người dung n
+* [1;31m|[m [35m|[m [33m|[m [1;35m|[m [1;33m|[m [33mcbfc655[m  dăng nhap  hiển thị avatar
+* [1;31m|[m [35m|[m [33m|[m [1;35m|[m [1;33m|[m   [33mb0440f8[m Đã xử lý conflict sau khi pull từ nhánh tlinh
+[1;32m|[m[1;33m\[m [1;31m\[m [35m\[m [33m\[m [1;35m\[m [1;33m\[m  
+[1;32m|[m * [1;31m|[m [35m|[m [33m|[m [1;35m|[m [1;33m|[m [33m0a8fd7f[m danh muc
+* [1;33m|[m [1;31m|[m [35m|[m [33m|[m [1;35m|[m [1;33m|[m [33mcc10e7e[m Resolve conflict
+[35m|[m [1;33m|[m[35m_[m[1;31m|[m[35m/[m [33m/[m [1;35m/[m [1;33m/[m  
+[35m|[m[35m/[m[1;33m|[m [1;31m|[m [33m|[m [1;35m|[m [1;33m|[m   
+[35m|[m [1;33m|[m [1;31m|[m [33m|[m [1;35m|[m [1;33m|[m * [33m5c25cd7[m[33m ([m[1;31morigin/hau[m[33m)[m Update: Thêm chức năng cập nhật trạng thái đơn hàng, sửa giao diện phân trang nhỏ gọn
+[35m|[m [1;33m|[m [1;31m|[m [33m|[m [1;35m|[m [1;33m|[m [1;34m|[m * [33mcf4202e[m[33m ([m[1;31morigin/thaison[m[33m)[m Sửa header, thêm route product.all
+[35m|[m [1;33m|[m [1;31m|[m [33m|[m [1;35m|[m [1;33m|[m [1;34m|[m * [33m1c0669e[m Cập nhật code giao diện client + thêm js/css
+[35m|[m [1;33m|[m [1;31m|[m [33m|[m [1;35m|[m [1;33m|[m [1;34m|[m * [33m68e3890[m Add counterup.min.js
+[35m|[m [1;33m|[m [1;31m|[m [33m|[m [1;35m|[m [1;33m|[m [1;34m|[m * [33m2e48473[m Add countdown.min.js
+[35m|[m [1;33m|[m [1;31m|[m [33m|[m [1;35m|[m [1;33m|[m [1;34m|[m * [33m4281586[m Add countdown.js
+[35m|[m [1;33m|[m [1;31m|[m [33m|[m [1;35m|[m [1;33m|[m [1;34m|[m * [33m460b7ed[m Add core.min.js
+[35m|[m [1;33m|[m [1;31m|[m [33m|[m [1;35m|[m [1;33m|[m [1;34m|[m * [33m97b6770[m Add actions.js
+[35m|[m [1;33m|[m [1;31m|[m [33m|[m [1;35m|[m [1;33m|[m [1;34m|[m * [33mfe182d0[m Add theme-default.css
+[35m|[m [1;33m|[m [1;31m|[m [33m|[m [1;35m|[m [1;33m|[m [1;34m|[m * [33mb6f20b3[m Add swiper.min.css
+[35m|[m [1;33m|[m [1;31m|[m [33m|[m [1;35m|[m [1;33m|[m [1;34m|[m * [33mb9b3786[m Add style.css
+[35m|[m [1;33m|[m [1;31m|[m [33m|[m [1;35m|[m [1;33m|[m [1;34m|[m * [33m2158ce2[m Add solid.min.css
+[35m|[m [1;33m|[m [1;31m|[m [33m|[m [1;35m|[m [1;33m|[m [1;34m|[m * [33m48b6628[m Add smooth-back-to-top-button.css
+[35m|[m [1;33m|[m [1;31m|[m [33m|[m [1;35m|[m [1;33m|[m [1;34m|[m * [33ma3fd38c[m Add slick.css
+[35m|[m [1;33m|[m [1;31m|[m [33m|[m [1;35m|[m [1;33m|[m [1;34m|[m * [33m30c36a9[m Add sbttb-fonts.css
+[35m|[m [1;33m|[m [1;31m|[m [33m|[m [1;35m|[m [1;33m|[m [1;34m|[m * [33m84de9f3[m Add sbi-styles.min.css
+[35m|[m [1;33m|[m [1;31m|[m [33m|[m [1;35m|[m [1;33m|[m [1;34m|[m * [33m01292dc[m Add rs6.css
+[35m|[m [1;33m|[m [1;31m|[m [33m|[m [1;35m|[m [1;33m|[m [1;34m|[m * [33mb5b6e7a[m Add perfect-scrollbar.min.css
+[35m|[m [1;33m|[m [1;31m|[m [33m|[m [1;35m|[m [1;33m|[m [1;34m|[m * [33mf1b01dc[m Add magnific-popup.css
+[35m|[m [1;33m|[m [1;31m|[m [33m|[m [1;35m|[m [1;33m|[m [1;34m|[m * [33m8dbb985[m Add jquery-ui.css
+[35m|[m [1;33m|[m [1;31m|[m [33m|[m [1;35m|[m [1;33m|[m [1;34m|[m * [33m31cf277[m Add iconly.css
+[35m|[m [1;33m|[m [1;31m|[m [33m|[m [1;35m|[m [1;33m|[m [1;34m|[m * [33maa5d767[m Add icomoon.css
+[35m|[m [1;33m|[m [1;31m|[m [33m|[m [1;35m|[m [1;33m|[m [1;34m|[m * [33m11c1342[m Add hint.min.css
+[35m|[m [1;33m|[m [1;31m|[m [33m|[m [1;35m|[m [1;33m|[m [1;34m|[m * [33m42f3b9c[m Add frontend.css
+[35m|[m [1;33m|[m [1;31m|[m [33m|[m [1;35m|[m [1;33m|[m [1;34m|[m * [33m1873204[m Add frontend-lite.min.css
+[35m|[m [1;33m|[m [1;31m|[m [33m|[m [1;35m|[m [1;33m|[m [1;34m|[m * [33mfc42182[m Add feather.css
+[35m|[m [1;33m|[m [1;31m|[m [33m|[m [1;35m|[m [1;33m|[m [1;34m|[m * [33m29271ce[m Add fancybox.css
+[35m|[m [1;33m|[m [1;31m|[m [33m|[m [1;35m|[m [1;33m|[m [1;34m|[m * [33m9ad725a[m Add electio-elementor.css
+[35m|[m [1;33m|[m [1;31m|[m [33m|[m [1;35m|[m [1;33m|[m [1;34m|[m * [33m4063520[m Add electio-core-public.css
+[35m|[m [1;33m|[m [1;31m|[m [33m|[m [1;35m|[m [1;33m|[m [1;34m|[m * 
