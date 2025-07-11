@@ -5,19 +5,24 @@
 @section('content')
 <div class="container-fluid">
     <div class="card shadow-sm border-0 rounded-3">
-        {{-- Tiêu đề và nút --}}
+
+        {{-- Header --}}
         <div class="card-header bg-white border-bottom d-flex justify-content-between align-items-center">
-            <h4 class="mb-0 fw-bold">Danh sách chức vụ</h4>
+            <h4 class="mb-0 fw-bold">🏷️ Danh sách chức vụ</h4>
             <a href="{{ route('roles.create') }}" class="btn btn-success btn-sm">
                 <i class="fas fa-plus-circle me-1"></i> Thêm chức vụ
             </a>
         </div>
 
-        {{-- Nội dung --}}
+        {{-- Body --}}
         <div class="card-body table-responsive">
-            {{-- Hiển thị thông báo --}}
+
+            {{-- Thông báo --}}
             @if(session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Đóng"></button>
+                </div>
             @endif
 
             @if ($errors->any())
@@ -35,8 +40,8 @@
                 <thead class="table-light">
                     <tr>
                         <th width="60px">ID</th>
-                        <th>Tên chức vụ</th>
-                        <th>Mô tả</th>
+                        <th class="text-start">Tên chức vụ</th>
+                        <th class="text-start">Mô tả</th>
                         <th width="180px">Thao tác</th>
                     </tr>
                 </thead>
@@ -50,10 +55,10 @@
                                 <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-warning btn-sm">
                                     <i class="fas fa-edit"></i> Sửa
                                 </a>
-                                <form action="{{ route('roles.destroy', $role->id) }}" method="POST" class="d-inline">
+                                <form action="{{ route('roles.destroy', $role->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Bạn có chắc muốn xóa?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc muốn xóa?')">
+                                    <button class="btn btn-danger btn-sm">
                                         <i class="fas fa-trash-alt"></i> Xóa
                                     </button>
                                 </form>
@@ -61,7 +66,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4" class="text-muted">Không có chức vụ nào.</td>
+                            <td colspan="4" class="text-muted text-center">Không có chức vụ nào.</td>
                         </tr>
                     @endforelse
                 </tbody>

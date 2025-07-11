@@ -1,65 +1,49 @@
+{{-- resources/views/client/user/dashboard.blade.php --}}
 @extends('client.layouts.app')
 
 @section('content')
+@push('styles')
 <style>
-    .dashboard-card {
-        max-width: 500px;
-        margin: 40px auto;
-        padding: 30px;
-        background: #fff;
-        border-radius: 12px;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-        font-family: 'Segoe UI', sans-serif;
-    }
-
-    .dashboard-card h2 {
-        font-size: 26px;
-        margin-bottom: 25px;
-        font-weight: 600;
-        color: #333;
-        text-align: center;
-    }
-
-    .dashboard-links a {
-        display: flex;
-        align-items: center;
-        padding: 12px 16px;
-        margin-bottom: 10px;
-        border-radius: 8px;
-        background: #f8f9fa;
-        text-decoration: none;
-        color: #333;
-        font-size: 16px;
-        transition: all 0.3s;
-    }
-
-    .dashboard-links a:hover {
-        background: #e9ecef;
-        color: #d70018;
-        text-decoration: none;
-    }
-
-    .dashboard-links i {
-        margin-right: 10px;
-        font-size: 18px;
+    .tab-pane {
+        display: block !important;
+        opacity: 1 !important;
     }
 </style>
+@endpush
 
-<div class="dashboard-card">
-    <h2>Xin chào, {{ Auth::user()->name }}</h2>
-    <div class="dashboard-links">
-        <a href="{{ route('user.profile') }}">
-            <i class="fa fa-user"></i> Thông tin cá nhân
-        </a>
-        <a href="{{ route('user.orders') }}">
-            <i class="fa fa-shopping-bag"></i> Quản lý đơn hàng
-        </a>
-        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-            <i class="fa fa-sign-out-alt"></i> Đăng xuất
-        </a>
-        <form id="logout-form" action="{{ route('taikhoan.logout') }}" method="POST" style="display: none;">
-            @csrf
-        </form>
+<div class="container py-5">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 mb-4">
+            <div class="card shadow-sm rounded-3">
+                <div class="card-header bg-dark text-white fw-bold">
+                    Xin chào, {{ Auth::user()->name }}
+                </div>
+                <div class="list-group list-group-flush">
+                    <a href="{{ route('user.profile') }}" class="list-group-item list-group-item-action">👉 Thông tin cá nhân</a>
+                    <a href="{{ route('user.orders') }}" class="list-group-item list-group-item-action">👉 Quản lý đơn hàng</a>
+                    <a href="#" class="list-group-item list-group-item-action text-danger"
+                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        👉 Đăng xuất
+                    </a>
+                    <form id="logout-form" action="{{ route('taikhoan.logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nội dung -->
+        <div class="col-md-9">
+            <div class="card shadow-sm rounded-3">
+                <div class="card-body">
+                    @yield('dashboard-content')
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
+
+{{-- 👇 Thêm dòng này để các @push('scripts') hoạt động --}}
+@stack('scripts')

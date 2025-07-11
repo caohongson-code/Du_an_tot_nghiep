@@ -41,35 +41,33 @@ class OrderController extends Controller
         }
 
         $orders = $query->orderBy('order_date', 'desc')->paginate(15);
-
-        // Tính tổng tiền theo bộ lọc hiện tại (tách riêng để tránh ảnh hưởng query pagination)
         $totalAmountAll = (clone $query)->sum('total_amount');
-
         $statuses = OrderStatus::all();
 
         return view('admin.orders.index', compact('orders', 'statuses', 'totalAmountAll'));
     }
 
-  public function show($id)
-{
-    $order = Order::with([
-        'orderDetails.productVariant.product',
-        'orderDetails.productVariant.ram',
-        'orderDetails.productVariant.storage',
-        'orderDetails.productVariant.color',
-        'orderStatus',
-        'paymentMethod',
-        'shippingZone',
-        'paymentStatus'
-    ])->findOrFail($id);
+    public function show($id)
+    {
+        $order = Order::with([
+            'orderDetails.productVariant.product',
+            'orderDetails.productVariant.ram',
+            'orderDetails.productVariant.storage',
+            'orderDetails.productVariant.color',
+            'orderStatus',
+            'paymentMethod',
+            'shippingZone',
+            'paymentStatus'
+        ])->findOrFail($id);
 
-    $statuses = OrderStatus::all();
-    $paymentMethods = PaymentMethod::all();
-    $shippingZones = ShippingZone::all();
-    $paymentStatuses = PaymentStatus::all();
+        $statuses = OrderStatus::all();
+        $paymentMethods = PaymentMethod::all();
+        $shippingZones = ShippingZone::all();
+        $paymentStatus = PaymentStatus::all();
 
-    return view('admin.orders.show', compact('order', 'statuses', 'paymentMethods', 'shippingZones','paymentStatuses'));
-}
+        return view('admin.orders.show', compact('order', 'statuses', 'paymentMethods', 'shippingZones', 'paymentStatus'));
+    }
+
     public function update(Request $request, $id)
     {
         $order = Order::with('orderStatus', 'orderDetails')->findOrFail($id);
@@ -77,33 +75,40 @@ class OrderController extends Controller
         $request->validate([
             'order_status_id' => 'required|exists:order_statuses,id',
         ]);
-        // Nếu đơn hàng đã bị hủy → không được cập nhật nữa
-
-
 
         $newStatusId = (int) $request->order_status_id;
         $oldStatusId = $order->order_status_id;
 
-        $shippingStatusStartId = 3; // trạng thái "Đang giao hàng"
-        $cancelledStatusId = 5;     // trạng thái "Đã hủy"
+        $FINAL_STATUS_IDS = [5, 6, 7]; // 5: Đã giao, 6: Trả hàng / Hoàn tiền, 7: Đã huỷ
 
-        if ($oldStatusId == $cancelledStatusId) {
-        return back()->with('error', 'Đơn hàng đã bị hủy và không thể cập nhật trạng thái nữa.');
+        // Không cho phép update nếu đã vào trạng thái cuối
+        if (in_array($oldStatusId, $FINAL_STATUS_IDS)) {
+            return back()->with('error', 'Đơn hàng đã hoàn tất hoặc bị huỷ. Không thể cập nhật nữa.');
         }
 
-        // Không cho phép quay lại trạng thái thấp hơn
-        if ($oldStatusId > 1 && $newStatusId == 1) {
-            return back()->with('error', 'Không thể quay lại trạng thái "Chờ xác nhận" sau khi đã xác nhận.');
+        // Chỉ cho phép cập nhật tuần tự
+        $allowedNextStatus = [];
+
+        switch ($oldStatusId) {
+            case 1:
+                $allowedNextStatus = [2, 7]; // từ Chờ xác nhận → Đã xác nhận hoặc Hủy
+                break;
+            case 2:
+                $allowedNextStatus = [3];    // từ Đã xác nhận → Đang chuẩn bị hàng
+                break;
+            case 3:
+                $allowedNextStatus = [4];    // từ Đang chuẩn bị hàng → Đang giao
+                break;
+            case 4:
+                $allowedNextStatus = [5];    // từ Đang giao → Đã giao
+                break;
+            case 5:
+                $allowedNextStatus = [6];    // từ Đã giao → Trả hàng
+                break;
         }
-        if ($oldStatusId > 2 && $newStatusId == 2) {
-            return back()->with('error', 'Không thể quay lại trạng thái "Đang xác nhận" sau khi đã qua.');
-        }
-        if ($oldStatusId > 3 && $newStatusId == 3) {
-            return back()->with('error', 'Không thể quay lại trạng thái "Đang giao" sau khi đã giao.');
-        }
-        // Không cho phép hủy đơn nếu trạng thái hiện tại là "Đang giao hàng" trở lên
-        if ($oldStatusId >= $shippingStatusStartId && $newStatusId == $cancelledStatusId) {
-            return back()->with('error', 'Không thể hủy đơn hàng khi đơn đang trong trạng thái "Đang giao" hoặc đã giao.');
+
+        if (!in_array($newStatusId, $allowedNextStatus)) {
+            return back()->with('error', 'Chuyển trạng thái không hợp lệ. Vui lòng tuân thủ quy trình.');
         }
 
         DB::beginTransaction();
@@ -132,7 +137,8 @@ class OrderController extends Controller
 
             DB::commit();
 
-            return redirect()->route('admin.orders.show', $order->id)->with('success', 'Cập nhật trạng thái đơn hàng thành công!');
+            return redirect()->route('admin.orders.show', $order->id)
+                ->with('success', 'Cập nhật trạng thái đơn hàng thành công!');
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error("Lỗi cập nhật trạng thái đơn hàng #$id: " . $e->getMessage());
@@ -157,18 +163,17 @@ class OrderController extends Controller
 
             // Tính phí ship
             $shippingZoneId = $cart->shipping_zone_id ?? null;
+            $shippingFee = 30000;
             if ($shippingZoneId) {
                 $shippingZone = ShippingZone::find($shippingZoneId);
                 $shippingFee = $shippingZone?->shipping_fee ?? 30000;
-            } else {
-                $shippingFee = 30000;
             }
 
-            // Tạo đơn hàng tạm với total_amount = 0
+            // Tạo đơn hàng tạm
             $order = Order::create([
                 'account_id' => $cart->account_id,
                 'cart_id' => $cart->id,
-                'order_status_id' => 1, // trạng thái "Chờ xác nhận"
+                'order_status_id' => 1,
                 'payment_method_id' => null,
                 'total_amount' => 0,
                 'shipping_zone_id' => $shippingZoneId,
@@ -191,18 +196,18 @@ class OrderController extends Controller
                     'product_variant_id' => $detail->product_variant_id,
                     'price' => $price,
                     'quantity' => $quantity,
-                    'total_price' => $totalPrice, // nếu có cột total_price trong bảng order_details
+                    'total_price' => $totalPrice,
                 ]);
 
                 $totalProductAmount += $totalPrice;
             }
 
-            // Cập nhật lại tổng tiền đơn hàng
+            // Cập nhật lại tổng tiền
             $order->update([
                 'total_amount' => $totalProductAmount + $shippingFee
             ]);
 
-            // Đánh dấu giỏ hàng đã đặt
+            // Đánh dấu giỏ đã đặt
             $cart->update(['status' => 'ordered']);
 
             DB::commit();

@@ -1,8 +1,8 @@
 <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
 <aside class="app-sidebar">
   <div class="app-sidebar__user">
-    {{-- <img class="app-sidebar__user-avatar" src="{{ asset('storage/' . $admin->avatar) }}" width="50px" alt="User Image"> --}}
-    <div>
+    {{-- <img class="app-sidebar__user-avatar" src="{{ asset('storage/' . $admin->avatar) }}" width="50px" alt="User Image">
+    <div> --}}
       {{-- <p class="app-sidebar__user-name"><b>{{ $admin->full_name }}</b></p> --}}
       <p class="app-sidebar__user-designation">Chào mừng bạn trở lại</p>
     </div>

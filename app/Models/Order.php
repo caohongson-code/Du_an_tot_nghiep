@@ -9,73 +9,73 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 
 
-    class Order extends Model
+class Order extends Model
+{
+    protected $fillable = [
+        'account_id',
+        'payment_method_id',
+        'payment_status_id', // ✅ thêm dòng này
+        'order_status_id',
+        'shipping_zone_id',
+        'shipping_fee',
+        'voucher_id',
+        'voucher_code',
+        'recipient_name',
+        'recipient_email',
+        'recipient_phone',
+        'recipient_address',
+        'note',
+        'order_date',
+        'total_amount',
+        'cart_id',
+    ];
+
+    protected $casts = [
+        'order_date' => 'datetime',
+    ];
+
+    public function account(): BelongsTo
     {
-        protected $fillable = [
-            'account_id',
-            'payment_method_id',
-            'order_status_id',
-            'shipping_zone_id',
-            'shipping_fee',
-            'voucher_id',
-            'voucher_code',
-            'recipient_name',
-            'recipient_email',
-            'recipient_phone',
-            'recipient_address',
-            'note',
-            'order_date',
-            'total_amount',
-            "cart_id",
-        ];
+        return $this->belongsTo(Account::class);
+    }
 
-        // 👇 Đây là phần bạn thiếu để dùng format() với order_date
-        protected $casts = [
-            'order_date' => 'datetime',
-        ];
+    public function paymentMethod(): BelongsTo
+    {
+        return $this->belongsTo(PaymentMethod::class);
+    }
 
-        public function account(): BelongsTo
-        {
-            return $this->belongsTo(Account::class);
-        }
+    public function paymentStatus(): BelongsTo
+    {
+        return $this->belongsTo(PaymentStatus::class, 'payment_status_id');
+    }
 
-        public function paymentMethod(): BelongsTo
-        {
-            return $this->belongsTo(PaymentMethod::class);
-        }
-        public function paymentStatus(): BelongsTo
-        {
-            return $this->belongsTo(PaymentStatus::class, 'payment_status_id');
-        }
+    public function orderStatus(): BelongsTo
+    {
+        return $this->belongsTo(OrderStatus::class);
+    }
 
-        public function orderStatus(): BelongsTo
-        {
-            return $this->belongsTo(OrderStatus::class);
-        }
+    public function voucher(): BelongsTo
+    {
+        return $this->belongsTo(Promotion::class, 'voucher_id');
+    }
 
-        public function voucher(): BelongsTo
-        {
-            return $this->belongsTo(Promotion::class, 'voucher_id');
-        }
+    public function orderDetails(): HasMany
+    {
+        return $this->hasMany(OrderDetail::class);
+    }
 
-        public function orderDetails(): HasMany
-        {
-            return $this->hasMany(OrderDetail::class);
-        }
-        public function cart()
+    public function cart()
     {
         return $this->belongsTo(Cart::class);
     }
-        public function statusModel()
+
+    public function statusModel()
     {
         return $this->belongsTo(CartStatus::class, 'cart_status_id');
     }
+
     public function shippingZone()
     {
-    return $this->belongsTo(ShippingZone::class);
+        return $this->belongsTo(ShippingZone::class);
     }
-
-
-
-
-    }
+}
