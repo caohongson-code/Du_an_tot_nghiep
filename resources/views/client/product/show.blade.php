@@ -1,6 +1,8 @@
 @extends('client.layouts.app')
 
 @section('content')
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
         /* Tổng thể container sản phẩm */
         .container.my-5 {
@@ -58,6 +60,7 @@
             font-size: 16px;
 
         }
+
         /* Bảng thông số kỹ thuật */
         .table.table-sm th {
             width: 100px;
@@ -125,7 +128,8 @@
         .btn-primary:hover {
             background-color: #b30014;
         }
-.btn-success {
+
+        .btn-success {
             background-color: #28a745;
             border: none;
             color: #fff;
@@ -244,95 +248,101 @@
                 display: none;
             }
         }
+
         #albumWrapper {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 15px;
-}
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
 
-.variant-album-img-wrapper {
-width: 70px;
-    height: 70px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    cursor: pointer;
-    display: none;
-    transition: transform 0.3s;
-}
+        .variant-album-img-wrapper {
+            width: 70px;
+            height: 70px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            display: none;
+            transition: transform 0.3s;
+        }
 
-.variant-album-img-wrapper:hover {
-    transform: scale(1.05);
-}
+        .variant-album-img-wrapper:hover {
+            transform: scale(1.05);
+        }
 
-.variant-album-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-.promo-fixed {
-    position: fixed;
-    width: 200px; /* Chiều rộng thống nhất */
-    height: 300px; /* Chiều cao thống nhất */
-    z-index: 9999;
-    padding: 0;
-    background: none;
-    border: none;
-    box-shadow: none;
-}
+        .variant-album-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-.promo-left {
-    left: 20px;
-    bottom: 100px;
-}
+        .promo-fixed {
+            position: fixed;
+            width: 200px;
+            /* Chiều rộng thống nhất */
+            height: 300px;
+            /* Chiều cao thống nhất */
+            z-index: 9999;
+            padding: 0;
+            background: none;
+            border: none;
+            box-shadow: none;
+        }
 
-.promo-right {
-    right: 20px;
-    bottom: 100px;
-}
+        .promo-left {
+            left: 20px;
+            bottom: 100px;
+        }
 
-.promo-fixed img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Cắt đều, không méo, tràn khung */
-    border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-    transition: transform 0.3s;
-}
+        .promo-right {
+            right: 20px;
+            bottom: 100px;
+        }
 
-.promo-fixed img:hover {
-    transform: scale(1.05);
-}
+        .promo-fixed img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Cắt đều, không méo, tràn khung */
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s;
+        }
 
-@media (max-width: 768px) {
-    .promo-left, .promo-right {
-        display: none;
-    }
-}
+        .promo-fixed img:hover {
+            transform: scale(1.05);
+        }
 
+        @media (max-width: 768px) {
 
+            .promo-left,
+            .promo-right {
+                display: none;
+            }
+        }
     </style>
 
     <div class="container my-5">
         <div class="row g-4">
             <div class="col-md-5">
-    <div id="mainImageWrapper">
-        <img id="mainImage" src="{{ asset('storage/' . $product->image) }}" class="img-fluid"
-            alt="{{ $product->product_name }}">
-    </div>
-
-    <div id="albumWrapper" class="d-flex flex-wrap gap-2 mt-3">
-        @foreach ($product->variants as $variant)
-            @foreach ($variant->images as $img)
-                <div class="variant-album-img-wrapper" data-variant="{{ $variant->id }}" style="display: none;">
-                    <img src="{{ asset('storage/' . $img->image) }}" alt="Ảnh phụ"
-                        class="variant-album-img" data-image="{{ asset('storage/' . $img->image) }}">
+                <div id="mainImageWrapper">
+                    <img id="mainImage" src="{{ asset('storage/' . $product->image) }}" class="img-fluid"
+                        alt="{{ $product->product_name }}">
                 </div>
-            @endforeach
-        @endforeach
-    </div>
-</div>
+
+                <div id="albumWrapper" class="d-flex flex-wrap gap-2 mt-3">
+                    @foreach ($product->variants as $variant)
+                        @foreach ($variant->images as $img)
+                            <div class="variant-album-img-wrapper" data-variant="{{ $variant->id }}"
+                                style="display: none;">
+                                <img src="{{ asset('storage/' . $img->image) }}" alt="Ảnh phụ" class="variant-album-img"
+                                    data-image="{{ asset('storage/' . $img->image) }}">
+                            </div>
+                        @endforeach
+                    @endforeach
+                </div>
+            </div>
 
 
 
@@ -354,7 +364,7 @@ width: 70px;
 
                 <div class="mb-3">
                     <strong class="d-block mb-1">Số lượng còn:</strong>
-<span id="stock" class="fs-6">{{ $product->quantity }}</span>
+                    <span id="stock" class="fs-6">{{ $product->quantity }}</span>
                 </div>
 
                 <table class="table table-bordered table-sm w-75">
@@ -409,7 +419,7 @@ width: 70px;
 
                     <form action="{{ route('cart.buyNow') }}" method="POST">
                         @csrf
-<input type="hidden" name="product_id" value="{{ $product->id }}">
+                        <input type="hidden" name="product_id" value="{{ $product->id }}">
                         <input type="hidden" name="variant_id" id="selectedVariantId">
                         <input type="hidden" name="quantity" id="buyNowQuantity" value="1">
                         <button type="submit" class="btn btn-primary">
@@ -472,7 +482,7 @@ width: 70px;
                             <div class="card-body p-2">
                                 <h6 class="card-title mb-1">
                                     <a href="{{ route('product.show', $item->id) }}"
-class="text-dark text-decoration-none">{{ $item->product_name }}</a>
+                                        class="text-dark text-decoration-none">{{ $item->product_name }}</a>
                                 </h6>
                                 <p class="mb-0 text-danger fw-semibold">
                                     @if ($item->discount_price)
@@ -500,104 +510,146 @@ class="text-dark text-decoration-none">{{ $item->product_name }}</a>
 
 
 
-        
+
         {{-- Nút gọi nhanh cố định --}}
         <div class="call-fixed">
             <a href="tel:0123456789" class="btn btn-success shadow">
                 <i class="fa fa-phone" style="font-size: 24px; color: #fff;"></i>
             </a>
         </div>
-<!-- Banner bên trái -->
-<div class="promo-fixed promo-left">
-    <a href="#">
-        <img src="https://png.pngtree.com/template/20200517/ourlarge/pngtree-summer-sale-banner-promotion-template-in-portrait-position-with-bright-design-image_372761.jpg" 
-             alt="Summer Sale">
-    </a>
-</div>
+        <!-- Banner bên trái -->
+        <div class="promo-fixed promo-left">
+            <a href="#">
+                <img src="https://png.pngtree.com/template/20200517/ourlarge/pngtree-summer-sale-banner-promotion-template-in-portrait-position-with-bright-design-image_372761.jpg"
+                    alt="Summer Sale">
+            </a>
+        </div>
 
-<!-- Banner bên phải -->
-<div class="promo-fixed promo-right">
-    <a href="#">
-        <img src="https://img.pikbest.com/origin/09/06/37/13NpIkbEsTGT5.jpg!w700wp" 
-             alt="Flash Sale">
-    </a>
-</div>
-
-
+        <!-- Banner bên phải -->
+        <div class="promo-fixed promo-right">
+            <a href="#">
+                <img src="https://img.pikbest.com/origin/09/06/37/13NpIkbEsTGT5.jpg!w700wp" alt="Flash Sale">
+            </a>
+        </div>
 
     @endsection
 
-   @push('scripts')
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const variantButtons = document.querySelectorAll('.variant-option');
-        const selectedVariantInput = document.getElementById('selectedVariantId');
-        const addToCartVariantInput = document.getElementById('addToCartVariantId');
-        const buyNowForm = document.querySelector('form[action="{{ route('cart.buyNow') }}"]');
-        const addToCartForm = document.getElementById('addToCartForm');
-        const albumImages = document.querySelectorAll('.variant-album-img-wrapper');
-        const mainImage = document.getElementById('mainImage');
-        const priceBlock = document.getElementById('priceBlock');
-        const ram = document.getElementById('ram');
-        const storage = document.getElementById('storage');
-        const color = document.getElementById('color');
-        const stock = document.getElementById('stock');
+    @push('scripts')
 
-        variantButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const variantId = this.dataset.id;
-                mainImage.src = this.dataset.image;
-                priceBlock.innerHTML = `<span class="text-danger fw-bold">${parseInt(this.dataset.price || 0).toLocaleString('vi-VN')} đ</span>`;
-                ram.innerText = this.dataset.ram || '-';
-                storage.innerText = this.dataset.storage || '-';
-                color.innerText = this.dataset.color || '-';
-                stock.innerText = this.dataset.quantity || '-';
-                selectedVariantInput.value = variantId;
-                addToCartVariantInput.value = variantId;
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const variantButtons = document.querySelectorAll('.variant-option');
+                const selectedVariantInput = document.getElementById('selectedVariantId');
+                const addToCartVariantInput = document.getElementById('addToCartVariantId');
+                const buyNowForm = document.querySelector('form[action="{{ route('cart.buyNow') }}"]');
+                const addToCartForm = document.getElementById('addToCartForm');
+                const albumImages = document.querySelectorAll('.variant-album-img-wrapper');
+                const mainImage = document.getElementById('mainImage');
 
-                variantButtons.forEach(btn => btn.classList.remove('active', 'btn-primary'));
-                this.classList.add('active', 'btn-primary');
+                variantButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const variantId = this.dataset.id;
 
-                // Hiện album ảnh đúng variant
-                albumImages.forEach(img => {
-                    img.style.display = (img.dataset.variant === variantId) ? 'block' : 'none';
+                        // Cập nhật thông tin
+                        mainImage.src = this.dataset.image;
+                        document.getElementById('priceBlock').innerHTML =
+                            `<span class="text-danger fw-bold">${parseInt(this.dataset.price || 0).toLocaleString('vi-VN')} đ</span>`;
+                        document.getElementById('ram').innerText = this.dataset.ram || '-';
+                        document.getElementById('storage').innerText = this.dataset.storage || '-';
+                        document.getElementById('color').innerText = this.dataset.color || '-';
+                        document.getElementById('stock').innerText = this.dataset.quantity || '-';
+                        selectedVariantInput.value = variantId;
+                        addToCartVariantInput.value = variantId;
+
+                        // Active nút
+                        variantButtons.forEach(btn => btn.classList.remove('active', 'btn-primary'));
+                        this.classList.add('active', 'btn-primary');
+
+                        // Ẩn/hiện ảnh album đúng phiên bản
+                        albumImages.forEach(img => {
+                            img.style.display = (img.dataset.variant === variantId) ? 'block' :
+                                'none';
+                        });
+                    });
+                });
+
+                // Click ảnh nhỏ -> đổi ảnh to
+                document.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('variant-album-img')) {
+                        mainImage.src = e.target.dataset.image;
+                    }
+                });
+
+                // Validate khi mua ngay hoặc thêm giỏ hàng
+                buyNowForm.addEventListener('submit', function(e) {
+                    if (!selectedVariantInput.value) {
+                        e.preventDefault();
+                        alert('Vui lòng chọn phiên bản trước khi mua ngay.');
+                    }
+                });
+                addToCartForm.addEventListener('submit', function(e) {
+                    if (!addToCartVariantInput.value) {
+                        e.preventDefault();
+                        alert('Vui lòng chọn phiên bản trước khi thêm vào giỏ.');
+                    }
                 });
             });
-        });
 
-        // Đổi ảnh chính khi click ảnh nhỏ
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('variant-album-img')) {
-                mainImage.src = e.target.dataset.image;
+
+            function changeQty(change) {
+                const input = document.getElementById('quantityInput');
+                let value = parseInt(input.value) || 1;
+                const max = parseInt(input.max);
+                value += change;
+                if (value < 1) value = 1;
+                if (value > max) value = max;
+                input.value = value;
+                document.getElementById('buyNowQuantity').value = value;
             }
-        });
 
-        buyNowForm.addEventListener('submit', function(e) {
-            if (!selectedVariantInput.value) {
-                e.preventDefault();
-                alert('Vui lòng chọn phiên bản trước khi mua ngay.');
-            }
-        });
-        addToCartForm.addEventListener('submit', function(e) {
-            if (!addToCartVariantInput.value) {
-                e.preventDefault();
-                alert('Vui lòng chọn phiên bản trước khi thêm vào giỏ.');
-            }
-        });
+            document.addEventListener('DOMContentLoaded', () => {
+                const variantButtons = document.querySelectorAll('.variant-option');
+                const selectedVariantInput = document.getElementById('selectedVariantId');
+                const addToCartVariantInput = document.getElementById('addToCartVariantId');
+                const buyNowForm = document.querySelector('form[action="{{ route('cart.buyNow') }}"]');
+                const addToCartForm = document.getElementById('addToCartForm');
 
-        // Thông báo nhỏ
-        setTimeout(() => {
-            alert('💡 Đăng ký tài khoản để nhận ngay voucher giảm giá hấp dẫn!');
-        }, 3000);
-    });
+                variantButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        document.getElementById('mainImage').src = this.dataset.image;
+                        const priceValue = parseInt(this.dataset.price || 0).toLocaleString('vi-VN') +
+                            ' đ';
+                        document.getElementById('priceBlock').innerHTML =
+                            `<span class="text-danger fw-bold">${priceValue}</span>`;
+                        document.getElementById('ram').innerText = this.dataset.ram || '-';
+                        document.getElementById('storage').innerText = this.dataset.storage || '-';
+                        document.getElementById('color').innerText = this.dataset.color || '-';
+                        document.getElementById('stock').innerText = this.dataset.quantity || '-';
+                        selectedVariantInput.value = this.dataset.id;
+                        addToCartVariantInput.value = this.dataset.id;
+                        variantButtons.forEach(btn => btn.classList.remove('active', 'btn-primary'));
+                        this.classList.add('active', 'btn-primary');
+                    });
+                });
 
-    function changeQty(change) {
-        const input = document.getElementById('quantityInput');
-        let value = parseInt(input.value) || 1;
-        value += change;
-        if (value < 1) value = 1;
-        input.value = value;
-        document.getElementById('buyNowQuantity').value = value;
-    }
-</script>
-@endpush
+                buyNowForm.addEventListener('submit', function(e) {
+                    if (!selectedVariantInput.value) {
+                        e.preventDefault();
+                        alert('Vui lòng chọn phiên bản trước khi mua ngay.');
+                    }
+                });
+
+                addToCartForm.addEventListener('submit', function(e) {
+                    if (!addToCartVariantInput.value) {
+                        e.preventDefault();
+                        alert('Vui lòng chọn phiên bản trước khi thêm vào giỏ hàng.');
+                    }
+                });
+
+                // Thông báo nổi khi load trang
+                setTimeout(() => {
+                    alert('💡 Đăng ký tài khoản để nhận ngay voucher giảm giá hấp dẫn!');
+                }, 3000);
+            });
+        </script>
+    @endpush

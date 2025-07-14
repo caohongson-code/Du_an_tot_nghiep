@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Models\CartDetail;
 use App\Models\Cart;
+use App\Models\MomoTransaction;
 use Illuminate\Support\Facades\DB;
 
 class CheckoutController extends Controller
@@ -43,13 +44,22 @@ class CheckoutController extends Controller
             if ($cartDetails->isEmpty()) return redirect()->route('cart.show')->with('error', 'Không có sản phẩm để thanh toán.');
 
             foreach ($cartDetails as $item) {
-                $price = $item->product->discount_price ?? $item->product->price;
+                $variant = $item->variant;
+
+                // ✅ Ưu tiên lấy giá từ sản phẩm biến thể
+                if ($variant && $variant->price) {
+                    $price = $variant->price;
+                } else {
+                    $price = $item->product->discount_price ?? $item->product->price;
+                }
+
                 $lineTotal = $price * $item->quantity;
                 $subtotal += $lineTotal;
+
                 $cartItems[] = [
                     'cart_detail_id' => $item->id,
                     'product' => $item->product,
-                    'variant' => $item->variant,
+                    'variant' => $variant,
                     'quantity' => $item->quantity,
                     'price' => $price,
                     'subtotal' => $lineTotal
@@ -118,13 +128,21 @@ class CheckoutController extends Controller
             $cart = Cart::where('account_id', $user->id)->where('cart_status_id', 1)->first();
             $cartDetails = $cart->details()->whereIn('id', $selectedItems)->with(['product', 'variant'])->get();
             foreach ($cartDetails as $item) {
-                $price = $item->product->discount_price ?? $item->product->price;
+                $variant = $item->variant;
+
+                if ($variant && $variant->price) {
+                    $price = $variant->price;
+                } else {
+                    $price = $item->product->discount_price ?? $item->product->price;
+                }
+
                 $lineTotal = $price * $item->quantity;
                 $subtotal += $lineTotal;
+
                 $cartItems[] = [
                     'cart_detail_id' => $item->id,
                     'product' => $item->product,
-                    'variant' => $item->variant,
+                    'variant' => $variant,
                     'quantity' => $item->quantity,
                     'price' => $price,
                     'subtotal' => $lineTotal
@@ -161,13 +179,13 @@ class CheckoutController extends Controller
             $requestId
         );
 
-       if ($paymentMethod === 'momo') {
-        return view('client.checkout.momo_redirect', [
-            'request_id' => $requestId,
-            'total' => $total,
-            'orderId' => $orderId,
-        ]);
-}
+        if ($paymentMethod === 'momo') {
+            return view('client.checkout.momo_redirect', [
+                'request_id' => $requestId,
+                'total' => $total,
+                'orderId' => $orderId,
+            ]);
+        }
 
 
         return redirect()->route('home')->with('success', '✅ Đặt hàng thành công!');
@@ -176,13 +194,14 @@ class CheckoutController extends Controller
     public function createOrder($user, $cartItems, $subtotal, $discount, $shippingFee, $voucher = null, $selectedItems = [], $paymentMethod = 'momo', $requestId = null)
     {
         $total = $subtotal + $shippingFee - $discount;
-        $orderStatus = $paymentMethod === 'momo' ? 3 : 4;
+        $payment_status = $paymentMethod === 'momo' ? 1 : 2;
 
         $orderId = DB::table('orders')->insertGetId([
             'account_id' => $user->id,
             'payment_method_id' => $this->getPaymentMethodId($paymentMethod),
             'shipping_zone_id' => 1,
-            'order_status_id' => $orderStatus,
+            'order_status_id' => 1,
+            'payment_status_id' => $payment_status,
             'voucher_id' => $voucher?->id,
             'voucher_code' => $voucher?->code,
             'shipping_fee' => $shippingFee,
@@ -221,4 +240,33 @@ class CheckoutController extends Controller
     {
         return DB::table('payment_methods')->where('code', $code)->value('id') ?? 1;
     }
+  public function momoResult($orderId)
+{
+    $momo_trans = MomoTransaction::where('order_id', $orderId)->first();
+    $order = DB::table('orders')->where('id', $orderId)->first();
+
+    $order_details = DB::table('order_details')
+        ->join('product_variants', 'order_details.product_variant_id', '=', 'product_variants.id')
+        ->join('products', 'product_variants.product_id', '=', 'products.id')
+        ->leftJoin('rams', 'product_variants.ram_id', '=', 'rams.id')
+        ->leftJoin('storages', 'product_variants.storage_id', '=', 'storages.id')
+        ->leftJoin('colors', 'product_variants.color_id', '=', 'colors.id')
+        ->select(
+            'products.product_name as product_name',
+            'rams.value as ram',
+            'storages.value as storage',
+            'colors.value as color',
+            'order_details.quantity',
+            'order_details.unit_price',
+            'order_details.total_price'
+        )
+        ->where('order_details.order_id', $orderId)
+        ->get();
+
+    $result_code = $momo_trans->result_code ?? 99;
+
+    return view('client.checkout.momo_result', compact('momo_trans', 'result_code', 'order', 'order_details'));
+}
+
+
 }

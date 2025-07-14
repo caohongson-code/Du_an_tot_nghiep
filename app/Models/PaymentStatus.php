@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PaymentStatus extends Model
 {
-    protected $table = 'payment_status';
+    protected $table = 'payment_statuses';
     protected $fillable = ['name'];
 
     public function orders(): HasMany

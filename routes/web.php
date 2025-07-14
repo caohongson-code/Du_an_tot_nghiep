@@ -16,11 +16,13 @@ use App\Http\Controllers\adminCatCategoriesController;
 use App\Http\Controllers\Client\CartController as ClientCartController;
 use App\Http\Controllers\Client\CheckoutController;
 use App\Http\Controllers\Client\MomoController;
+use App\Http\Controllers\Client\OrderController as ClientOrderController;
 use App\Http\Controllers\CustomersControllerr;
 
 use App\Http\Controllers\Client\ProductClientController;
 use App\Http\Controllers\Client\ProductController as ClientProductController;
 use App\Http\Controllers\Client\ProductVariantController as ClientProductVariantController;
+use App\Http\Controllers\Client\ReviewController;
 use App\Http\Controllers\Client\UserProfileController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductVariantImageController;
@@ -39,6 +41,9 @@ Route::get('/product/{id}', [ProductClientController::class, 'show'])->name('pro
 Route::get('/login', [AccountController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AccountController::class, 'login'])->name('taikhoan.login');
 Route::post('/register', [AccountController::class, 'register'])->name('taikhoan.register');
+Route::get('/gioi-thieu', function () {
+    return view('client.layouts.gioithieu');
+})->name('about');
 
 // 🌟 Các chức năng yêu cầu đăng nhập
 Route::middleware('auth')->group(function () {
@@ -57,29 +62,46 @@ Route::middleware('auth')->group(function () {
     })->name('user.orders');
     //
     Route::get('/user/profile', [UserProfileController::class, 'show'])->name('user.profile');
-    Route::get('/user/profile/edit', [UserProfileController::class, 'edit'])->name('user.profile.edit');
     Route::post('/user/profile/update', [UserProfileController::class, 'update'])->name('user.profile.update');
+    //
+    Route::get('/user/orders', [ClientOrderController::class, 'show'])->name('user.orders');
+    Route::get('/user/orders/{id}', [ClientOrderController::class, 'detail'])->name('user.orders.detail');
+    Route::post('/client/orders/{id}/cancel', [ClientOrderController::class, 'ajaxCancel'])->name('client.orders.cancel');
+    Route::post('/orders/return-refund/{id}', [ClientOrderController::class, 'requestReturnRefund'])->name('orders.return_refund');
+
+
+    Route::post('/client/reviews', [ReviewController::class, 'store'])->name('client.reviews.store');
+
+
     Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
     //
     Route::post('/cart/add', [ClientCartController::class, 'add'])->name('cart.add');
     Route::get('/cart', [ClientCartController::class, 'show'])->name('cart.show');
 
-// Gửi yêu cầu thanh toán lên MoMo
-Route::post('/momo_payment', [MomoController::class, 'momo_payment'])->name('momo.payment');
+    // Gửi yêu cầu thanh toán lên MoMo
+    // Gửi yêu cầu thanh toán lên MoMo
+    Route::post('/momo_payment', [MomoController::class, 'momo_payment'])->name('momo.payment');
 
-// IPN từ server MoMo gửi về (POST), nơi xử lý đơn hàng chính thức
-Route::post('/momo_ipn', [MomoController::class, 'handleMomoIpn'])->name('momo.ipn');
+    // IPN từ server MoMo gửi về (POST), nơi xử lý đơn hàng chính thức
+    Route::post('/momo_ipn', [MomoController::class, 'handleMomoIpn'])->name('momo.ipn');
 
-// Người dùng quay lại sau khi thanh toán xong, chỉ hiển thị kết quả
-Route::get('/momo_redirect', [MomoController::class, 'handleMomoRedirect'])->name('momo.redirect');
-
-
-// Hiển thị tất cả sản phẩm (client)
-Route::get('/products', [ProductClientController::class, 'index'])->name('product.all');
+    // Người dùng quay lại sau khi thanh toán xong, chỉ hiển thị kết quả
+    Route::get('/momo_redirect', [MomoController::class, 'handleMomoRedirect'])->name('momo.redirect');
+    Route::get('/momo/result/{orderId}', [CheckoutController::class, 'momoResult'])->name('momo.result');
 
 
+    // Hiển thị tất cả sản phẩm (client)
+    Route::get('/products', [ProductClientController::class, 'index'])->name('product.all');
 
+
+    // IPN từ server MoMo gửi về (POST), nơi xử lý đơn hàng chính thức
+    Route::post('/momo_ipn', [MomoController::class, 'handleMomoIpn'])->name('momo.ipn');
+
+    // Người dùng quay lại sau khi thanh toán xong, chỉ hiển thị kết quả
+    Route::get('/momo_redirect', [MomoController::class, 'handleMomoRedirect'])->name('momo.redirect');
+   
 });
+
 
 // Khu vực quản trị (admin)
 Route::prefix('admin')->group(function () {
@@ -101,8 +123,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/orders/{id}', [OrderController::class, 'show'])->name('admin.orders.show');
     Route::put('/orders/{id}', [OrderController::class, 'update'])->name('admin.orders.update');
     Route::get('/admin/orders/place/{cartId}', [OrderController::class, 'placeOrderFromCart'])->name('admin.orders.place');
-     Route::post('/variants/{id}/images', [ProductVariantImageController::class, 'storeImages'])->name('admin.variant.images.store');
+    Route::post('/variants/{id}/images', [ProductVariantImageController::class, 'storeImages'])->name('admin.variant.images.store');
     Route::delete('/variant-images/{id}', [ProductVariantImageController::class, 'deleteImage'])->name('admin.variant.images.delete');
     Route::get('/dashboard', [DashboardControlle::class, 'index'])->name('dashboard');
-
 });

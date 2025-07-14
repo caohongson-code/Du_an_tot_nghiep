@@ -23,11 +23,10 @@
                                 <p><strong>Email:</strong> {{ Auth::user()->email }}</p>
                                 <p><strong>Số điện thoại:</strong> {{ Auth::user()->phone ?? 'Chưa có' }}</p>
                                 <p><strong>Địa chỉ:</strong> {{ Auth::user()->address ?? 'Chưa có' }}</p>
-                                <a href="{{ route('user.profile.edit') }}" class="btn btn-sm btn-warning mt-2">✏️ Cập nhật thông tin</a>
+                                <a href="{{ route('user.profile') }}" class="btn btn-sm btn-warning mt-2">✏️ Cập nhật thông tin</a>
                             </div>
                         </div>
                     </div>
-
                     <div class="col-md-6">
                         <div class="card mb-4">
                             <div class="card-header bg-success text-white">📦 Thông tin sản phẩm</div>
