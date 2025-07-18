@@ -216,7 +216,7 @@
                                         <li class="li-menu"><a class="tp_menu_item" href="#">Phụ kiện</a></li>
                                         <li class="li-menu"><a class="tp_menu_item" href="#">Khuyến mãi</a>
                                         </li>
-                                        <li class="li-menu"><a class="tp_menu_item" href="#">Hỗ trợ</a></li>
+                                        <li class="li-menu"><a class="tp_menu_item" href="contact">Liên hệ</a></li>
                                     </ul>
                                 </nav>
                             </div>
