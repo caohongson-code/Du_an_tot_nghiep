@@ -95,8 +95,12 @@
               <span class="app-menu__label">Quản lý tin tức</span>
           </a>
        </li>
-
-
+       <li>
+        <a class="app-menu__item {{ request()->is('admin/contacts*') ? 'active' : '' }}" href="{{ route('admin.contacts.index') }}">
+        <i class='app-menu__icon bx bx-envelope'></i>
+        <span class="app-menu__label">Liên hệ khách hàng</span>
+         </a>
+          </li>
 
   <li>
       <a class="app-menu__item {{ request()->is('admin/salary*') ? 'active' : '' }}" href="{{ url('admin/salary') }}">

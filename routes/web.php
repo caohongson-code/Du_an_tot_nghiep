@@ -22,9 +22,11 @@ use App\Http\Controllers\Client\ProductClientController;
 use App\Http\Controllers\Client\ProductController as ClientProductController;
 use App\Http\Controllers\Client\ProductVariantController as ClientProductVariantController;
 use App\Http\Controllers\Client\UserProfileController;
+use App\Http\Controllers\Client\ContactController as ClientContactController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductVariantImageController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\ContactController;
 
 // Trang mặc định → login admin
 Route::get('/', function () {
@@ -73,7 +75,9 @@ Route::post('/momo_ipn', [MomoController::class, 'handleMomoIpn'])->name('momo.i
 // Người dùng quay lại sau khi thanh toán xong, chỉ hiển thị kết quả
 Route::get('/momo_redirect', [MomoController::class, 'handleMomoRedirect'])->name('momo.redirect');
 
-
+// Contact
+Route::get('/contact', [ClientContactController::class, 'create'])->name('contact');
+Route::post('/contact', [ClientContactController::class, 'store'])->name('contact.store');
 
 
 
@@ -102,4 +106,6 @@ Route::prefix('admin')->group(function () {
     Route::post('/variants/{id}/images', [ProductVariantImageController::class, 'storeImages'])->name('admin.variant.images.store');
     Route::delete('/variant-images/{id}', [ProductVariantImageController::class, 'deleteImage'])->name('admin.variant.images.delete');
     Route::resource('news', NewsController::class)->names('admin.news');
+  Route::get('/contacts', [ContactController::class, 'index'])->name('admin.contacts.index');
+Route::delete('/contacts/{contact}', [ContactController::class, 'destroy'])->name('admin.contacts.destroy');
 });
