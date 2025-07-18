@@ -24,6 +24,7 @@ use App\Http\Controllers\Client\ProductVariantController as ClientProductVariant
 use App\Http\Controllers\Client\UserProfileController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductVariantImageController;
+use App\Http\Controllers\NewsController;
 
 // Trang mặc định → login admin
 Route::get('/', function () {
@@ -98,6 +99,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/orders/{id}', [OrderController::class, 'show'])->name('admin.orders.show');
     Route::put('/orders/{id}', [OrderController::class, 'update'])->name('admin.orders.update');
     Route::get('/admin/orders/place/{cartId}', [OrderController::class, 'placeOrderFromCart'])->name('admin.orders.place');
-     Route::post('/variants/{id}/images', [ProductVariantImageController::class, 'storeImages'])->name('admin.variant.images.store');
+    Route::post('/variants/{id}/images', [ProductVariantImageController::class, 'storeImages'])->name('admin.variant.images.store');
     Route::delete('/variant-images/{id}', [ProductVariantImageController::class, 'deleteImage'])->name('admin.variant.images.delete');
+    Route::resource('news', NewsController::class)->names('admin.news');
 });

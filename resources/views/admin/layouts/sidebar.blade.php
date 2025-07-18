@@ -89,6 +89,14 @@
             </ul>
         </li>
 
+        <li>
+            <a class="app-menu__item {{ request()->is('admin/news*') ? 'active' : '' }}" href="{{ route('admin.news.index') }}">
+            <i class='app-menu__icon bx bx-news'></i>
+              <span class="app-menu__label">Quản lý tin tức</span>
+          </a>
+       </li>
+
+
 
   <li>
       <a class="app-menu__item {{ request()->is('admin/salary*') ? 'active' : '' }}" href="{{ url('admin/salary') }}">

@@ -71,74 +71,74 @@ class OrderController extends Controller
     return view('admin.orders.show', compact('order', 'statuses', 'paymentMethods', 'shippingZones','paymentStatuses'));
 }
     public function update(Request $request, $id)
-    {
-        $order = Order::with('orderStatus', 'orderDetails')->findOrFail($id);
+{
+    $order = Order::with('orderStatus', 'orderDetails')->findOrFail($id);
 
-        $request->validate([
-            'order_status_id' => 'required|exists:order_statuses,id',
-        ]);
-        // Nếu đơn hàng đã bị hủy → không được cập nhật nữa
+    $request->validate([
+        'order_status_id' => 'required|exists:order_statuses,id',
+    ]);
 
+    $newStatusId = (int) $request->order_status_id;
+    $oldStatusId = $order->order_status_id;
 
+    $shippingStatusStartId = 3; // ID trạng thái "Đang giao"
+    $cancelledStatusId = 5;     // ID trạng thái "Đã hủy"
 
-        $newStatusId = (int) $request->order_status_id;
-        $oldStatusId = $order->order_status_id;
-
-        $shippingStatusStartId = 3; // trạng thái "Đang giao hàng"
-        $cancelledStatusId = 5;     // trạng thái "Đã hủy"
-
-        if ($oldStatusId == $cancelledStatusId) {
+    // ❌ Nếu đơn hàng đã bị hủy → không được cập nhật nữa
+    if ($oldStatusId == $cancelledStatusId) {
         return back()->with('error', 'Đơn hàng đã bị hủy và không thể cập nhật trạng thái nữa.');
-        }
-
-        // Không cho phép quay lại trạng thái thấp hơn
-        if ($oldStatusId > 1 && $newStatusId == 1) {
-            return back()->with('error', 'Không thể quay lại trạng thái "Chờ xác nhận" sau khi đã xác nhận.');
-        }
-        if ($oldStatusId > 2 && $newStatusId == 2) {
-            return back()->with('error', 'Không thể quay lại trạng thái "Đang xác nhận" sau khi đã qua.');
-        }
-        if ($oldStatusId > 3 && $newStatusId == 3) {
-            return back()->with('error', 'Không thể quay lại trạng thái "Đang giao" sau khi đã giao.');
-        }
-        // Không cho phép hủy đơn nếu trạng thái hiện tại là "Đang giao hàng" trở lên
-        if ($oldStatusId >= $shippingStatusStartId && $newStatusId == $cancelledStatusId) {
-            return back()->with('error', 'Không thể hủy đơn hàng khi đơn đang trong trạng thái "Đang giao" hoặc đã giao.');
-        }
-
-        DB::beginTransaction();
-
-        try {
-            // Cập nhật trạng thái mới
-            $order->order_status_id = $newStatusId;
-
-            // Cập nhật phí vận chuyển
-            if ($order->shipping_zone_id) {
-                $shippingZone = ShippingZone::find($order->shipping_zone_id);
-                $order->shipping_fee = $shippingZone?->shipping_fee ?? 30000;
-            } elseif (is_null($order->shipping_fee)) {
-                $order->shipping_fee = 30000;
-            }
-
-            // Tính tổng tiền sản phẩm
-            $totalProductAmount = $order->orderDetails->sum(function ($detail) {
-                return $detail->quantity * ($detail->price ?? 0);
-            }) ?? 0;
-
-            // Cập nhật tổng tiền đơn hàng (sản phẩm + phí ship)
-            $order->total_amount = $totalProductAmount + $order->shipping_fee;
-
-            $order->save();
-
-            DB::commit();
-
-            return redirect()->route('admin.orders.show', $order->id)->with('success', 'Cập nhật trạng thái đơn hàng thành công!');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            Log::error("Lỗi cập nhật trạng thái đơn hàng #$id: " . $e->getMessage());
-            return back()->with('error', 'Có lỗi xảy ra: ' . $e->getMessage())->withInput();
-        }
     }
+
+    // ❌ Không cho phép hủy nếu đơn đã giao hoặc đang giao
+    if ($oldStatusId >= $shippingStatusStartId && $newStatusId == $cancelledStatusId) {
+        return back()->with('error', 'Không thể hủy đơn hàng khi đơn đang trong trạng thái "Đang giao" hoặc đã giao.');
+    }
+
+    // ❌ Không cho phép quay lại trạng thái thấp hơn
+    if ($oldStatusId > 1 && $newStatusId == 1) {
+        return back()->with('error', 'Không thể quay lại trạng thái "Chờ xác nhận" sau khi đã xác nhận.');
+    }
+    if ($oldStatusId > 2 && $newStatusId == 2) {
+        return back()->with('error', 'Không thể quay lại trạng thái "Đang xác nhận" sau khi đã qua.');
+    }
+    if ($oldStatusId > 3 && $newStatusId == 3) {
+        return back()->with('error', 'Không thể quay lại trạng thái "Đang giao" sau khi đã giao.');
+    }
+
+    DB::beginTransaction();
+
+    try {
+        // ✅ Cập nhật trạng thái mới
+        $order->order_status_id = $newStatusId;
+
+        // ✅ Cập nhật phí vận chuyển
+        if ($order->shipping_zone_id) {
+            $shippingZone = ShippingZone::find($order->shipping_zone_id);
+            $order->shipping_fee = $shippingZone?->shipping_fee ?? 30000;
+        } elseif (is_null($order->shipping_fee)) {
+            $order->shipping_fee = 30000;
+        }
+
+        // ✅ Tính tổng tiền sản phẩm
+        $totalProductAmount = $order->orderDetails->sum(function ($detail) {
+            return $detail->quantity * ($detail->price ?? 0);
+        }) ?? 0;
+
+        // ✅ Cập nhật tổng tiền đơn hàng (sản phẩm + phí ship)
+        $order->total_amount = $totalProductAmount + $order->shipping_fee;
+
+        $order->save();
+
+        DB::commit();
+
+        return redirect()->route('admin.orders.show', $order->id)
+            ->with('success', 'Cập nhật trạng thái đơn hàng thành công!');
+    } catch (\Exception $e) {
+        DB::rollBack();
+        Log::error("Lỗi cập nhật trạng thái đơn hàng #$id: " . $e->getMessage());
+        return back()->with('error', 'Có lỗi xảy ra: ' . $e->getMessage())->withInput();
+    }
+}
 
     public function placeOrderFromCart($cartId)
     {
