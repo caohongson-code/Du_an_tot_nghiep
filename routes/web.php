@@ -70,7 +70,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/{id}/cancel', [ClientOrderController::class, 'ajaxCancel'])->name('user.orders.cancel');
 
         Route::post('/{id}/confirm-received', [ClientOrderController::class, 'confirmReceived'])->name('orders.confirmReceived');
-    
+
         Route::post('/{id}/return-refund', [ClientOrderController::class, 'requestReturnRefund'])->name('user.orders.return');
     });
 
@@ -99,7 +99,8 @@ Route::prefix('admin')->group(function () {
     Route::resource('carts', CartController::class)->only(['index', 'show', 'destroy']);
     Route::resource('cart-details', CartDetailController::class);
     Route::delete('cart-details/{id}', [CartDetailController::class, 'destroy'])->name('cart-details.destroy');
-    Route::get('/dashboard', [DashboardControlle::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [DashboardControlle::class, 'index'])->name('admin.dashboard');
+
     // Đơn hàng admin
     Route::get('orders', [OrderController::class, 'index'])->name('admin.orders.index');
     Route::get('orders/{id}', [OrderController::class, 'show'])->name('admin.orders.show');
