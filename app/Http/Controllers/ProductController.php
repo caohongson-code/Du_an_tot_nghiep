@@ -18,7 +18,9 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $query = Product::with('category');
-
+        if ($request->has('low_stock')) {
+            $query->where('quantity', '<', 5);
+        }
         if ($request->has('search') && !empty($request->search)) {
             $search = $request->search;
             $query->where(function ($q) use ($search) {
@@ -128,6 +130,7 @@ public function update(Request $request, $id)
         'price' => 'required|numeric|min:0',
         'category_id' => 'required|exists:categories,id',
         'description' => 'nullable|string',
+        'quantity' => 'required|integer|min:0',
     ]);
 
     // Cập nhật thông tin sản phẩm
@@ -136,6 +139,7 @@ public function update(Request $request, $id)
         'price' => $request->price,
         'category_id' => $request->category_id,
         'description' => $request->description,
+        'quantity' => $request->quantity,
     ]);
 
     $variantsData = $request->variants ?? [];
@@ -185,7 +189,7 @@ public function update(Request $request, $id)
         }
     }
 
-    
+
 $variantsToDelete = ProductVariant::where('product_id', $product->id)
 ->whereNotIn('id', $processedVariantIds)
 ->get();

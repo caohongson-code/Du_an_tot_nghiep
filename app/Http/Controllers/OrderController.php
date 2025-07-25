@@ -12,7 +12,7 @@ use App\Models\ShippingZone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Facades\Storage;
 class OrderController extends Controller
 {
     public function index(Request $request)
@@ -70,7 +70,8 @@ class OrderController extends Controller
 
     public function update(Request $request, $id)
     {
-        $order = Order::with('orderStatus', 'orderDetails')->findOrFail($id);
+        // Load thêm productVariant để lấy giá nếu cần
+        $order = Order::with(['orderStatus', 'orderDetails.productVariant'])->findOrFail($id);
 
         $request->validate([
             'order_status_id' => 'required|exists:order_statuses,id',
@@ -79,33 +80,20 @@ class OrderController extends Controller
         $newStatusId = (int) $request->order_status_id;
         $oldStatusId = $order->order_status_id;
 
-        $FINAL_STATUS_IDS = [5, 6, 7]; // 5: Đã giao, 6: Trả hàng / Hoàn tiền, 7: Đã huỷ
+        $FINAL_STATUS_IDS = [5, 6, 7]; // Đã giao, Trả hàng, Đã huỷ
 
-        // Không cho phép update nếu đã vào trạng thái cuối
         if (in_array($oldStatusId, $FINAL_STATUS_IDS)) {
             return back()->with('error', 'Đơn hàng đã hoàn tất hoặc bị huỷ. Không thể cập nhật nữa.');
         }
 
-        // Chỉ cho phép cập nhật tuần tự
-        $allowedNextStatus = [];
-
-        switch ($oldStatusId) {
-            case 1:
-                $allowedNextStatus = [2, 7]; // từ Chờ xác nhận → Đã xác nhận hoặc Hủy
-                break;
-            case 2:
-                $allowedNextStatus = [3];    // từ Đã xác nhận → Đang chuẩn bị hàng
-                break;
-            case 3:
-                $allowedNextStatus = [4];    // từ Đang chuẩn bị hàng → Đang giao
-                break;
-            case 4:
-                $allowedNextStatus = [5];    // từ Đang giao → Đã giao
-                break;
-            case 5:
-                $allowedNextStatus = [6];    // từ Đã giao → Trả hàng
-                break;
-        }
+        $allowedNextStatus = match ($oldStatusId) {
+            1 => [2, 7],
+            2 => [3],
+            3 => [4],
+            4 => [5],
+            5 => [6],
+            default => [],
+        };
 
         if (!in_array($newStatusId, $allowedNextStatus)) {
             return back()->with('error', 'Chuyển trạng thái không hợp lệ. Vui lòng tuân thủ quy trình.');
@@ -114,10 +102,9 @@ class OrderController extends Controller
         DB::beginTransaction();
 
         try {
-            // Cập nhật trạng thái mới
             $order->order_status_id = $newStatusId;
 
-            // Cập nhật phí vận chuyển
+            // Cập nhật phí ship nếu chưa có
             if ($order->shipping_zone_id) {
                 $shippingZone = ShippingZone::find($order->shipping_zone_id);
                 $order->shipping_fee = $shippingZone?->shipping_fee ?? 30000;
@@ -125,12 +112,15 @@ class OrderController extends Controller
                 $order->shipping_fee = 30000;
             }
 
-            // Tính tổng tiền sản phẩm
+            // ✅ Tính lại tổng tiền sản phẩm chính xác
             $totalProductAmount = $order->orderDetails->sum(function ($detail) {
-                return $detail->quantity * ($detail->price ?? 0);
-            }) ?? 0;
+                $price = $detail->price
+                    ?? $detail->productVariant->sale_price
+                    ?? $detail->productVariant->price
+                    ?? 0;
+                return $detail->quantity * $price;
+            });
 
-            // Cập nhật tổng tiền đơn hàng (sản phẩm + phí ship)
             $order->total_amount = $totalProductAmount + $order->shipping_fee;
 
             $order->save();
@@ -161,7 +151,6 @@ class OrderController extends Controller
                 return redirect()->back()->with('error', 'Giỏ hàng không có sản phẩm.');
             }
 
-            // Tính phí ship
             $shippingZoneId = $cart->shipping_zone_id ?? null;
             $shippingFee = 30000;
             if ($shippingZoneId) {
@@ -169,7 +158,6 @@ class OrderController extends Controller
                 $shippingFee = $shippingZone?->shipping_fee ?? 30000;
             }
 
-            // Tạo đơn hàng tạm
             $order = Order::create([
                 'account_id' => $cart->account_id,
                 'cart_id' => $cart->id,
@@ -187,7 +175,8 @@ class OrderController extends Controller
             $totalProductAmount = 0;
 
             foreach ($cart->details as $detail) {
-                $price = $detail->productVariant->price ?? 0;
+                $price = $detail->productVariant->sale_price ?? $detail->productVariant->price ?? 0;
+
                 $quantity = $detail->quantity;
                 $totalPrice = $price * $quantity;
 
@@ -202,12 +191,10 @@ class OrderController extends Controller
                 $totalProductAmount += $totalPrice;
             }
 
-            // Cập nhật lại tổng tiền
             $order->update([
                 'total_amount' => $totalProductAmount + $shippingFee
             ]);
 
-            // Đánh dấu giỏ đã đặt
             $cart->update(['status' => 'ordered']);
 
             DB::commit();

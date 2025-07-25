@@ -30,6 +30,7 @@
         background-color: #f8f9fa;
     }
 </style>
+@php use Carbon\Carbon; @endphp
 
 
 <div class="container-fluid py-4">
@@ -59,7 +60,7 @@
             </a>
         </div>
         <div class="col-md-3">
-            <a href="{{ url('admin/orders') }}" class="text-decoration-none">
+            <a href="{{ url('admin/orders?order_status_id=1') }}" class="text-decoration-none">
                 <div class="card text-white mb-4 shadow-sm" style="background: linear-gradient(135deg, #f6c23e, #dda20a);">
                     <div class="card-body fw-bold">Đơn hàng chưa xác nhận gần đây</div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
@@ -143,7 +144,7 @@
             <div class="card text-white bg-gradient-success shadow h-100 py-2" style="background: linear-gradient(90deg, #4e73df, #1cc88a); border-radius: 1rem;">
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
-                        <h5 class="font-weight-bold">📦 Doanh thu đã giao hàng</h5>
+                        <h5 class="font-weight-bold">📦 Doanh thu đơn hàng đã hoàn thành</h5>
                         <h3>{{ number_format($totalRevenueDelivered, 0, ',', '.') }}₫</h3>
                     </div>
                     <div>
@@ -162,6 +163,7 @@
                     <table class="table table-striped align-middle mb-0">
                         <thead class="table-light">
                             <tr>
+                                <th class="text-center">Mã đơn hàng</th>
                                 <th>Tên khách</th>
                                 <th class="text-end">Tổng tiền</th>
                                 <th class="text-center">Trạng thái</th>
@@ -170,6 +172,7 @@
                         <tbody>
                             @forelse ($recentOrders as $order)
                                 <tr onclick="window.location.href='{{ route('admin.orders.show', $order->id) }}'" style="cursor: pointer;">
+                                    <td class="text-center">{{$order->id}}</td>
                                     <td>{{ $order->account->full_name ?? 'Không có' }}</td>
                                     <td class="text-end">{{ number_format($order->total_amount, 0, ',', '.') }}₫</td>
                                     <td class="text-center">
@@ -195,6 +198,7 @@
                     <table class="table table-striped align-middle mb-0">
                         <thead class="table-light">
                             <tr>
+
                                 <th>Tên</th>
                                 <th>Email</th>
                                 <th>SĐT</th>
@@ -203,11 +207,18 @@
                         </thead>
                         <tbody>
                             @forelse ($newCustomers as $customer)
+
+
                                 <tr>
                                     <td>{{ $customer->full_name ?? '-' }}</td>
                                     <td>{{ $customer->email ?? '-' }}</td>
                                     <td>{{ $customer->phone ?? '-' }}</td>
-                                    <td>{{ optional($customer->birth_date)->format('d/m/Y') ?? '-' }}</td>
+                                    <td>
+                                        {{ $customer->date_of_birth ? Carbon::parse($customer->date_of_birth)->format('d/m/Y') : '-' }}
+                                    </td>
+
+                                    {{-- @dd($customer->date_of_birth) --}}
+
                                 </tr>
                             @empty
                                 <tr>
@@ -232,6 +243,7 @@
             <table class="table table-hover mb-0">
                 <thead class="table-light">
                     <tr>
+                        <th class="text-center">Mã đơn hàng</th>
                         <th class="text-center">📅 Ngày</th>
                         <th>👤 Khách hàng</th>
                         <th class="text-center">📌 Trạng thái</th>
@@ -241,6 +253,7 @@
                 <tbody>
                     @forelse ($filteredOrders as $order)
                         <tr class="clickable-row" onclick="window.location.href='{{ route('admin.orders.show', $order->id) }}'">
+                            <td class="text-center">{{$order->id}}</td>
                             <td class="text-center">{{ $order->order_date->format('d/m/Y') }}</td>
                             <td>{{ $order->account->full_name ?? 'Không có' }}</td>
                             <td class="text-center">

@@ -183,4 +183,21 @@ public function ajaxCancel($id)
         return redirect()->route('user.orders', ['status' => 5])
             ->with('success', '✅ Xác nhận đã nhận hàng thành công!');
     }
+    public function detail($id)
+{
+    $order = Order::with([
+        'orderDetails.productVariant.product',
+        'orderStatus',
+        'paymentMethod',
+        'voucher',
+        'shippingZone'
+    ])
+    ->where('account_id', auth()->id())
+    ->findOrFail($id);
+
+    return view('client.user.order-detail', [
+        'order' => $order
+    ]);
+}
+
 }

@@ -100,6 +100,9 @@ Route::prefix('admin')->group(function () {
     Route::resource('cart-details', CartDetailController::class);
     Route::delete('cart-details/{id}', [CartDetailController::class, 'destroy'])->name('cart-details.destroy');
     Route::get('/dashboard', [DashboardControlle::class, 'index'])->name('admin.dashboard');
+    Route::get('accounts/show', [AccountController::class, 'show'])->name('admin.profile');
+    Route::post('accounts/update-profile', [AccountController::class, 'updateAdminProfile'])->name('admin.updateProfile');
+    Route::post('accounts/update-password', [AccountController::class, 'updateAdminPassword'])->name('admin.updatePassword');
 
     // Đơn hàng admin
     Route::get('orders', [OrderController::class, 'index'])->name('admin.orders.index');

@@ -48,7 +48,7 @@
   @yield('scripts')
 
   <!-- Đồng hồ thời gian thực -->
-  <script>
+  {{-- <script>
     function time() {
       var today = new Date();
       var weekday = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
@@ -72,6 +72,6 @@
     function checkTime(i) {
       return (i < 10) ? "0" + i : i;
     }
-  </script>
+  </script> --}}
 </body>
 </html>

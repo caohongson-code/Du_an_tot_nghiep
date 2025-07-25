@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <!-- saved from url=(0029)#  -->
 <html lang="vi"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	
+
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
-  		
+
 			<title>Pretty Store</title>
 <meta name="robots" content="max-image-preview:large">
 <link rel="dns-prefetch" href="# ">
@@ -244,8 +244,8 @@ var wc_cart_fragments_params = {"ajax_url":"\/wp-admin\/admin-ajax.php","wc_ajax
 }
 
 
-                
-                
+
+
             </style>
 
 			<link rel="alternate" hreflang="vi" href="# ">
@@ -258,21 +258,21 @@ var wc_cart_fragments_params = {"ajax_url":"\/wp-admin\/admin-ajax.php","wc_ajax
           span.pivoo-new-tag,.plyr__control--overlaid,.pivoo-author-follow a
           {background:rgba(231,76,60,1.00);}.pivoo-section-title.title-style-one h3:before,.pivoo-post.style-one .pivoo-category-list a,
           .pivoo-nutritional-information h5,
-          span.pivoo-new-tag,.plyr__control--overlaid,.pivoo-author-follow a{color:#FFEBF0!important;}.pivoo-product-sale-tag span.onsale,.plyr--video .plyr__control.plyr__tab-focus, .plyr--video .plyr__control:hover, .plyr--video .plyr__control[aria-expanded=true]{background:rgba(231,76,60,1.00);}.pivoo-product-sale-tag span.onsale,.plyr--video .plyr__control.plyr__tab-focus, .plyr--video .plyr__control:hover, .plyr--video .plyr__control[aria-expanded=true]{color:#402500;}input[type="text"], input[type="email"], input[type="url"], 
+          span.pivoo-new-tag,.plyr__control--overlaid,.pivoo-author-follow a{color:#FFEBF0!important;}.pivoo-product-sale-tag span.onsale,.plyr--video .plyr__control.plyr__tab-focus, .plyr--video .plyr__control:hover, .plyr--video .plyr__control[aria-expanded=true]{background:rgba(231,76,60,1.00);}.pivoo-product-sale-tag span.onsale,.plyr--video .plyr__control.plyr__tab-focus, .plyr--video .plyr__control:hover, .plyr--video .plyr__control[aria-expanded=true]{color:#402500;}input[type="text"], input[type="email"], input[type="url"],
               input[type="password"], input[type="search"],
-              input[type="number"], input[type="tel"], input[type="range"], input[type="date"], input[type="month"], 
-              input[type="week"], input[type="time"], input[type="datetime"], input[type="datetime-local"], 
+              input[type="number"], input[type="tel"], input[type="range"], input[type="date"], input[type="month"],
+              input[type="week"], input[type="time"], input[type="datetime"], input[type="datetime-local"],
               input[type="color"], select, textarea,
               .select2-container--default .select2-selection--single,
-               select.lable-form-all{background-color:#F5F5F5;}input[type="text"], input[type="email"], input[type="url"], 
+               select.lable-form-all{background-color:#F5F5F5;}input[type="text"], input[type="email"], input[type="url"],
               input[type="password"], input[type="search"],
-              input[type="number"], input[type="tel"], input[type="range"], input[type="date"], input[type="month"], 
-              input[type="week"], input[type="time"], input[type="datetime"], input[type="datetime-local"], 
+              input[type="number"], input[type="tel"], input[type="range"], input[type="date"], input[type="month"],
+              input[type="week"], input[type="time"], input[type="datetime"], input[type="datetime-local"],
               input[type="color"], select, textarea,
-              .select2-container--default .select2-selection--single, select.lable-form-all{border-color:#F5F5F5;}input[type="text"], input[type="email"], input[type="url"], 
+              .select2-container--default .select2-selection--single, select.lable-form-all{border-color:#F5F5F5;}input[type="text"], input[type="email"], input[type="url"],
               input[type="password"], input[type="search"],
-              input[type="number"], input[type="tel"], input[type="range"], input[type="date"], input[type="month"], 
-              input[type="week"], input[type="time"], input[type="datetime"], input[type="datetime-local"], 
+              input[type="number"], input[type="tel"], input[type="range"], input[type="date"], input[type="month"],
+              input[type="week"], input[type="time"], input[type="datetime"], input[type="datetime-local"],
               input[type="color"], select, textarea,
               .select2-container--default .select2-selection--single,
               select.lable-form-all{color:#373833;}.electio-ajax-s-offcanvas,#electio-search-box-popup,.electio-ajax-s-offcanvas .electio-search-result{background:#e2e0f5;}.electio-ajax-search-title{color:#ffffff;}.electio-ajax-search-bar .search-wrapper input[type="text"],
@@ -325,7 +325,7 @@ var wc_cart_fragments_params = {"ajax_url":"\/wp-admin\/admin-ajax.php","wc_ajax
 						e.gh = e.el===undefined || e.el==="" || (Array.isArray(e.el) && e.el.length==0)? e.gh : e.el;
 						e.gh = Array.isArray(e.gh) ? e.gh : [e.gh];
 						for (var i in e.rl) if (e.gh[i]===undefined || e.gh[i]===0) e.gh[i] = e.gh[i-1];
-											
+
 						var nl = new Array(e.rl.length),
 							ix = 0,
 							sl;
@@ -625,14 +625,14 @@ div[class^="tiktok"].--savior-overlay-z-index-reset {
 
 
 
-    
+
 
 
 
 </head>
 
 <body class="home page-template page-template-elementor_header_footer page page-id-5357 wp-embed-responsive theme-electio woocommerce-js translatepress-vi no-sidebar woocommerce-active elementor-default elementor-template-full-width elementor-kit-6 elementor-page elementor-page-5357 e--ua-blink e--ua-chrome e--ua-webkit" data-elementor-device-mode="desktop">
- 
+
 
 
 <!-- mobile menus  & categories start -->
@@ -641,11 +641,11 @@ div[class^="tiktok"].--savior-overlay-z-index-reset {
     <a href="javascript:void(0)" class="mobile-menu-close close"><i class="fas fa-xmark"></i></a>
     <div class="mobile-menu el-mobile-menu-wrapper">
         <a href="#" class="logo mt-60 mb-20">
-   
+
 </a>
-<span class="banner-img" 
+<span class="banner-img"
      style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5z4yKjClSN2Eo8vsudI7NMMQ8hJjvxFsmD7FmnN_wwQ6oHsA3hpFoP0lhTWZqdg2aFEE&usqp=CAU');">
-</span> 
+</span>
 
         <div id="mayosis-sidemenu" class="menu-main-menu-mobile-container">
             <ul id="mobile-menu" class="mobile-nav-menu">
@@ -699,214 +699,289 @@ div[class^="tiktok"].--savior-overlay-z-index-reset {
             <a href="javascript:void(0)" class="search-close"><i class="fa-solid fa-xmark"></i></a>
         </div>
         <!-- header search bar end -->
-        
-    
+
+
 
 <!--cart drawer start-->
-<li id="cart_header_top">
-    <span id="site-cart-handle" class="icon-cart" title="Giỏ hàng">
-        <a href="{{ url('/cart') }}" class="count-holder">
-            <span class="iconTop icon-5-top"></span>
-            <span class="title-info-top">
-                <i class="">Giỏ Hàng</i>
-                @php
-                    $cartCount = 0;
-                    if (Auth::check()) {
-                        $cart = \App\Models\Cart::with('details')
-                            ->where('account_id', Auth::id())
-                            ->where('cart_status_id', 1)
-                            ->first();
-                        if ($cart) {
-                            $cartCount = $cart->details->sum('quantity');
-                        }
-                    }
-                @endphp
-                <span class="count">({{ $cartCount }})</span>
+<li id="cart_header_top" class="nav-item dropdown position-relative">
+    @php
+        $cartCount = 0;
+        $cartItems = [];
+        if (Auth::check()) {
+            $cart = \App\Models\Cart::with('details.product')
+                ->where('account_id', Auth::id())
+                ->where('cart_status_id', 1)
+                ->first();
+
+            if ($cart) {
+                $cartItems = $cart->details;
+                $cartCount = $cart->details->sum('quantity');
+            }
+        }
+    @endphp
+
+    <a class="nav-link dropdown-toggle d-flex align-items-center gap-2 text-dark position-relative" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="bi bi-cart-fill fs-5"></i>
+        <span class="fw-semibold">Giỏ hàng</span>
+        @if($cartCount > 0)
+            <span class="badge bg-danger text-white position-absolute top-0 start-100 translate-middle rounded-pill shadow-sm" style="font-size: 0.75rem; padding: 0.3em 0.6em;">
+                {{ $cartCount }}
             </span>
-        </a>
-    </span>
+        @endif
+    </a>
+
+    <ul class="dropdown-menu dropdown-menu-end p-3 shadow-lg" style="min-width: 320px; max-height: 400px; overflow-y: auto;">
+        <h6 class="dropdown-header">Sản phẩm trong giỏ</h6>
+        @forelse($cartItems as $item)
+            <li class="d-flex align-items-center gap-2 mb-2 border-bottom pb-2">
+                <img src="{{ asset($item->product->thumbnail ?? '/images/no-image.png') }}" alt="Ảnh sản phẩm" width="50" height="50" class="rounded">
+                <div>
+                    <div class="fw-semibold">{{ $item->product->product_name ?? 'Không có tên' }}</div>
+                    <div class="text-muted small">SL: {{ $item->quantity }} × {{ number_format($item->price, 0, ',', '.') }}₫</div>
+                </div>
+            </li>
+        @empty
+            <li class="text-muted text-center">Giỏ hàng trống</li>
+        @endforelse
+
+        @if(count($cartItems) > 0)
+            <li class="mt-3 text-center">
+                <a href="{{ url('/cart') }}" class="btn btn-sm btn-outline-primary me-1">Xem giỏ</a>
+                <a href="{{ url('/checkout') }}" class="btn btn-sm btn-primary">Thanh toán</a>
+            </li>
+        @endif
+    </ul>
 </li>
 <!--cart drawer end-->
 
     <!--ticker section start-->
-    <div class="el2-ticker-area overflow-hidden">
-        <div class="el2-ticker-wrapper secondary-bg-color">
+    <div class="el2-ticker-area">
+        <div class="container-1440 overflow-hidden">
             <div class="el2-ticker">
-                                                            <span class="text-white">Đặt hàng trực tuyến gọi cho chúng tôi 0327768996</span>
-                                                <span class="text-white">Giao hàng miễn phí cho đơn hàng trên 1,000,000 ₫</span>
-                                                <span class="text-white">Đăng ký tài khoản để được giảm giá -15% cho tất cả các sản phẩm đang thịnh hành</span>
-                                                <span class="text-white">Đặt hàng trực tuyến gọi cho chúng tôi 0327768996</span>
-                                                <span class="text-white">Giao hàng miễn phí cho đơn hàng trên 1,000,000 ₫</span>
-                                                <span class="text-white">Đăng ký tài khoản để được giảm giá -15% cho tất cả các sản phẩm đang thịnh hành</span>
-                                                    </div>
+                <span>📞 Đặt hàng trực tuyến gọi 0327768996</span>
+                <span>🚚 Giao hàng miễn phí cho đơn hàng trên 1,000,000 ₫</span>
+                <span>🎁 Đăng ký tài khoản giảm ngay -15% các sản phẩm thịnh hành</span>
+            </div>
         </div>
     </div>
-    <!--ticker section end-->
 
-<!--header section start-->
-<header class="el2-header-section bg-white ptb-5">
-    <div class="container-1440 position-relative">
-        <div class="row align-items-center">
-            <div class="col-lg-5 d-none d-lg-block">
-                <nav class="el-hm-one-nav electio-m-menu left-side-position header-navigation text-center text-xl-start ur-navmenu d-none d-customL-block navbar navbar-expand-lg">
-                    <div class="collapse navbar-collapse venturi-m-menu">
-                        <ul id="menu-main-menu" class="nav navbar-nav nav-style-megamenu">
-                           <li class="nav-item active">
-    <a href="{{ route('home') }}" class="nav-link">Trang chủ</a>
-</li>
-<li class="nav-item">
-    <a href="{{ url('/about-us') }}" class="nav-link">Giới thiệu</a>
-</li>
-<li class="nav-item dropdown">
-    <a href="{{ route('product.all') }}" class="nav-link dropdown-toggle" data-toggle="dropdown">Sản phẩm</a>
-    {{-- Có thể thêm dropdown ở đây nếu cần --}}
-</li>
-<li class="nav-item">
-    <a href="{{ url('/blog') }}" class="nav-link">Tin tức</a>
-</li>
-<li class="nav-item">
-    <a href="{{ url('/contact') }}" class="nav-link">Liên hệ</a>
-</li>
+    <!-- Header -->
+    <header class="py-3 shadow-sm">
+        <div class="container-1440 d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <!-- Logo -->
+            <a href="{{ route('home') }}">
+                <img src="/client/img/anh1.png" alt="Logo" style="height: 48px;">
+            </a>
 
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-            <div class="col-lg-2 col-5 text-xl-center">
-    <a href="#">
-        <img src="/client/img/anh1.png" alt="logo" class="img-fluid logo">
-    </a>
-</div>
-
-            <div class="col-lg-5 col-7">
-                <div class="el2-header-right d-flex align-items-center justify-content-end pe-2">
-                    <div class="el2-header-search d-none d-lg-block">
-                        <button type="button" class="el2-header-search-toggle">🔍</button>
-                    </div>
-                    <div class="el2-header-user">
-                        @php $user = auth()->user(); @endphp
-                        @if ($user)
-                            <a href="#"><i class="fa-regular fa-user"></i></a>
-                            <ul class="info-menu">
-                                <li>Xin chào, {{ $user->name ?? 'Khách' }}</li>
-                                <li><a href="{{ route('user.dashboard') }}">Tài khoản của tôi</a></li>
-                                <li>
-                                    <form action="{{ route('taikhoan.logout') }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="btn btn-link p-0 text-danger">Đăng xuất</button>
-                                    </form>
-                                </li>
-                            </ul>
+            <!-- Navigation -->
+            <nav class="d-none d-lg-block">
+                <ul class="nav gap-4">
+                    <li class="nav-item"><a href="{{ route('home') }}" class="nav-link {{ request()->is('/') ? 'active' : '' }}">Trang chủ</a></li>
+                    <li class="nav-item"><a href="{{ url('/about-us') }}" class="nav-link">Giới thiệu</a></li>
+                    <li class="nav-item"><a href="{{ route('product.all') }}" class="nav-link">Sản phẩm</a></li>
+                    <li class="nav-item"><a href="{{ url('/blog') }}" class="nav-link">Tin tức</a></li>
+                    <li class="nav-item"><a href="{{ url('/contact') }}" class="nav-link">Liên hệ</a></li>
+                    <li class="nav-item">
+                        @if(Auth::user() && in_array(Auth::user()->role_id, [1, 2]))
+                            <a href="{{ route('admin.dashboard') }}" class="nav-link text-success">Kênh Người Bán</a>
                         @else
-                            <a href="{{ route('login') }}"><i class="fa-regular fa-user"></i></a>
-                            <ul class="info-menu">
-                                <li><a href="{{ route('login') }}">Đăng nhập / Đăng ký</a></li>
-                            </ul>
+                            <a href="#" class="nav-link text-muted" onclick="showPermissionDenied(); return false;">Kênh Bán Hàng</a>
                         @endif
-                    </div>
-@php
-    $cartCount = Auth::check()
-        ? \App\Models\Cart::with('details')
-            ->where('account_id', Auth::id())
-            ->where('cart_status_id', 1)
-            ->first()?->details->sum('quantity') ?? 0
-        : 0;
-@endphp
+                    </li>
+                </ul>
+            </nav>
 
-<a href="{{ url('/cart') }}" class="position-relative d-inline-block">
-    <i class="fa-solid fa-shopping-cart fs-4"></i>
-    @if($cartCount > 0)
-        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-            {{ $cartCount }}
-        </span>
-    @endif
-</a>
+            <!-- Icons -->
+            <div class="d-flex align-items-center gap-2">
+                <button class="btn btn-light" title="Tìm kiếm"><i class="fas fa-search"></i></button>
 
+                <!-- Account dropdown -->
+                <div class="dropdown">
+                    <a href="#" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">
+                        <i class="fa-regular fa-user"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        @if(Auth::check())
+                            <li class="dropdown-item">Xin chào, {{ Auth::user()->name }}</li>
+                            <li><a href="{{ route('user.dashboard') }}" class="dropdown-item">Tài khoản của tôi</a></li>
+                            <li>
+                                <form action="{{ route('taikhoan.logout') }}" method="POST" class="px-3">
+                                    @csrf
+                                    <button class="btn btn-link text-danger p-0">Đăng xuất</button>
+                                </form>
+                            </li>
+                        @else
+                            <li><a href="{{ route('login') }}" class="dropdown-item">Đăng nhập / Đăng ký</a></li>
+                        @endif
+                    </ul>
                 </div>
+
+                <!-- Cart -->
+                <a href="{{ url('/cart') }}" class="btn btn-light position-relative">
+                    <i class="fas fa-shopping-cart fs-5"></i>
+                    @if($cartCount > 0)
+                        <span class="position-absolute top-0 start-100 translate-middle badge bg-danger">
+                            {{ $cartCount }}
+                        </span>
+                    @endif
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Danh mục -->
+    <div class="el2-category-navbar py-2 d-none d-lg-block">
+        <div class="container-1440 d-flex justify-content-between align-items-center flex-wrap">
+            <ul class="nav gap-3">
+                <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-star"></i> Phổ biến</a></li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-mobile-alt"></i> Điện thoại</a></li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-desktop"></i> Máy tính</a></li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-gamepad"></i> Phụ kiện</a></li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-headphones"></i> Tai nghe</a></li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-watch"></i> Smart Watch</a></li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-video"></i> Web Cam</a></li>
+            </ul>
+            <div class="d-none d-xl-flex align-items-center">
+                <i class="fas fa-phone me-2 text-primary"></i>
+                <a href="tel:0327768996" class="text-dark fw-semibold">0327768996</a>
             </div>
         </div>
     </div>
-</header>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function showPermissionDenied() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Truy cập bị từ chối',
+                text: 'Bạn không có quyền truy cập kênh bán hàng!',
+                confirmButtonText: 'Đóng',
+            });
+        }
+    </script>
+<style>/* Ticker cải tiến */
+    .el2-ticker-area {
+        background: #0527a0;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 500;
+        padding: 6px 0;
+    }
+    .el2-ticker {
+        display: flex;
+        gap: 40px;
+        white-space: nowrap;
+        animation: ticker 30s linear infinite;
+    }
+    @keyframes ticker {
+        from { transform: translateX(100%); }
+        to { transform: translateX(-100%); }
+    }
 
-<!--header section end-->
+    /* Header chính */
+    header {
+        background-color: #fff;
+        border-bottom: 1px solid #eee;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        z-index: 999;
+    }
 
-<!-- desktop category navbar start-->
-<div class="el2-category-navbar bg-white d-none d-lg-block">
-    <div class="container-1440 position-relative">
-        <div class="btm-bar-header">
-<ul class="menu-bar">
-    <li>
-        <a class="main-link" href="#">
-            <i class="fas fa-star cate-icon"></i>
-            Phổ biến
-        </a>
-    </li>
-    <li>
-        <a class="main-link" href="#">
-            <i class="fas fa-mobile-alt cate-icon"></i>
-            Điện thoại
-        </a>
-    </li>
-    <li>
-        <a class="main-link" href="#">
-            <i class="fas fa-desktop cate-icon"></i>
-            Máy tính
-        </a>
-    </li>
-    <li>
-        <a class="main-link" href="#">
-            <i class="fas fa-gamepad cate-icon"></i>
-            Phụ kiện
-        </a>
-    </li>
-    <li>
-        <a class="main-link" href="#">
-            <i class="fas fa-headphones cate-icon"></i>
-            Tai nghe
-        </a>
-    </li>
-    <li>
-        <a class="main-link" href="#">
-            <i class="fas fa-watch-smart cate-icon"></i>
-            Smart Watch
-        </a>
-    </li>
-    <li>
-        <a class="main-link" href="#">
-            <i class="fas fa-video cate-icon"></i>
-            Web Cam
-        </a>
-    </li>
-</ul>
+    header .nav-link {
+        color: #333;
+        font-weight: 600;
+        transition: 0.3s ease-in-out;
+    }
 
-                            <div class="header-btn d-none d-xl-flex align-items-center">
-                    <svg class="grow-animation me-2" width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <mask id="mask0_200_213" style="mask-type: luminance;" maskUnits="userSpaceOnUse" x="10" y="0" width="9" height="8">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M10.9617 0.697998H18.0775V7.94197H10.9617V0.697998Z" fill="white"></path>
-                        </mask>
-                        <g mask="url(#mask0_200_213)">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M17.4523 7.94197C17.1381 7.94197 16.8681 7.70171 16.8323 7.37656C16.5164 4.51049 14.3314 2.28623 11.5173 1.96788C11.1748 1.92882 10.9273 1.61471 10.9656 1.26494C11.0031 0.916021 11.3089 0.658788 11.6556 0.702934C15.0539 1.08751 17.6931 3.77275 18.0739 7.23394C18.1123 7.58371 17.8656 7.89867 17.5231 7.93772C17.4998 7.94027 17.4756 7.94197 17.4523 7.94197" fill="#000E3C"></path>
-                        </g>
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M14.5022 7.95124C14.2088 7.95124 13.948 7.7407 13.8897 7.43678C13.6497 6.18033 12.6988 5.21167 11.4672 4.96802C11.128 4.90095 10.9072 4.56731 10.973 4.22179C11.0388 3.87627 11.3722 3.65044 11.7055 3.71836C13.4397 4.06134 14.7788 5.42476 15.1163 7.19228C15.1822 7.53865 14.9613 7.87229 14.623 7.93936C14.5822 7.947 14.5422 7.95124 14.5022 7.95124" fill="#000E3C"></path>
-                        <mask id="mask1_200_213" style="mask-type: luminance;" maskUnits="userSpaceOnUse" x="0" y="0" width="18" height="19">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M0.667023 0.697754H17.7506V18.1017H0.667023V0.697754Z" fill="white"></path>
-                        </mask>
-                        <g mask="url(#mask1_200_213)">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M2.63293 3.29686C2.63459 3.29686 2.59293 3.34101 2.54043 3.39364C2.33876 3.59315 1.92126 4.00828 1.91709 4.87676C1.91043 6.09162 2.69459 8.34729 6.47043 12.1931C10.2279 16.0201 12.4388 16.8283 13.6346 16.8283H13.6521C14.5046 16.8232 14.9113 16.3979 15.1071 16.1933C15.1663 16.1314 15.2146 16.0847 15.2488 16.0566C16.0796 15.2051 16.5046 14.5727 16.5004 14.166C16.4954 13.7517 15.9896 13.2627 15.2904 12.5844C15.0679 12.3696 14.8263 12.1345 14.5713 11.8747C13.9096 11.2032 13.5838 11.3178 12.8629 11.5759C11.8671 11.9316 10.5029 12.4189 8.37709 10.2515C6.25043 8.08581 6.72709 6.69607 7.07459 5.68072C7.32626 4.94723 7.44126 4.61359 6.78043 3.93952C6.52209 3.67634 6.28959 3.42675 6.07543 3.19753C5.41376 2.48951 4.93626 1.97759 4.53209 1.97164H4.52543C4.12626 1.97164 3.50626 2.40631 2.62876 3.30026C2.63126 3.29771 2.63209 3.29686 2.63293 3.29686V3.29686ZM13.6346 18.1018C11.5579 18.1018 8.85043 16.4174 5.58709 13.0938C2.31043 9.75655 0.654593 6.98981 0.667093 4.86997C0.674593 3.4692 1.39543 2.75183 1.66626 2.48271C1.68043 2.46489 1.72876 2.4165 1.74543 2.39952C2.94126 1.18127 3.76293 0.680384 4.54793 0.698212C5.47876 0.710947 6.14209 1.42152 6.98126 2.32056C7.18876 2.54214 7.41293 2.78409 7.66376 3.03878C8.87959 4.27825 8.53376 5.28936 8.25459 6.10096C7.95126 6.98642 7.68876 7.75047 9.26043 9.3516C10.8321 10.9527 11.5813 10.6853 12.4496 10.3737C13.2471 10.0902 14.2371 9.73533 15.4554 10.9748C15.7029 11.2269 15.9363 11.4528 16.1529 11.6625C17.0388 12.5216 17.7388 13.1999 17.7504 14.1507C17.7596 14.9606 17.2763 15.7875 16.0829 17.0032L15.5546 16.6382L16.0021 17.0822C15.7379 17.3581 15.0354 18.0933 13.6596 18.1018H13.6346Z" fill="#000E3C"></path>
-                        </g>
-                    </svg>
+    header .nav-link:hover,
+    header .nav-link.active {
+        color: #0d6efd;
+        text-decoration: underline;
+    }
 
-                    <a href="tel:0313728397" class="btn-txt">0327768996</a>
-                </div>
-                    </div>
-    </div>
-</div>
+    .btn-light {
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+        padding: 6px 10px;
+        border-radius: 8px;
+        transition: 0.2s ease-in-out;
+    }
+    .btn-light:hover {
+        background-color: #e2e6ea;
+    }
+
+    /* Dropdown đẹp hơn */
+    .dropdown-menu {
+        border-radius: 10px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+        min-width: 180px;
+    }
+/* Ẩn mũi tên mặc định của Bootstrap dropdown-toggle */
+.dropdown-toggle::after {
+    display: none !important;
+}
+
+    /* Giỏ hàng */
+    .position-relative .badge {
+        font-size: 0.7rem;
+        padding: 4px 7px;
+        border-radius: 50px;
+    }
+
+    /* Thanh danh mục */
+    .el2-category-navbar {
+        background: #f8f9fa;
+        border-top: 1px solid #e0e0e0;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    .el2-category-navbar .nav-link {
+        color: #555;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.3s;
+    }
+    .el2-category-navbar .nav-link:hover {
+        color: #0d6efd;
+        background-color: #eef2ff;
+        padding: 6px 12px;
+        border-radius: 8px;
+    }
+    .el2-category-navbar .nav-link i {
+        font-size: 16px;
+    }
+
+    /* Responsive logo + icon */
+    @media (max-width: 768px) {
+        header .nav {
+            flex-wrap: wrap;
+        }
+        .el2-category-navbar {
+            display: none;
+        }
+    }
+    #cart_header_top a:hover {
+    color: #0d6efd;
+    text-decoration: none;
+    transform: scale(1.02);
+    transition: all 0.2s ease-in-out;
+}
+
+#cart_header_top .badge {
+    min-width: 22px;
+    height: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    </style>
+
 <!-- desktop category navbar end-->
 
 
 
 
-    
+
 
 
 
@@ -977,14 +1052,14 @@ div[class^="tiktok"].--savior-overlay-z-index-reset {
         <div class="container ">
             <div class="el2-gallery-slider">
                             <h4>
-                
+
             </h4>
                 		<div id="sbi_mod_error">
 			<span>This error message is only visible to WordPress adPhút</span><br>
 			<p><strong>Error: No feed with the ID 1 found.</strong>
 			</p><p>Please go to the Instagram Feed settings page to create a feed.</p>
 		</div>
-		
+
 
                         </div>
 
@@ -1001,7 +1076,7 @@ div[class^="tiktok"].--savior-overlay-z-index-reset {
                             <div class="col-xl-3 col-lg-6 col-md-6">
                     <div id="electio_footer_about-2" class="electio__footer_about elc3-footer-widget">            <div class="el2-footer-widget el2-footer-contact">
                                                     <img src=".//mona-2-e1709794932514.png" alt="logo" class="img-fluid">
-                    
+
                                     <p class="mt-20 mb-20">
                         Với chất lượng hàng đầu, chúng tôi cam kết mang đến cho khách hàng những trải nghiệm tuyệt vời và sự hài lòng tuyệt đối.                    </p>
                                                                 <h4 class="fw-semibold mb-3">
@@ -1014,7 +1089,7 @@ div[class^="tiktok"].--savior-overlay-z-index-reset {
                                             </div>
             </div>
             </div>                </div>
-            
+
             <div class="col-xl-2 col-lg-4 col-md-6">
                 <div class="el2-footer-widget el2-footer-nav ps-xl-4">
                     <div id="electio_footer_useful_link-4" class="electio__footer_useful_link elc3-footer-widget">            <h4>
@@ -1036,7 +1111,7 @@ div[class^="tiktok"].--savior-overlay-z-index-reset {
                                         <li>
                         <a href="# #">Còn hàng</a>
                     </li>
-                    
+
             </ul></div>            <div class="accordion-item">
             <h2 class="accordion-header" id="flush-headingOne-foo-bd0f09ba3546983f953bbc71a1be274256007f65">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne-foo-bd0f09ba3546983f953bbc71a1be274256007f65" aria-expanded="false" aria-controls="flush-collapseOne-foo-bd0f09ba3546983f953bbc71a1be274256007f65">
@@ -1090,7 +1165,7 @@ div[class^="tiktok"].--savior-overlay-z-index-reset {
                                         <li>
                         <a href="# contact/">Liên hệ</a>
                     </li>
-                    
+
             </ul></div>            <div class="accordion-item">
             <h2 class="accordion-header" id="flush-headingOne-foo-6fe9e50d023748e68d728e0ff46a3ba1f0098967">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne-foo-6fe9e50d023748e68d728e0ff46a3ba1f0098967" aria-expanded="false" aria-controls="flush-collapseOne-foo-6fe9e50d023748e68d728e0ff46a3ba1f0098967">
@@ -1144,7 +1219,7 @@ div[class^="tiktok"].--savior-overlay-z-index-reset {
                                         <li>
                         <a href="# privacy-policy/">Chính sách</a>
                     </li>
-                    
+
             </ul></div>            <div class="accordion-item">
             <h2 class="accordion-header" id="flush-headingOne-foo-a1e216ac04193b414adc5bcc7994985dec2dfbe0">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne-foo-a1e216ac04193b414adc5bcc7994985dec2dfbe0" aria-expanded="false" aria-controls="flush-collapseOne-foo-a1e216ac04193b414adc5bcc7994985dec2dfbe0">
@@ -1183,7 +1258,7 @@ div[class^="tiktok"].--savior-overlay-z-index-reset {
                     <div id="electio_footer_about-3" class="electio__footer_about">            <div class="el2-footer-widget el2-footer-contact">
                                     <h4 class="mb-4 fw-semibold">Thông tin cửa hàng</h4>
 
-                                    
+
                                                 <div class="d-flex align-items-center gap-3 flex-wrap el2-foo-icon-hover mb-20">
                                                     <span class="el2-footer-icon">
                                 <img src="https://e-tech.monamedia.net/wp-content/uploads/2023/10/calling-icon.svg" alt="">
