@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 class Product extends Model
 {
     use HasFactory;
@@ -33,6 +32,14 @@ public function variants()
 }
 public function comments()
 {
-    return $this->hasMany(Comment::class);
+     return $this->hasMany(Comment::class, 'product_id');
 }
+
+// App\Models\Product.php
+
+public function reviews()
+{
+    return $this->hasMany(\App\Models\Review::class)->where('status', 1); // chỉ hiển thị đánh giá đã duyệt (nếu có)
+}
+
 }
